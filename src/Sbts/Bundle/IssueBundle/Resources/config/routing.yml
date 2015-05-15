@@ -1,0 +1,3 @@
+sbts_issue_homepage:
+    path:     /issue/{name}
+    defaults: { _controller: SbtsIssueBundle:Default:index }

@@ -1,0 +1,4 @@
+services:
+#    sbts_issue.example:
+#        class: Sbts\Bundle\IssueBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

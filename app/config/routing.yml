@@ -1,3 +1,7 @@
+sbts_issue:
+    resource: "@SbtsIssueBundle/Resources/config/routing.yml"
+    prefix:   /
+
 sbts_user:
     resource: "@SbtsUserBundle/Resources/config/routing.yml"
     prefix:   /
