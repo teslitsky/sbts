@@ -1,0 +1,28 @@
+issue:
+    type:
+        bug: Bug
+        subtask: Sub-Task
+        task: Task
+        story: Story
+    priority:
+        blocker: Blocker
+        critical: Critical
+        major: Major
+        minor: Minor
+        trivial: Trivial
+    status:
+        open: Open
+        progress: In progress
+        closed: Closed
+    resolution:
+        unresolved: Unresolved
+        resolved: Resolved
+    view:
+        code: Code
+        description: Description
+        type: Type
+        priority: Priority
+        status: Status
+        resolution: Resolution
+        created: Created
+        updated: Updated
