@@ -1,0 +1,3 @@
+sbts_dashboard_bundle:
+    resource: "@SbtsDashboardBundle/Controller"
+    type:     annotation

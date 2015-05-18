@@ -2,16 +2,30 @@
 
 namespace Sbts\Bundle\DashboardBundle\Tests\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    public function testIndex()
+    /**
+     * @var Client
+     */
+    protected $client;
+
+    protected function setUp()
     {
-        $client = static::createClient();
+        $this->client = static::createClient();
+    }
 
-        $crawler = $client->request('GET', '/hello/Fabien');
+    public function testDashboard()
+    {
+        $this->client->request('GET', '/');
+        $crawler = $this->client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+        $form = $crawler->selectButton('Login')->form(array('_username' => 'user', '_password' => 'user'));
+        $this->client->submit($form);
+
+        $crawler = $this->client->followRedirect();
+        $this->assertCount(1, $crawler->filter('html:contains("Dashboard")'));
     }
 }

@@ -1,10 +1,6 @@
 sbts_dashboard:
-    path: /
-    defaults:
-        _controller:  FrameworkBundle:Template:template
-        template:     '@SbtsDashboardBundle/Resources/views/Default/index.html.twig'
-        maxAge:       86400
-        sharedAge:    86400
+    resource: "@SbtsDashboardBundle/Resources/config/routing.yml"
+    prefix:   /
 
 sbts_issue:
     resource: "@SbtsIssueBundle/Resources/config/routing.yml"
@@ -13,3 +9,6 @@ sbts_issue:
 sbts_user:
     resource: "@SbtsUserBundle/Resources/config/routing.yml"
     prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

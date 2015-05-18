@@ -1,0 +1,51 @@
+{% extends 'SbtsUserBundle::layout.html.twig' %}
+
+{% block fos_user_content %}
+    <div class="container login-container">
+        <div class="login">
+            <div class="login-screen">
+                <div class="login-icon">
+                    <img src="{{ asset('bundles/sbtsdashboard/img/icons/svg/clipboard.svg') }}" alt="Welcome to SBTS">
+                    <h4>Welcome to<small>SBTS</small></h4>
+                </div>
+
+                <div class="login-form">
+                    {% for type, messages in app.session.flashbag.all() %}
+                        {% for message in messages %}
+                            <div class="flash-{{ type }}">
+                                {{ message|trans({}, 'FOSUserBundle') }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control login-field" id="username" name="_username"
+                                   value="{{ last_username }}" required="required"
+                                   placeholder="{{ 'security.login.username'|trans }}"/>
+                            <label class="login-field-icon fui-user" for="username"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control login-field" id="password" name="_password"
+                                   required="required" placeholder="{{ 'security.login.password'|trans }}"/>
+                            <label class="login-field-icon fui-lock" for="password"></label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox" for="remember_me">
+                                <input type="checkbox" checked id="remember_me" name="_remember_me" value="on"/>
+                                {{ 'security.login.remember_me'|trans }}
+                            </label>
+
+                            <input class="btn btn-primary btn-lg btn-block" type="submit" id="_submit" name="_submit"
+                                   value="{{ 'security.login.submit'|trans }}"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

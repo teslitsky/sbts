@@ -1,0 +1,11 @@
+.login-container {
+    max-width: 970px;
+}
+
+.login {
+    color: inherit;
+}
+
+.login .login-icon {
+    color: #fff;
+}
