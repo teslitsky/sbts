@@ -1,0 +1,4 @@
+sbts_comment_homepage:
+    resource: "@SbtsCommentBundle/Controller"
+    type:     annotation
+

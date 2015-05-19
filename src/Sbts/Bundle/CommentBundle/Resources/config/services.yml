@@ -1,0 +1,4 @@
+services:
+#    sbts_comment.example:
+#        class: Sbts\Bundle\CommentBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

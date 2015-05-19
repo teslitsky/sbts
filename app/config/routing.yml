@@ -1,3 +1,7 @@
+sbts_comment:
+    resource: "@SbtsCommentBundle/Resources/config/routing.yml"
+    prefix:   /
+
 sbts_project:
     resource: "@SbtsProjectBundle/Resources/config/routing.yml"
     prefix:   /
