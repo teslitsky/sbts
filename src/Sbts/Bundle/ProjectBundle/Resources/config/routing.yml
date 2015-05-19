@@ -1,0 +1,3 @@
+sbts_project_homepage:
+    resource: "@SbtsProjectBundle/Controller"
+    type:     annotation

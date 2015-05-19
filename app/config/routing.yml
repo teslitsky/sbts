@@ -1,3 +1,7 @@
+sbts_project:
+    resource: "@SbtsProjectBundle/Resources/config/routing.yml"
+    prefix:   /
+
 sbts_dashboard:
     resource: "@SbtsDashboardBundle/Resources/config/routing.yml"
     prefix:   /

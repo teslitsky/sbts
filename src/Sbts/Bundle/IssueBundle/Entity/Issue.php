@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\IssueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sbts\Bundle\ProjectBundle\Entity\Project;
 
 /**
  * Issue
@@ -106,10 +107,9 @@ class Issue
     private $children;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="project", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="Sbts\Bundle\ProjectBundle\Entity\Project", inversedBy="issues")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     **/
     private $project;
 
     /**
@@ -416,10 +416,10 @@ class Issue
     /**
      * Set project
      *
-     * @param string $project
+     * @param Project $project
      * @return Issue
      */
-    public function setProject($project)
+    public function setProject(Project $project)
     {
         $this->project = $project;
 
@@ -429,7 +429,7 @@ class Issue
     /**
      * Get project
      *
-     * @return string
+     * @return Project
      */
     public function getProject()
     {
