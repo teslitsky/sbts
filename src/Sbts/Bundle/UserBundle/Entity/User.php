@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Sbts\Bundle\CommentBundle\Entity\Comment;
+use Sbts\Bundle\IssueBundle\Entity\Issue;
 
 /**
  * @ORM\Entity
@@ -35,11 +36,17 @@ class User extends BaseUser
      **/
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sbts\Bundle\IssueBundle\Entity\Issue", mappedBy="assignee")
+     **/
+    private $assignedIssues;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
         $this->comments = new ArrayCollection();
+        $this->assignedIssues = new ArrayCollection();
     }
 
     /**
@@ -103,5 +110,35 @@ class User extends BaseUser
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add assignedIssues
+     *
+     * @param Issue $issue
+     * @return User
+     */
+    public function assignIssue(Issue $issue)
+    {
+        $this->assignedIssues[] = $issue;
+        return $this;
+    }
+    /**
+     * Unassign issue
+     *
+     * @param Issue $issue
+     */
+    public function unAssignIssue(Issue $issue)
+    {
+        $this->assignedIssues->removeElement($issue);
+    }
+    /**
+     * Get assigned Issues
+     *
+     * @return ArrayCollection
+     */
+    public function getAssignedIssues()
+    {
+        return $this->assignedIssues;
     }
 }

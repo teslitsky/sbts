@@ -4,8 +4,8 @@ namespace Sbts\Bundle\IssueBundle\Controller;
 
 use Sbts\Bundle\IssueBundle\Entity\Issue;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/issue")
@@ -23,11 +23,11 @@ class DefaultController extends Controller
     /**
      * @Route("/view/{issue}", name="sbts_issue_view", requirements={"issue"="\d+"})
      * @param Issue $issue
-     * @Template("SbtsIssueBundle:Default:index.html.twig")
+     * @return Response
      */
     public function viewAction(Issue $issue)
     {
-        return array('issue' => $issue);
+        return $this->render('SbtsUserBundle::layout.html.twig', array('issue' => $issue));
     }
 
     /**
@@ -49,12 +49,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{page}/{limit}", name="sbts_issue_index", requirements={"page"="\d+","limit"="\d+"}, defaults={"page"=1,"limit"=20})
+     * @Route("/{page}/{limit}", name="sbts_issue_list", requirements={"page"="\d+","limit"="\d+"}, defaults={"page"=1,"limit"=20})
      * @param $page
      * @param $limit
+     * @return Response
      */
     public function indexAction($page, $limit)
     {
-
+        return $this->render('SbtsIssueBundle:Default:index.html.twig');
     }
 }

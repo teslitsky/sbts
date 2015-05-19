@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sbts\Bundle\IssueBundle\Entity\Issue;
 
 /**
  * Comment
@@ -41,6 +42,11 @@ class Comment
      */
     private $created;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Sbts\Bundle\IssueBundle\Entity\Issue", inversedBy="comments")
+     * @ORM\JoinColumn(name="issue_id", referencedColumnName="id")
+     **/
+    private $issue;
 
     /**
      * Get id
@@ -119,5 +125,28 @@ class Comment
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set issue
+     *
+     * @param Issue $issue
+     * @return Comment
+     */
+    public function setIssue(Issue $issue)
+    {
+        $this->issue = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Get issue
+     *
+     * @return Issue
+     */
+    public function getIssue()
+    {
+        return $this->issue;
     }
 }

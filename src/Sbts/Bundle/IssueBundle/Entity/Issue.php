@@ -2,8 +2,11 @@
 
 namespace Sbts\Bundle\IssueBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\ProjectBundle\Entity\Project;
+use Sbts\Bundle\UserBundle\Entity\User;
 
 /**
  * Issue
@@ -32,7 +35,7 @@ class Issue
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=255)
+     * @ORM\Column(name="code", type="string", length=255, unique=true)
      */
     private $code;
 
@@ -44,66 +47,56 @@ class Issue
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="Type")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     private $type;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="priority", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="Priority")
+     * @ORM\JoinColumn(name="priority_id", referencedColumnName="id")
+     **/
     private $priority;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="Status")
+     * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
+     **/
     private $status;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="resolution", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="Resolution")
+     * @ORM\JoinColumn(name="resolution_id", referencedColumnName="id")
+     **/
     private $resolution;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="reporter", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="Sbts\Bundle\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="reporter_id", referencedColumnName="id")
+     **/
     private $reporter;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="assignee", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="Sbts\Bundle\UserBundle\Entity\User", inversedBy="assignedIssues")
+     * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id")
+     **/
     private $assignee;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="collaborators", type="string", length=255)
-     */
+     * @ORM\ManyToMany(targetEntity="Sbts\Bundle\UserBundle\Entity\User", inversedBy="issues")
+     * @ORM\JoinTable(name="sbts_collaborator_to_issue")
+     **/
     private $collaborators;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="parent", type="string", length=255)
-     */
+     * @ORM\ManyToOne(targetEntity="Issue", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     **/
     private $parent;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="children", type="string", length=255)
-     */
+     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parent")
+     **/
     private $children;
 
     /**
@@ -126,6 +119,17 @@ class Issue
      */
     private $updated;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sbts\Bundle\CommentBundle\Entity\Comment", mappedBy="issue")
+     **/
+    private $comments;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+        $this->collaborators = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -209,10 +213,10 @@ class Issue
     /**
      * Set type
      *
-     * @param string $type
+     * @param Type $type
      * @return Issue
      */
-    public function setType($type)
+    public function setType(Type $type)
     {
         $this->type = $type;
 
@@ -222,7 +226,7 @@ class Issue
     /**
      * Get type
      *
-     * @return string
+     * @return Type
      */
     public function getType()
     {
@@ -232,10 +236,10 @@ class Issue
     /**
      * Set priority
      *
-     * @param string $priority
+     * @param Priority $priority
      * @return Issue
      */
-    public function setPriority($priority)
+    public function setPriority(Priority $priority)
     {
         $this->priority = $priority;
 
@@ -245,7 +249,7 @@ class Issue
     /**
      * Get priority
      *
-     * @return string
+     * @return Priority
      */
     public function getPriority()
     {
@@ -255,10 +259,10 @@ class Issue
     /**
      * Set status
      *
-     * @param string $status
+     * @param Status $status
      * @return Issue
      */
-    public function setStatus($status)
+    public function setStatus(Status $status)
     {
         $this->status = $status;
 
@@ -268,7 +272,7 @@ class Issue
     /**
      * Get status
      *
-     * @return string
+     * @return Status
      */
     public function getStatus()
     {
@@ -278,10 +282,10 @@ class Issue
     /**
      * Set resolution
      *
-     * @param string $resolution
+     * @param Resolution $resolution
      * @return Issue
      */
-    public function setResolution($resolution)
+    public function setResolution(Resolution $resolution)
     {
         $this->resolution = $resolution;
 
@@ -291,7 +295,7 @@ class Issue
     /**
      * Get resolution
      *
-     * @return string
+     * @return Resolution
      */
     public function getResolution()
     {
@@ -301,10 +305,10 @@ class Issue
     /**
      * Set reporter
      *
-     * @param string $reporter
+     * @param User $reporter
      * @return Issue
      */
-    public function setReporter($reporter)
+    public function setReporter(User $reporter)
     {
         $this->reporter = $reporter;
 
@@ -314,7 +318,7 @@ class Issue
     /**
      * Get reporter
      *
-     * @return string
+     * @return User
      */
     public function getReporter()
     {
@@ -324,10 +328,10 @@ class Issue
     /**
      * Set assignee
      *
-     * @param string $assignee
+     * @param User $assignee
      * @return Issue
      */
-    public function setAssignee($assignee)
+    public function setAssignee(User $assignee)
     {
         $this->assignee = $assignee;
 
@@ -337,7 +341,7 @@ class Issue
     /**
      * Get assignee
      *
-     * @return string
+     * @return User
      */
     public function getAssignee()
     {
@@ -345,22 +349,32 @@ class Issue
     }
 
     /**
-     * Set collaborators
+     * Add collaborator
      *
-     * @param string $collaborators
+     * @param User $collaborator
      * @return Issue
      */
-    public function setCollaborators($collaborators)
+    public function addCollaborator(User $collaborator)
     {
-        $this->collaborators = $collaborators;
+        $this->collaborators[] = $collaborator;
 
         return $this;
     }
 
     /**
+     * Remove collaborator
+     *
+     * @param User $collaborator
+     */
+    public function removeCollaborator(User $collaborator)
+    {
+        $this->collaborators->removeElement($collaborator);
+    }
+
+    /**
      * Get collaborators
      *
-     * @return string
+     * @return ArrayCollection
      */
     public function getCollaborators()
     {
@@ -370,10 +384,10 @@ class Issue
     /**
      * Set parent
      *
-     * @param string $parent
+     * @param Issue $parent
      * @return Issue
      */
-    public function setParent($parent)
+    public function setParent(Issue $parent)
     {
         $this->parent = $parent;
 
@@ -383,7 +397,7 @@ class Issue
     /**
      * Get parent
      *
-     * @return string
+     * @return Issue
      */
     public function getParent()
     {
@@ -391,22 +405,32 @@ class Issue
     }
 
     /**
-     * Set children
+     * Set child
      *
-     * @param string $children
+     * @param Issue $child
      * @return Issue
      */
-    public function setChildren($children)
+    public function addChild(Issue $child)
     {
-        $this->children = $children;
+        $this->children[] = $child;
 
         return $this;
     }
 
     /**
+     * Remove child
+     *
+     * @param Issue $child
+     */
+    public function removeChild(Issue $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
      * Get children
      *
-     * @return string
+     * @return ArrayCollection
      */
     public function getChildren()
     {
@@ -480,5 +504,38 @@ class Issue
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param Comment $comment
+     * @return Issue
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

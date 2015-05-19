@@ -16,8 +16,8 @@ class Builder extends ContainerAware
         ));
 
         $menu->addChild('Projects', array('route' => 'sbts_project_list'));
-        $menu->addChild('Profile', array('route' => 'fos_user_profile_show'));
-        $menu->addChild('Login', array('route' => 'fos_user_security_login'));
+        $menu->addChild('Issues', array('route' => 'sbts_issue_list'));
+        //$menu->addChild('Profile', array('route' => 'fos_user_profile_show'));
         $menu->addChild('Logout', array('route' => 'fos_user_security_logout'));
 
         return $menu;
