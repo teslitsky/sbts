@@ -4,3 +4,7 @@ security:
         password: Password
         submit: Login
         remember_me: Remember me
+
+    user:
+        logged_in_as: Logged in as
+        logout: Logout

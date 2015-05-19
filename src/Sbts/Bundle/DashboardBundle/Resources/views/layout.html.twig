@@ -6,6 +6,33 @@
     <link href="{{ asset('bundles/sbtsdashboard/css/app.css') }}" rel="stylesheet"/>
 {% endblock %}
 
+{% block navbar %}
+    <div class="row">
+        <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="{{ path('sbts_dashboard_index') }}">SBTS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                {% block menu %}
+                    {{ knp_menu_render('SbtsDashboardBundle:Builder:mainMenu') }}
+                {% endblock %}
+                <p class="navbar-text navbar-right">
+                    {% block user %}
+                        {% if is_granted("ROLE_USER") and app.user is defined %}
+                            {{ 'security.user.logged_in_as' | trans }}
+                            <a href="{{ path('sbts_user_page', {'name' : app.user.username }) }}">{{ app.user.username }}</a> |
+                            <a href="{{ path('fos_user_security_logout') }}">{{'security.user.logout' | trans }}</a>
+                        {% endif %}
+                    {% endblock %}
+                </p>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
+
 {% block javascripts %}
     <script src="{{ asset('bundles/sbtsdashboard/js/vendor/jquery.min.js') }}"></script>
     <script src="{{ asset('bundles/sbtsdashboard/js/flat-ui.min.js') }}"></script>

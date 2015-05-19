@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Sbts\Bundle\IssueBundle\SbtsIssueBundle(),
             new Sbts\Bundle\DashboardBundle\SbtsDashboardBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
