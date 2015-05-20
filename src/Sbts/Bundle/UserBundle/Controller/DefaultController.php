@@ -6,18 +6,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @Route("/user")
- */
 class DefaultController extends Controller
 {
     /**
-     * @Route("/{name}", name="sbts_user_page")
+     * @Route("/user/{name}", name="sbts_user_profile")
      * @param $name string
      * @return Response
      */
     public function indexAction($name)
     {
-        return $this->render('SbtsUserBundle:Default:index.html.twig', array('name' => $name));
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($name);
+
+        return $this->render('SbtsUserBundle:Default:index.html.twig', array(
+            'user' => $user,
+        ));
+    }
+
+    /**
+     * @Route("/users", name="sbts_user_list")
+     * @return Response
+     */
+    public function listAction()
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $users = $userManager->findUsers();
+
+        return $this->render('SbtsUserBundle:Default:list.html.twig', array(
+            'users' => $users,
+        ));
     }
 }
