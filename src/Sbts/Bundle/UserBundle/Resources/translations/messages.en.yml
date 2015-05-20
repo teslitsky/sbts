@@ -6,5 +6,5 @@ security:
         remember_me: Remember me
 
     user:
-        logged_in_as: Logged in as
+        profile: Profile
         logout: Logout

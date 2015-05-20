@@ -19,15 +19,32 @@
                 {% block menu %}
                     {{ knp_menu_render('SbtsDashboardBundle:Builder:mainMenu') }}
                 {% endblock %}
-                <p class="navbar-text navbar-right">
-                    {% block user %}
-                        {% if is_granted("ROLE_USER") and app.user is defined %}
-                            {{ 'security.user.logged_in_as' | trans }}
-                            <a href="{{ path('sbts_user_page', {'name' : app.user.username }) }}">{{ app.user.username }}</a> |
-                            <a href="{{ path('fos_user_security_logout') }}">{{'security.user.logout' | trans }}</a>
-                        {% endif %}
-                    {% endblock %}
-                </p>
+                {% block user %}
+                    {% if is_granted("ROLE_USER") and app.user is defined %}
+                        {#{{ knp_menu_render('SbtsUserBundle:Builder:userDropdown') }}#}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    {{ app.user.username }}
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ path('sbts_user_page', {'name' : app.user.username }) }}">
+                                            {{ 'security.user.profile' | trans }}
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            {{ 'security.user.logout' | trans }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {% endif %}
+                {% endblock %}
             </div>
         </nav>
     </div>
