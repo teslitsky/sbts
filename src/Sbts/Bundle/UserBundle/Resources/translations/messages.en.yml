@@ -8,3 +8,6 @@ security:
     user:
         profile: Profile
         logout: Logout
+
+app:
+    users_list: All Users

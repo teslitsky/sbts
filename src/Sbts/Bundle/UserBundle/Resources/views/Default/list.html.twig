@@ -1,7 +1,10 @@
 {% extends 'SbtsUserBundle::layout.html.twig' %}
 
+{% block title %}{{ 'app.users_list' | trans }}{% endblock %}
+
 {% block body %}
     <div class="row">
+        <h4>{{ 'app.users_list' | trans }}</h4>
         {% for user in users %}
             <p>
                 <a href="{{ path('sbts_user_profile', { name: user.username }) }}">{{ user.username }}</a>

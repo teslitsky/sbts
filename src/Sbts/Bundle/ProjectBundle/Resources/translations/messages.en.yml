@@ -1,0 +1,5 @@
+app:
+    projects_list: All Projects
+
+project:
+    create: Create project

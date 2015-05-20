@@ -1,5 +1,13 @@
 {% extends 'SbtsProjectBundle::layout.html.twig' %}
 
+{% block title %}{{ 'app.projects_list' | trans }}{% endblock %}
+
 {% block body %}
-    <h1>Projects list</h1>
+    <div class="row">
+        <p>
+            <a class="btn btn-primary" href="{{ path('sbts_project_create') }}">{{ 'project.create' | trans }}</a>
+        </p>
+
+        <h4>{{ 'app.projects_list' | trans }}</h4>
+    </div>
 {% endblock %}
