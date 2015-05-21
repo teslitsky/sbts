@@ -47,7 +47,7 @@ class Issue
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="Type")
+     * @ORM\ManyToOne(targetEntity="Type")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     private $type;
@@ -108,14 +108,14 @@ class Issue
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime")
      */
     private $created;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated;
 
