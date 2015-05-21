@@ -1,0 +1,21 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block text_widget %}
+    <input class="form-control" type="text" {{ block('attributes') }} value="{{ value }}" />
+{% endblock %}
+
+{% block  email_widget %}
+    <input class="form-control" type="email" {{ block('attributes') }} value="{{ value }}" />
+{% endblock %}
+
+{% block custom_checkbox_widget %}
+    <input type="checkbox" data-toggle="checkbox" class="custom-checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{% endblock %}
+
+{% block form_row %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}

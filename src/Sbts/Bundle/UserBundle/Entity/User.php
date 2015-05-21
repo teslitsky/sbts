@@ -7,10 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="sbts_user")
+ * @Vich\Uploadable
  */
 class User extends BaseUser
 {
@@ -27,9 +31,25 @@ class User extends BaseUser
     protected $fullname;
 
     /**
-     * @ORM\Column(name="avatar", type="string", length=255, nullable=true, options={"default" = null})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $avatar;
+    private $avatar;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="avatar_image", fileNameProperty="avatar")
+     *
+     * @var File $imageFile
+     */
+    private $avatarFile;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updated;
 
     /**
      * @ORM\OneToMany(targetEntity="Sbts\Bundle\CommentBundle\Entity\Comment", mappedBy="author")
@@ -80,6 +100,74 @@ class User extends BaseUser
     }
 
     /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     */
+    public function setAvatarFile(File $image = null)
+    {
+        $this->avatarFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated = new \DateTime();
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getAvatarFile()
+    {
+        return $this->avatarFile;
+    }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set updated
+     *
+     * @ORM\PreUpdate()
+     * @param \DateTime $updated
+     * @return Issue
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
      * Add comment
      *
      * @param Comment $comment
@@ -121,8 +209,10 @@ class User extends BaseUser
     public function assignIssue(Issue $issue)
     {
         $this->assignedIssues[] = $issue;
+
         return $this;
     }
+
     /**
      * Unassign issue
      *
@@ -132,6 +222,7 @@ class User extends BaseUser
     {
         $this->assignedIssues->removeElement($issue);
     }
+
     /**
      * Get assigned Issues
      *

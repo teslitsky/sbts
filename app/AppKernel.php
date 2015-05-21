@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sbts\Bundle\ProjectBundle\SbtsProjectBundle(),
             new Sbts\Bundle\CommentBundle\SbtsCommentBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
