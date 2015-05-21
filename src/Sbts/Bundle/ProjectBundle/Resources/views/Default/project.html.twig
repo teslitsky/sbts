@@ -1,0 +1,13 @@
+{% extends 'SbtsProjectBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <h4>{{ 'project.info' | trans }}</h4>
+
+        <p>{{ 'project.code' | trans }}: {{ project.code }}</p>
+        <p>{{ 'project.label' | trans }}: {{ project.label }}</p>
+        <p>{{ 'project.summary' | trans }}: {{ project.summary }}</p>
+
+        <h4>{{ 'project.activity' | trans }}</h4>
+    </div>
+{% endblock %}

@@ -1,13 +1,48 @@
 {% extends 'SbtsProjectBundle::layout.html.twig' %}
 
-{% block title %}{{ 'app.projects_list' | trans }}{% endblock %}
+{% block title %}{{ 'project.projects_list' | trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <p>
-            <a class="btn btn-primary" href="{{ path('sbts_project_create') }}">{{ 'project.create' | trans }}</a>
+            <a class="btn btn-primary" href="{{ path('sbts_project_create') }}">
+                {{ 'project.create' | trans }}
+            </a>
         </p>
 
-        <h4>{{ 'app.projects_list' | trans }}</h4>
+        <h4>{{ 'project.projects_list' | trans }}</h4>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'project.code' | trans }}</th>
+                <th>{{ 'project.label' | trans }}</th>
+                <th>{{ 'project.summary' | trans }}</th>
+                <th>{{ 'project.actions' | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td>
+                        <a href="{{ path('sbts_project_page', {'project': project.code}) }}">
+                            {{ project.code }}
+                        </a>
+                    </td>
+                    <td>{{ project.label }}</td>
+                    <td>{{ project.summary }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('sbts_project_update', {'project': project.code}) }}">
+                            {{ 'project.edit' | trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td rowspan="4">{{ 'project.no_projects' | trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

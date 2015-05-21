@@ -1,4 +1,11 @@
 services:
-#    sbts_project.example:
-#        class: Sbts\Bundle\ProjectBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    sbts.project.project_manager:
+        class: Sbts\Bundle\ProjectBundle\Model\ProjectManager
+        arguments: [@doctrine.orm.entity_manager]
+
+    sbts.project.form.create:
+        class: Sbts\Bundle\ProjectBundle\Form\Type\ProjectType
+        arguments:
+          - @security.context
+        tags:
+            - { name: form.type, alias: sbts_project_form }

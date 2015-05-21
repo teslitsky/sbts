@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProjectRepository extends EntityRepository
 {
+    /**
+     * @param string $code project code
+     * @return Project
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByCode($code)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT projects FROM SbtsProjectBundle:Project projects WHERE projects.code = :code')
+            ->setParameters(array(
+                'code' => $code
+            ))
+            ->getSingleResult();
+    }
 }

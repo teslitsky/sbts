@@ -1,5 +1,11 @@
-app:
-    projects_list: All Projects
-
 project:
+    code: Code
+    label: Label
+    summary: Summary
+    actions: Actions
+    edit: Edit
+    projects_list: All Projects
     create: Create project
+    no_projects: No projects found
+    activity: Project activity
+    info: Project info
