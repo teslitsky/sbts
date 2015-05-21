@@ -2,6 +2,8 @@
 
 {% block body %}
     <div class="row">
+        <h4>{{ 'app.user.profile' | trans }}</h4>
         {% include "FOSUserBundle:Profile:show_content.html.twig" %}
+        <h4>{{ 'app.user.activity' | trans }}</h4>
     </div>
 {% endblock %}

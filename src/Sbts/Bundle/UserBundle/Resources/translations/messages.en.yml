@@ -11,3 +11,6 @@ security:
 
 app:
     users_list: All Users
+    user:
+        profile: Profile
+        activity: Activity
