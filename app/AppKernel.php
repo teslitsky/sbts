@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Sbts\Bundle\ProjectBundle\SbtsProjectBundle(),
             new Sbts\Bundle\CommentBundle\SbtsCommentBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
