@@ -1,0 +1,20 @@
+{
+  "name": "sbts/project-bundle",
+  "type": "symfony-bundle",
+  "description": "Sbts Project Bundle",
+  "keywords": ["Sbts", "Project"],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/symfony": ">=2.3",
+    "sbts/dashboard-bundle": "dev-master",
+    "sbts/issue-bundle": "dev-master",
+    "sbts/comment-bundle": "dev-master",
+    "sbts/user-bundle": "dev-master"
+  },
+  "autoload": {
+    "psr-0": { "Sbts\\Bundle\\ProjectBundle": "" }
+  },
+  "target-dir": "Sbts/Bundle/ProjectBundle",
+  "minimum-stability": "stable"
+}

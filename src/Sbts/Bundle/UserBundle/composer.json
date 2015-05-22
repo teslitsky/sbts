@@ -1,0 +1,21 @@
+{
+  "name": "sbts/user-bundle",
+  "type": "symfony-bundle",
+  "description": "Sbts User Bundle",
+  "keywords": ["Sbts", "User"],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/symfony": ">=2.3",
+    "liip/imagine-bundle": "^1.2",
+    "knplabs/knp-gaufrette-bundle": "^0.1.7",
+    "vich/uploader-bundle": "^0.14.0",
+    "friendsofsymfony/user-bundle": "~2.0@dev",
+    "sbts/dashboard-bundle": "dev-master"
+  },
+  "autoload": {
+    "psr-0": { "Sbts\\Bundle\\UserBundle": "" }
+  },
+  "target-dir": "Sbts/Bundle/UserBundle",
+  "minimum-stability": "stable"
+}

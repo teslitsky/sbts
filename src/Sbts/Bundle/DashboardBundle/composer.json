@@ -1,0 +1,22 @@
+{
+  "name": "sbts/dashboard-bundle",
+  "type": "symfony-bundle",
+  "description": "Sbts Dashboard Bundle",
+  "keywords": ["Sbts", "Dashboard"],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/symfony": ">=2.3",
+    "knplabs/knp-menu-bundle": "~2",
+    "braincrafted/bootstrap-bundle": "^2.1",
+    "sbts/user-bundle": "dev-master",
+    "sbts/issue-bundle": "dev-master",
+    "sbts/project-bundle": "dev-master",
+    "sbts/comment-bundle": "dev-master"
+  },
+  "autoload": {
+    "psr-0": { "Sbts\\Bundle\\DashboardBundle": "" }
+  },
+  "target-dir": "Sbts/Bundle/DashboardBundle",
+  "minimum-stability": "stable"
+}

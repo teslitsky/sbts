@@ -1,0 +1,18 @@
+{
+  "name": "sbts/comment-bundle",
+  "type": "symfony-bundle",
+  "description": "Sbts Comment Bundle",
+  "keywords": ["Sbts", "Comment"],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/symfony": ">=2.3",
+    "sbts/dashboard-bundle": "dev-master",
+    "sbts/user-bundle": "dev-master"
+  },
+  "autoload": {
+    "psr-0": { "Sbts\\Bundle\\CommentBundle": "" }
+  },
+  "target-dir": "Sbts/Bundle/CommentBundle",
+  "minimum-stability": "stable"
+}
