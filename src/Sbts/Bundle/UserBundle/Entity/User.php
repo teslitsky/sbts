@@ -146,7 +146,6 @@ class User extends BaseUser
     /**
      * Set updated
      *
-     * @ORM\PreUpdate()
      * @param \DateTime $updated
      * @return Issue
      */
@@ -231,5 +230,13 @@ class User extends BaseUser
     public function getAssignedIssues()
     {
         return $this->assignedIssues;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdateAction()
+    {
+        $this->setUpdated(new \DateTime());
     }
 }

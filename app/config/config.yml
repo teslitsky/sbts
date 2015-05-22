@@ -94,16 +94,6 @@ knp_menu:
     # the renderer to use, list is also available by default
     default_renderer: twig
 
-vich_uploader:
-    db_driver: orm
-    mappings:
-        avatar_image:
-            uri_prefix:         /images/avatars
-            upload_destination: %kernel.root_dir%/../web/images/avatars
-            inject_on_load:     false
-            delete_on_update:   true
-            delete_on_remove:   true
-
 braincrafted_bootstrap:
     output_dir:
     assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
@@ -119,3 +109,38 @@ braincrafted_bootstrap:
         variables_file: ~
         bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
         bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig
+
+knp_gaufrette:
+    stream_wrapper: ~
+
+    adapters:
+        avatar_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/images/avatars
+    filesystems:
+        avatar_image_fs:
+            adapter: avatar_adapter
+
+vich_uploader:
+    db_driver: orm
+    storage:   gaufrette
+    mappings:
+        avatar_image:
+            uri_prefix:         /images/avatars
+            upload_destination: avatar_image_fs
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+            namer:              vich_uploader.namer_uniqid
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        users_list_avatar:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 100], mode: outbound }

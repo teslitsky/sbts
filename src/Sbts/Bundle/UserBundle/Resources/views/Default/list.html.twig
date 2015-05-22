@@ -16,6 +16,10 @@
         {% for user in users %}
             <div class="row">
                 <div class="col-md-3">
+                    {% if user.avatar is not null %}
+                        <img src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}" alt="{{ user.username }}" />
+                    {% endif %}
+
                     {{ user.username }}
                 </div>
                 <div class="col-md-9">
