@@ -31,7 +31,7 @@ twig:
     form:
         resources:
             - BraincraftedBootstrapBundle:Form:bootstrap.html.twig
-            - VichUploaderBundle:Form:fields.html.twig
+            - SbtsUserBundle:Form:fields.html.twig
 
 # Assetic Configuration
 assetic:
@@ -84,6 +84,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Sbts\Bundle\UserBundle\Entity\User
+    profile:
+        form:
+            type: sbts_user_profile
 
 knp_menu:
     # use "twig: false" to disable the Twig extension and the TwigRenderer
@@ -143,4 +146,4 @@ liip_imagine:
         users_list_avatar:
             quality: 75
             filters:
-                thumbnail: { size: [100, 100], mode: outbound }
+                thumbnail: { size: [112, 112], mode: outbound }

@@ -1,0 +1,7 @@
+{% extends 'SbtsUserBundle::layout.html.twig' %}
+
+{% block title %}{{ 'user.profile'|trans }}{% endblock %}
+
+{% block fos_user_content %}
+    {% include 'FOSUserBundle:Profile:edit_content.html.twig' %}
+{% endblock fos_user_content %}

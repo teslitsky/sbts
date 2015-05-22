@@ -1,32 +1,38 @@
 {% extends 'SbtsUserBundle::layout.html.twig' %}
 
-{% block title %}{{ 'app.users_list' | trans }}{% endblock %}
+{% block title %}{{ 'user.users_list' | trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
-        <h4>{{ 'app.users_list' | trans }}</h4>
-        <div class="row">
-            <div class="col-md-3">
-                <strong>User</strong>
-            </div>
-            <div class="col-md-9">
-                <strong>Actions</strong>
-            </div>
-        </div>
-        {% for user in users %}
-            <div class="row">
-                <div class="col-md-3">
-                    {% if user.avatar is not null %}
-                        <img src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}" alt="{{ user.username }}" />
-                    {% endif %}
+        <h4>{{ 'user.users_list' | trans }}</h4>
 
-                    {{ user.username }}
+        <div class="row">
+            {% for user in users %}
+                <div class="col-xs-3">
+                    <div class="tile">
+                        {% if user.avatar is not null %}
+                            <img class="tile-image big-illustration"
+                                 src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}"
+                                 alt="{{ user.username }}"/>
+                        {% endif %}
+
+                        <h3 class="tile-title">{{ user.fullname | default('user.noname' | trans) }}</h3>
+
+                        <p>
+                            <a href="{{ path('sbts_user_profile', { username: user.username }) }}">{{ user.username }}</a>
+                        </p>
+
+                        <p>{{ user.email }}</p>
+
+                        <p>
+                            <a class="btn btn-primary btn-xs"
+                               href="{{ path('sbts_user_edit', { username: user.username }) }}">{{ 'user.edit' | trans }}</a>
+                        </p>
+                    </div>
                 </div>
-                <div class="col-md-9">
-                    <a class="btn btn-primary btn-xs" href="{{ path('sbts_user_profile', { username: user.username }) }}">show</a>&nbsp;
-                    <a class="btn btn-primary btn-xs" href="{{ path('sbts_user_edit', { username: user.username }) }}">edit</a>
-                </div>
-            </div>
-        {% endfor %}
+            {% else %}
+                {{ 'user.no_users' | trans }}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

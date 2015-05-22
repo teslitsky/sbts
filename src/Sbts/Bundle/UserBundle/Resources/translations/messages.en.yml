@@ -9,8 +9,21 @@ security:
         profile: Profile
         logout: Logout
 
-app:
+user:
     users_list: All Users
-    user:
+    no_users: No users found
+    profile: User profile
+    activity: User activity
+    edit: Edit
+    noname: Noname
+    username: Username
+    fullname: Full name
+    email: Email
+    user_role: Role
+    link:
+        edit: Edit
         profile: Profile
-        activity: Activity
+    role:
+        admin: admin
+        manager: manager
+        user: user

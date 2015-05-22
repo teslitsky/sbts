@@ -17,6 +17,17 @@ class UserEditFormType extends AbstractType
         $builder
             ->add('email')
             ->add('fullname')
+            ->add('roles', 'choice', array(
+                'choices'  => array(
+                    'ROLE_ADMIN'   => 'user.role.admin',
+                    'ROLE_MANAGER' => 'user.role.manager',
+                    'ROLE_USER'    => 'user.role.user'
+                ),
+                'label'    => 'Roles',
+                'expanded' => true,
+                'multiple' => true,
+                'mapped'   => true,
+            ))
             ->add('avatarFile', 'vich_file', array(
                 'required'      => false,
                 'allow_delete'  => true, // not mandatory, default is true

@@ -1,0 +1,28 @@
+<div class="fos_user_user_show">
+    <div class="row">
+        <div class="col-md-4">
+            {% if user.avatar is not null %}
+                <img class="thumbnail"
+                     src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}"
+                     alt="{{ user.username }}"/>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <p>{{ 'user.username' | trans }}: {{ user.username }}</p>
+            <p>{{ 'user.fullname' | trans }}: {{ user.fullname }}</p>
+            <p>{{ 'user.email' | trans }}: {{ user.email }}</p>
+            <p>{{ 'user.user_role' | trans }}: {{ user.roles | first }}</p>
+            <div>
+                {% if is_granted('current', user) %}
+                    <a class="btn btn-embossed" href="{{ path('fos_user_profile_edit') }}">
+                        {{ 'user.link.edit' | trans }}
+                    </a>
+                {% elseif is_granted('edit', user) %}
+                    <a href="{{ path('sbts_user_edit', {'username': user.username}) }}">
+                        {{ 'user.link.profile' | trans }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
