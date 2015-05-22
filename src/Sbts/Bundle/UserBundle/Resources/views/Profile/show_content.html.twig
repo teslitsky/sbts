@@ -13,11 +13,11 @@
             <p>{{ 'user.email' | trans }}: {{ user.email }}</p>
             <p>{{ 'user.user_role' | trans }}: {{ user.roles | first }}</p>
             <div>
-                {% if is_granted('current', user) %}
-                    <a class="btn btn-embossed" href="{{ path('fos_user_profile_edit') }}">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a class="btn btn-primary" href="{{ path('fos_user_profile_edit') }}">
                         {{ 'user.link.edit' | trans }}
                     </a>
-                {% elseif is_granted('edit', user) %}
+                {% elseif is_granted('ROLE_SUPER_ADMIN') %}
                     <a href="{{ path('sbts_user_edit', {'username': user.username}) }}">
                         {{ 'user.link.profile' | trans }}
                     </a>
