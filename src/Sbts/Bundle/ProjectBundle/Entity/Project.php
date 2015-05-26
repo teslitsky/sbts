@@ -48,7 +48,7 @@ class Project
     /**
      * @ORM\ManyToMany(targetEntity="Sbts\Bundle\UserBundle\Entity\User")
      * @ORM\JoinTable(
-     *      name="sbts_users_to_projects",
+     *      name="sbts_user_to_project",
      *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      *      )

@@ -21,7 +21,7 @@ class ProjectRepository extends EntityRepository
     public function findByCode($code)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT projects FROM SbtsProjectBundle:Project projects WHERE projects.code = :code')
+            ->createQuery('SELECT project FROM SbtsProjectBundle:Project project WHERE project.code = :code')
             ->setParameters(array(
                 'code' => $code
             ))
