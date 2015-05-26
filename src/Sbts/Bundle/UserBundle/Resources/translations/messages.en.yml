@@ -21,9 +21,15 @@ user:
     email: Email
     user_role: Role
     link:
-        edit: Edit
-        profile: Profile
+        edit_user: Edit user profile
+        edit_my_user: Edit my profile
+        update_profile: Update profile
     role:
-        admin: admin
-        manager: manager
-        user: user
+        list: Roles
+        admin: Administrator
+        manager: Manager
+        operator: Operator
+        title:
+            ROLE_OPERATOR: Operator
+            ROLE_MANAGER: Manager
+            ROLE_ADMIN: Admin

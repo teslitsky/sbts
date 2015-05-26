@@ -1,5 +1,5 @@
 services:
-    bts.user.profile.form.type:
-        class: Sbts\Bundle\UserBundle\Form\Type\UserEditFormType
+    sbts.user.profile.form.type:
+        class: Sbts\Bundle\UserBundle\Form\Type\UserProfileFormType
         tags:
             - { name: form.type, alias: sbts_user_profile }

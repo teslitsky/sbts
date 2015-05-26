@@ -10,24 +10,17 @@
             {% for user in users %}
                 <div class="col-xs-3">
                     <div class="tile">
-                        {% if user.avatar is not null %}
-                            <img class="tile-image big-illustration"
-                                 src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}"
-                                 alt="{{ user.username }}"/>
-                        {% endif %}
+                        <a href="{{ path('sbts_user_profile', { username: user.username }) }}">
+                            {% if user.avatar is not null %}
+                                <img class="tile-image big-illustration"
+                                     src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}"
+                                     alt="{{ user.username }}"/>
+                            {% endif %}
 
-                        <h3 class="tile-title">{{ user.fullname | default('user.noname' | trans) }}</h3>
+                            <h3 class="tile-title">{{ user.fullname | default('user.noname' | trans) }}</h3>
 
-                        <p>
-                            <a href="{{ path('sbts_user_profile', { username: user.username }) }}">{{ user.username }}</a>
-                        </p>
-
-                        <p>{{ user.email }}</p>
-
-                        <p>
-                            <a class="btn btn-primary btn-xs"
-                               href="{{ path('sbts_user_edit', { username: user.username }) }}">{{ 'user.edit' | trans }}</a>
-                        </p>
+                            <p>{{ user.username }}</p>
+                        </a>
                     </div>
                 </div>
             {% else %}

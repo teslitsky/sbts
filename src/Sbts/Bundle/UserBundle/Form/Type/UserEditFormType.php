@@ -15,25 +15,24 @@ class UserEditFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', 'email')
             ->add('fullname')
             ->add('roles', 'choice', array(
                 'choices'  => array(
-                    'ROLE_ADMIN'   => 'user.role.admin',
-                    'ROLE_MANAGER' => 'user.role.manager',
-                    'ROLE_USER'    => 'user.role.user'
+                    'ROLE_ADMIN'    => 'user.role.admin',
+                    'ROLE_MANAGER'  => 'user.role.manager',
+                    'ROLE_OPERATOR' => 'user.role.operator'
                 ),
-                'label'    => 'Roles',
+                'label'    => 'user.role.list',
                 'expanded' => true,
                 'multiple' => true,
                 'mapped'   => true,
             ))
             ->add('avatarFile', 'vich_file', array(
                 'required'      => false,
-                'allow_delete'  => true, // not mandatory, default is true
-                'download_link' => true, // not mandatory, default is true
+                'allow_delete'  => true,
             ))
-            ->add('save', 'submit', array('label' => 'Submit'));
+            ->add('save', 'submit', array('label' => 'user.link.update_profile'));
     }
 
     /**
@@ -48,6 +47,6 @@ class UserEditFormType extends AbstractType
 
     public function getName()
     {
-        return 'sbts_user_profile';
+        return 'sbts_user_edit';
     }
 }
