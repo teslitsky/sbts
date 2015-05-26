@@ -18,7 +18,6 @@
                 <th>{{ 'project.code' | trans }}</th>
                 <th>{{ 'project.label' | trans }}</th>
                 <th>{{ 'project.summary' | trans }}</th>
-                <th>{{ 'project.actions' | trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -29,13 +28,12 @@
                             {{ project.code }}
                         </a>
                     </td>
-                    <td>{{ project.label }}</td>
-                    <td>{{ project.summary }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path('sbts_project_update', {'project': project.code}) }}">
-                            {{ 'project.edit' | trans }}
+                        <a href="{{ path('sbts_project_page', {'project': project.code}) }}">
+                            {{ project.label }}
                         </a>
                     </td>
+                    <td>{{ project.summary }}</td>
                 </tr>
             {% else %}
                 <tr>

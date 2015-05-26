@@ -3,9 +3,10 @@ project:
     label: Label
     summary: Summary
     actions: Actions
-    edit: Edit
+    edit: Edit project
     projects_list: All Projects
     create: Create project
     no_projects: No projects found
     activity: Project activity
     info: Project info
+    users_list: Users list

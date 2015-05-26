@@ -2,12 +2,28 @@
 
 {% block body %}
     <div class="row">
-        <h4>{{ 'project.info' | trans }}</h4>
+        <div class="col-md-6">
+            <h4>{{ 'project.info' | trans }}</h4>
 
-        <p>{{ 'project.code' | trans }}: {{ project.code }}</p>
-        <p>{{ 'project.label' | trans }}: {{ project.label }}</p>
-        <p>{{ 'project.summary' | trans }}: {{ project.summary }}</p>
+            <p><strong>{{ 'project.code' | trans }}:</strong> {{ project.code }}</p>
+            <p><strong>{{ 'project.label' | trans }}:</strong> {{ project.label }}</p>
+            <p><strong>{{ 'project.summary' | trans }}:</strong> {{ project.summary | truncate(200) }}</p>
+            <p><strong>{{ 'project.users_list' | trans }}:</strong></p>
+            {% for user in project.users %}
+                <div>
+                    <a href="{{ path('sbts_user_profile', { username: user.username }) }}">
+                        {{ user.username }}
+                    </a>
+                </div>
+            {% endfor %}
 
-        <h4>{{ 'project.activity' | trans }}</h4>
+            <a class="btn btn-primary" href="{{ path('sbts_project_update', {'project': project.code}) }}">
+                {{ 'project.edit' | trans }}
+            </a>
+        </div>
+
+        <div class="col-md-6">
+            <h4>{{ 'project.activity' | trans }}</h4>
+        </div>
     </div>
 {% endblock %}
