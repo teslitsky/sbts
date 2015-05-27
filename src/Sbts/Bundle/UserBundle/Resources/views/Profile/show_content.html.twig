@@ -17,7 +17,7 @@
             <p>{{ 'user.user_role' | trans }}: {{ ('user.role.title.' ~ user.roles | first) | trans }}</p>
 
             <p>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-primary" href="{{ path('sbts_user_edit', {'username': user.username}) }}">
                         {{ 'user.link.edit_user' | trans }}
                     </a>
