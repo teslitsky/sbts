@@ -53,7 +53,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/project/{project}", name="sbts_project_page")
+     * @Route("/project/view/{project}", name="sbts_project_page")
      * @ParamConverter("project", class="SbtsProjectBundle:Project", options={"repository_method" = "findByCode"})
      *
      * @return Response
