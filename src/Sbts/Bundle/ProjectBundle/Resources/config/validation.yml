@@ -1,0 +1,6 @@
+Sbts\Bundle\ProjectBundle\Entity\Project:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [code]
+            errorPath: code
+            message: 'project.validation.code'
