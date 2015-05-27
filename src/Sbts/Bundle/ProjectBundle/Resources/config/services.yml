@@ -4,8 +4,14 @@ services:
         arguments: [@doctrine.orm.entity_manager]
 
     sbts.project.form.create:
-        class: Sbts\Bundle\ProjectBundle\Form\Type\ProjectType
+        class: Sbts\Bundle\ProjectBundle\Form\Type\ProjectFormType
         arguments:
-          - @security.context
+            - @security.context
         tags:
             - { name: form.type, alias: sbts_project_form }
+
+    sbts.project.security.voter:
+        class: Sbts\Bundle\ProjectBundle\Security\Authorization\Voter\ProjectVoter
+        public: false
+        tags:
+            - { name: security.voter }
