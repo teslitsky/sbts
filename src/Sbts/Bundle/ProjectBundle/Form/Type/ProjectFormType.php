@@ -23,7 +23,7 @@ class ProjectFormType extends AbstractType
                 'property' => 'fullname',
                 'multiple' => true,
             ))
-            ->add('save', 'submit', array('label' => 'Submit'));
+            ->add('save', 'submit', array('label' => 'project.link.update'));
     }
 
     /**

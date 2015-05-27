@@ -10,5 +10,7 @@ project:
     activity: Project activity
     info: Project info
     users_list: Users list
+    link:
+        update: Update project
     validation:
         code: Project code must be unique
