@@ -29,4 +29,32 @@ class UserAccessTest extends WebTestCase
         $crawler = $this->getCrawlerLoggedAs('user', 'user');
         $this->assertTrue($crawler->filter('html:contains("Dashboard")')->count() > 0);
     }
+
+    public function testAdminEditProfile()
+    {
+        $client = $this->createAuthorizedClient('admin');
+        $client->request('GET', '/user/edit/admin');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    public function testManagerEditProfile()
+    {
+        $client = $this->createAuthorizedClient('manager');
+        $client->request('GET', '/user/edit/admin');
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+    }
+
+    public function testUserEditProfile()
+    {
+        $client = $this->createAuthorizedClient('user');
+        $client->request('GET', '/user/edit/admin');
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+    }
+
+    public function testUserEditOwnProfile()
+    {
+        $client = $this->createAuthorizedClient('user');
+        $client->request('GET', '/user/edit/user');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 }

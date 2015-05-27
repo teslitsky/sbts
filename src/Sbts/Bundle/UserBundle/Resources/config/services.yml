@@ -3,3 +3,9 @@ services:
         class: Sbts\Bundle\UserBundle\Form\Type\UserProfileFormType
         tags:
             - { name: form.type, alias: sbts_user_profile }
+
+    sbts.user.security.voter:
+        class:      Sbts\Bundle\UserBundle\Security\Authorization\Voter\UserVoter
+        public:     false
+        tags:
+           - { name: security.voter }
