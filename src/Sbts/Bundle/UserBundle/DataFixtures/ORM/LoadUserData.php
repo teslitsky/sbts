@@ -43,6 +43,7 @@ class LoadUserData extends AbstractFixture implements
         $avatar = new UploadedFile(__DIR__ . '/avatars/admin.jpg', 'admin.jpg');
         $admin->setAvatarFile($avatar);
         $om->persist($admin);
+        $this->addReference('user-admin', $admin);
 
         $manager = $userManager->createUser();
         $manager->setUsername('manager');
@@ -54,6 +55,7 @@ class LoadUserData extends AbstractFixture implements
         $avatar = new UploadedFile(__DIR__ . '/avatars/manager.jpg', 'manager.jpg');
         $manager->setAvatarFile($avatar);
         $om->persist($manager);
+        $this->addReference('user-manager', $admin);
 
         $user = $userManager->createUser();
         $user->setUsername('user');
@@ -65,6 +67,7 @@ class LoadUserData extends AbstractFixture implements
         $avatar = new UploadedFile(__DIR__ . '/avatars/user.jpg', 'user.jpg');
         $user->setAvatarFile($avatar);
         $om->persist($user);
+        $this->addReference('user-user', $admin);
 
         $om->flush();
     }

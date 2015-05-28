@@ -12,8 +12,9 @@ class DefaultControllerTest extends WebTestCase
      */
     protected $client;
 
-    protected function setUp()
+    public function setUp()
     {
+        parent::setUp();
         $this->client = $this->createAuthorizedClient('user');
     }
 

@@ -2,16 +2,87 @@
 
 namespace Sbts\Bundle\DashboardBundle\Tests;
 
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Sbts\Bundle\DashboardBundle\DataFixtures\ORM\LoadDemoIssues;
+use Sbts\Bundle\DashboardBundle\DataFixtures\ORM\LoadDemoProjects;
+use Sbts\Bundle\DashboardBundle\DataFixtures\ORM\LoadDemoUsers;
+use Sbts\Bundle\IssueBundle\DataFixtures\ORM\LoadPriorityData;
+use Sbts\Bundle\IssueBundle\DataFixtures\ORM\LoadResolutionData;
+use Sbts\Bundle\IssueBundle\DataFixtures\ORM\LoadStatusData;
+use Sbts\Bundle\IssueBundle\DataFixtures\ORM\LoadTypeData;
+use Sbts\Bundle\UserBundle\DataFixtures\ORM\LoadUserData;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 use Symfony\Component\BrowserKit\Client;
 use Symfony\Component\BrowserKit\Cookie;
 
 class WebTestCase extends BaseWebTestCase
 {
+    protected static $referenceRepository;
+
+    public function getReferenceRepository()
+    {
+        return self::$referenceRepository;
+    }
+
     /**
      * @var Client
      */
     protected $client;
+
+    public static function setUpBeforeClass()
+    {
+        $client = self::createClient();
+        $container = $client->getKernel()->getContainer();
+        $em = $container->get('doctrine')->getManager();
+
+        $purger = new ORMPurger($em);
+        $executor = new ORMExecutor($em, $purger);
+        $executor->purge();
+
+        $loader = new Loader();
+
+        $fixtures = new LoadPriorityData();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadResolutionData();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadStatusData();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadTypeData();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadUserData();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadDemoUsers();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadDemoProjects();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadDemoIssues();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $executor->execute($loader->getFixtures());
+        self::$referenceRepository = $executor->getReferenceRepository();
+    }
+
+    protected function getReference($referenceUID)
+    {
+        return $this->getReferenceRepository()->getReference($referenceUID);
+    }
 
     /**
      * @return Client

@@ -12,8 +12,9 @@ class ProjectTest extends WebTestCase
      */
     protected $project;
 
-    protected function setUp()
+    public function setUp()
     {
+        parent::setUp();
         $this->project = new Project();
     }
 
