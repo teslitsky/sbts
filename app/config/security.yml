@@ -7,7 +7,7 @@ security:
     role_hierarchy:
         ROLE_OPERATOR:    [ROLE_USER]
         ROLE_MANAGER:     [ROLE_OPERATOR]
-        ROLE_ADMIN:       [ROLE_OPERATOR, ROLE_MANAGER]
+        ROLE_ADMIN:       [ROLE_MANAGER]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
