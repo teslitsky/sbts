@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Type
 {
+    const TYPE_BUG = 'issue.type.bug';
+    const TYPE_SUB_TASK = 'issue.type.subtask';
+    const TYPE_TASK = 'issue.type.task';
+    const TYPE_STORY = 'issue.type.story';
+
     /**
      * @var integer
      *

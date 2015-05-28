@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Status
 {
+    const STATUS_OPEN = 'issue.status.open';
+    const STATUS_PROGRESS = 'issue.status.progress';
+    const STATUS_CLOSED = 'issue.status.closed';
+
     /**
      * @var integer
      *

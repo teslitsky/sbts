@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Resolution
 {
+    const RESOLUTION_UNRESOLVED = 'issue.resolution.unresolved';
+    const RESOLUTION_RESOLVED = 'issue.resolution.resolved';
+
     /**
      * @var integer
      *

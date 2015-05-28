@@ -26,6 +26,9 @@ issue:
         resolution: Resolution
         created: Created
         updated: Updated
+    form:
+        create: Create issue
+        update: Update issue
 
 app:
     issues_list: All Issues
