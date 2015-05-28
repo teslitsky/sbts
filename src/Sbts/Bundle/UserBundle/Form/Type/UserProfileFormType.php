@@ -21,6 +21,7 @@ class UserProfileFormType extends AbstractType
                 'first_options'   => ['label' => 'form.new_password'],
                 'second_options'  => ['label' => 'form.new_password_confirmation'],
                 'invalid_message' => 'fos_user.password.mismatch',
+                'required'        => false,
             ))
             ->add('fullname')
             ->add('avatarFile', 'vich_file', [
