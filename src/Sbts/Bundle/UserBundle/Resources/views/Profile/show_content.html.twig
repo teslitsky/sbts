@@ -1,11 +1,7 @@
 <div class="fos_user_user_show">
     <div class="row">
         <div class="col-md-4">
-            {% if user.avatar is not null %}
-                <img class="thumbnail"
-                     src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}"
-                     alt="{{ user.username }}"/>
-            {% endif %}
+            {% include 'SbtsUserBundle:Default:_user_avatar.html.twig' %}
         </div>
         <div class="col-md-8">
             <p>{{ 'user.username' | trans }}: {{ user.username }}</p>

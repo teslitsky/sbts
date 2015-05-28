@@ -1,0 +1,9 @@
+{% if user.avatar is not null %}
+    <img class="tile-image big-illustration"
+         src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('users_list_avatar') }}"
+         alt="{{ user.username }}"/>
+{% else %}
+    <img class="tile-image big-illustration"
+         src="{{ asset('bundles/sbtsdashboard/img/no_picture.jpg') | imagine_filter('users_list_avatar') }}"
+         alt="{{ user.username }}"/>
+{% endif %}
