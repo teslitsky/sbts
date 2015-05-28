@@ -51,8 +51,6 @@ class LoadDemoProjects extends AbstractFixture implements
      */
     public function load(ObjectManager $om)
     {
-        $userQuantity = rand(1, 10);
-
         // Create projects
         for ($i = 1; $i <= 3; $i++) {
             $project = new Project();
@@ -60,6 +58,7 @@ class LoadDemoProjects extends AbstractFixture implements
             $project->setLabel(sprintf('Test Project %d', $i));
             $project->setSummary($this->faker->sentence(2));
 
+            $userQuantity = rand(1, 10);
             for ($u = 1; $u <= $userQuantity; $u++) {
                 $project->addUser($this->getReference(sprintf('user%d', $u)));
             }
