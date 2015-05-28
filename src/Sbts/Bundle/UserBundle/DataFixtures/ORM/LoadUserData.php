@@ -65,7 +65,7 @@ class LoadUserData extends AbstractFixture implements
         $avatar = new UploadedFile(__DIR__ . '/avatars/user.jpg', 'user.jpg');
         $user->setAvatarFile($avatar);
         $om->persist($user);
-        
+
         $om->flush();
     }
 }

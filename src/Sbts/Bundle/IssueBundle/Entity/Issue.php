@@ -13,6 +13,7 @@ use Sbts\Bundle\UserBundle\Entity\User;
  *
  * @ORM\Table(name="sbts_issue")
  * @ORM\Entity(repositoryClass="Sbts\Bundle\IssueBundle\Entity\IssueRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Issue
 {
@@ -31,13 +32,6 @@ class Issue
      * @ORM\Column(name="summary", type="string", length=255)
      */
     private $summary;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=255, unique=true)
-     */
-    private $code;
 
     /**
      * @var string
@@ -165,26 +159,17 @@ class Issue
     }
 
     /**
-     * Set code
-     *
-     * @param string $code
-     * @return Issue
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
      * Get code
      *
      * @return string
      */
     public function getCode()
     {
-        return $this->code;
+        if (!$this->getProject()) {
+            return '';
+        }
+
+        return sprintf('%s-%d', $this->getProject()->getCode(), $this->getId());
     }
 
     /**
@@ -537,5 +522,22 @@ class Issue
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdateAction()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersistAction()
+    {
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
     }
 }
