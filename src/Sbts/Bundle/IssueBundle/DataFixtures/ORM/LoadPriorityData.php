@@ -16,13 +16,11 @@ class LoadPriorityData extends AbstractFixture implements
     /**
      * @var ContainerInterface
      */
-
     private $container;
 
     /**
      * {@inheritDoc}
      */
-
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
