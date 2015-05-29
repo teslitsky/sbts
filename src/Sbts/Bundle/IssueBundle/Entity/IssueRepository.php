@@ -96,7 +96,6 @@ class IssueRepository extends EntityRepository
             ->select('issue')
             ->from('SbtsIssueBundle:Issue', 'issue')
             ->where('issue.assignee = :user_id')
-            ->andWhere('issue.status = 1')
             ->setParameter('user_id', $user)
             ->orderBy('issue.updated', 'DESC')
             ->orderBy('issue.id', 'DESC')

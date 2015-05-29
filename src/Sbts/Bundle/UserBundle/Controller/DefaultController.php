@@ -21,8 +21,14 @@ class DefaultController extends Controller
         $userManager = $this->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($username);
 
+        $em = $this->getDoctrine()->getManager();
+        $activities = $em->getRepository('SbtsIssueBundle:Activity')->findAllByUser($user);
+        $issues = $em->getRepository('SbtsIssueBundle:Issue')->findAllWhereUserIsAssignee($user);
+
         return $this->render('SbtsUserBundle:Default:index.html.twig', [
-            'user' => $user,
+            'user'       => $user,
+            'activities' => $activities,
+            'issues'     => $issues,
         ]);
     }
 
@@ -73,11 +79,8 @@ class DefaultController extends Controller
             );
         }
 
-        return $this->render(
-            'SbtsUserBundle:Default:edit.html.twig',
-            [
-                'form' => $form->createView(),
-            ]
-        );
+        return $this->render('SbtsUserBundle:Default:edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

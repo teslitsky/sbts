@@ -14,6 +14,7 @@ user:
     no_users: No users found
     profile: User profile
     activity: User activity
+    issues_title: User issues
     edit: Edit
     noname: Noname
     username: Username
@@ -35,3 +36,11 @@ user:
             ROLE_ADMIN: Admin
     view:
         activity: Activity
+    activities:
+        issue: Issue
+        date: Date
+        event: Event
+    issues:
+        code: Code
+        status: Status
+        summary: Summary
