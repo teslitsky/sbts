@@ -44,12 +44,9 @@ class DefaultController extends Controller
             );
         }
 
-        return $this->render(
-            'SbtsProjectBundle:Default:form.html.twig',
-            [
-                'form' => $form->createView(),
-            ]
-        );
+        return $this->render('SbtsProjectBundle:Default:form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -64,12 +61,9 @@ class DefaultController extends Controller
             throw new AccessDeniedException('Unauthorised access!');
         }
 
-        return $this->render(
-            'SbtsProjectBundle:Default:project.html.twig',
-            [
-                'project' => $project,
-            ]
-        );
+        return $this->render('SbtsProjectBundle:Default:project.html.twig', [
+            'project' => $project,
+        ]);
     }
 
     /**
@@ -103,12 +97,9 @@ class DefaultController extends Controller
             );
         }
 
-        return $this->render(
-            'SbtsProjectBundle:Default:form.html.twig',
-            [
-                'form' => $form->createView(),
-            ]
-        );
+        return $this->render('SbtsProjectBundle:Default:form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -121,11 +112,8 @@ class DefaultController extends Controller
         $projectManager = $this->get('sbts.project.project_manager');
         $projects = $projectManager->getAllProjects();
 
-        return $this->render(
-            'SbtsProjectBundle:Default:index.html.twig',
-            [
-                'projects' => $projects,
-            ]
-        );
+        return $this->render('SbtsProjectBundle:Default:index.html.twig', [
+            'projects' => $projects,
+        ]);
     }
 }
