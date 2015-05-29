@@ -77,7 +77,11 @@ class IssueLifecycleListener
                 $issue->addCollaborator($issue->getAssignee());
             }
 
-            $user = $this->container->get('security.context')->getToken()->getUser();
+            // @todo: wtf, tests don't start without this code
+            $token = $this->container->get('security.context')->getToken();
+            if ($token) {
+                $user = $token->getUser();
+            }
 
             if ($event->hasChangedField('status')) {
                 $eventEntity = new Activity();
