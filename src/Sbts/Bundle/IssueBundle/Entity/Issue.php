@@ -118,11 +118,17 @@ class Issue
      **/
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sbts\Bundle\IssueBundle\Entity\Activity", mappedBy="issue")
+     **/
+    private $activity;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
         $this->collaborators = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->activity = new ArrayCollection();
     }
 
     /**
@@ -522,6 +528,38 @@ class Issue
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * @param Activity $activity
+     *
+     * @return $this
+     */
+    public function addActivity(Activity $activity)
+    {
+        $this->activity[] = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Remove activity
+     *
+     * @param Activity $activity
+     */
+    public function removeActivity(Activity $activity)
+    {
+        $this->activity->removeElement($activity);
+    }
+
+    /**
+     * Get activity
+     *
+     * @return ArrayCollection
+     */
+    public function getActivity()
+    {
+        return $this->activity;
     }
 
     /**

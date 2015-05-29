@@ -4,6 +4,7 @@ namespace Sbts\Bundle\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sbts\Bundle\IssueBundle\Entity\Activity;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
 use Sbts\Bundle\UserBundle\Entity\User;
 
@@ -60,10 +61,16 @@ class Project
      */
     private $issues;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sbts\Bundle\IssueBundle\Entity\Activity", mappedBy="project")
+     **/
+    private $activity;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->issues = new ArrayCollection();
+        $this->activity = new ArrayCollection();
     }
 
     /**
@@ -237,5 +244,39 @@ class Project
     public function removeIssue(Issue $issue)
     {
         return $this->issues->removeElement($issue);
+    }
+
+    /**
+     * Add activity
+     *
+     * @param Activity $activity
+     *
+     * @return Project
+     */
+    public function addActivity(Activity $activity)
+    {
+        $this->activity[] = $activity;
+
+        return $this;
+    }
+
+    /**
+     * Remove activity
+     *
+     * @param Activity $activity
+     */
+    public function removeActivity(Activity $activity)
+    {
+        $this->activity->removeElement($activity);
+    }
+
+    /**
+     * Get activity
+     *
+     * @return ArrayCollection
+     */
+    public function getActivity()
+    {
+        return $this->activity;
     }
 }
