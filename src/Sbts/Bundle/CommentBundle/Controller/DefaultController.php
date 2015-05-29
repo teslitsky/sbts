@@ -104,4 +104,36 @@ class DefaultController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/comment/delete/{comment}", name="sbts_comment_delete")
+     * @ParamConverter("comment", class="SbtsCommentBundle:Comment")
+     * @param Comment $comment
+     *
+     * @return RedirectResponse
+     */
+    public function deleteAction(Comment $comment)
+    {
+        if (false === $this->get('security.context')->isGranted('remove', $comment)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
+
+        $issue = $comment->getIssue();
+        $activity = $this
+            ->getDoctrine()
+            ->getRepository('SbtsIssueBundle:Activity')
+            ->findOneBy([
+                'comment' => $comment,
+            ]);
+
+        $this->getDoctrine()->getManager()->remove($activity);
+        $this->getDoctrine()->getManager()->remove($comment);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirect(
+            $this->generateUrl('sbts_issue_page', [
+                'issue' => $issue->getCode(),
+            ])
+        );
+    }
 }

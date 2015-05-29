@@ -13,6 +13,7 @@ class CommentVoter implements VoterInterface
      * security constant
      */
     const EDIT = 'edit';
+    const REMOVE = 'remove';
 
     /**
      * @param string $attribute
@@ -23,6 +24,7 @@ class CommentVoter implements VoterInterface
     {
         return in_array($attribute, array(
             self::EDIT,
+            self::REMOVE,
         ));
     }
 
@@ -85,6 +87,7 @@ class CommentVoter implements VoterInterface
 
         switch ($attribute) {
             case self::EDIT:
+            case self::REMOVE:
                 if ($user->hasRole('ROLE_ADMIN')) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
