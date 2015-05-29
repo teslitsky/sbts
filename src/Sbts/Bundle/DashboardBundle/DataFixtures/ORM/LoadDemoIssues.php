@@ -78,6 +78,8 @@ class LoadDemoIssues extends AbstractFixture implements
                 $this->addReference(sprintf('issue%d', $issue->getId()), $issue);
             }
         }
+
+        $this->addReference('issue-test', $issue);
     }
 
     /**

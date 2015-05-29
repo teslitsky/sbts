@@ -4,12 +4,14 @@ namespace Sbts\Bundle\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
+use Sbts\Bundle\UserBundle\Entity\User;
 
 /**
  * Comment
  *
  * @ORM\Table(name="sbts_comment")
  * @ORM\Entity(repositoryClass="Sbts\Bundle\CommentBundle\Entity\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -61,10 +63,11 @@ class Comment
     /**
      * Set author
      *
-     * @param string $author
+     * @param User $author
+     *
      * @return Comment
      */
-    public function setAuthor($author)
+    public function setAuthor(User $author)
     {
         $this->author = $author;
 
@@ -74,7 +77,7 @@ class Comment
     /**
      * Get author
      *
-     * @return string
+     * @return User
      */
     public function getAuthor()
     {
@@ -85,6 +88,7 @@ class Comment
      * Set body
      *
      * @param string $body
+     *
      * @return Comment
      */
     public function setBody($body)
@@ -108,6 +112,7 @@ class Comment
      * Set created
      *
      * @param \DateTime $created
+     *
      * @return Comment
      */
     public function setCreated($created)
@@ -131,6 +136,7 @@ class Comment
      * Set issue
      *
      * @param Issue $issue
+     *
      * @return Comment
      */
     public function setIssue(Issue $issue)
@@ -148,5 +154,13 @@ class Comment
     public function getIssue()
     {
         return $this->issue;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersistAction()
+    {
+        $this->setCreated(new \DateTime());
     }
 }

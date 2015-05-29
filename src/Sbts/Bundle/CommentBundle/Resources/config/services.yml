@@ -1,4 +1,18 @@
 services:
-#    sbts_comment.example:
-#        class: Sbts\Bundle\CommentBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    sbts.comment.security.voter:
+        class:      Sbts\Bundle\CommentBundle\Security\Authorization\Voter\CommentVoter
+        public:     false
+        tags:
+            - { name: security.voter }
+
+    sbts.comment.form.edit:
+        class: Sbts\Bundle\CommentBundle\Form\Type\CommentFormType
+        arguments:
+            - @router
+        tags:
+            - { name: form.type, alias: sbts_comment_form }
+
+    sbts.comment.lifecycle.event_listener:
+        class: Sbts\Bundle\CommentBundle\EventListener\CommentLifecycleListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }

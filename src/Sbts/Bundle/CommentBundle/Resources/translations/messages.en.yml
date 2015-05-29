@@ -1,0 +1,5 @@
+comment:
+    form:
+        add: Add comment
+        update: Update
+        list: Comments

@@ -8,6 +8,7 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Sbts\Bundle\DashboardBundle\DataFixtures\ORM\LoadDemoIssues;
 use Sbts\Bundle\DashboardBundle\DataFixtures\ORM\LoadDemoProjects;
 use Sbts\Bundle\DashboardBundle\DataFixtures\ORM\LoadDemoUsers;
+use Sbts\Bundle\CommentBundle\DataFixtures\ORM\LoadCommentData;
 use Sbts\Bundle\IssueBundle\DataFixtures\ORM\LoadPriorityData;
 use Sbts\Bundle\IssueBundle\DataFixtures\ORM\LoadResolutionData;
 use Sbts\Bundle\IssueBundle\DataFixtures\ORM\LoadStatusData;
@@ -72,6 +73,10 @@ class WebTestCase extends BaseWebTestCase
         $loader->addFixture($fixtures);
 
         $fixtures = new LoadDemoIssues();
+        $fixtures->setContainer($container);
+        $loader->addFixture($fixtures);
+
+        $fixtures = new LoadCommentData();
         $fixtures->setContainer($container);
         $loader->addFixture($fixtures);
 
