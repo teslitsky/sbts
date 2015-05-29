@@ -10,7 +10,11 @@ project:
     activity: Project activity
     info: Project info
     users_list: Users list
+    issues_list: Backlog
     link:
         update: Update project
     validation:
         code: Project code must be unique
+    view:
+        no_activity: No activity
+        no_issues: No issues

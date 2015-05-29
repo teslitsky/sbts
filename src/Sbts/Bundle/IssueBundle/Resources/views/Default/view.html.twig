@@ -37,19 +37,19 @@
             <div class="row">
                 <div class="col-md-6">
                     <p>
-                        <strong>{{ 'issue.view.type' | trans }}</strong> {{ issue.type.name | trans }}
+                        <strong>{{ 'issue.view.type' | trans }}:</strong> {{ issue.type.name | trans }}
                     </p>
                     <p>
-                        <strong>{{ 'issue.view.priority' | trans }}</strong> {{ issue.priority.name | trans }}
+                        <strong>{{ 'issue.view.priority' | trans }}:</strong> {{ issue.priority.name | trans }}
                     </p>
                 </div>
 
                 <div class="col-md-6">
                     <p>
-                        <strong>{{ 'issue.view.status' | trans }}</strong> {{ issue.status.name | trans }}
+                        <strong>{{ 'issue.view.status' | trans }}:</strong> {{ issue.status.name | trans }}
                     </p>
                     <p>
-                        <strong>{{ 'issue.view.resolution' | trans }}</strong> {{ issue.resolution.name | trans }}
+                        <strong>{{ 'issue.view.resolution' | trans }}:</strong> {{ issue.resolution.name | trans }}
                     </p>
                 </div>
             </div>
@@ -75,14 +75,18 @@
 
                     <div class="row">
                         {% for child in issue.children %}
-                            <div class="col-md-2">
-                                {{ child.id }}
-                                {% if child.resolution.name == 'issue.resolution.resolved' %}
-                                    <span class="fui-check-circle"></span>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-5">
-                                <a href="{{ path('sbts_issue_page', {'issue': child.code}) }}">{{ child.summary }}</a>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        {{ child.id }}
+                                        {% if child.resolution.name == 'issue.resolution.resolved' %}
+                                            <span class="fui-check-circle"></span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-5">
+                                        <a href="{{ path('sbts_issue_page', {'issue': child.code}) }}">{{ child.summary }}</a>
+                                    </div>
+                                </div>
                             </div>
                         {% else %}
                             <div class="col-md-12">
@@ -121,20 +125,30 @@
 
                     <div class="row">
                         {% for comment in issue.comments %}
-                            <div class="col-md-2">
-                                {{ comment.created | localizeddate('short', 'short') }}
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        {{ comment.created | localizeddate('short', 'short') }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{ comment.author.fullname }}
+                                        {% if is_granted('edit', comment) %}
+                                            <a href="{{ path('sbts_comment_edit', {'comment': comment.id}) }}">
+                                                <span class="fui-new"></span>
+                                            </a>
+                                        {% endif %}
+                                        {% if is_granted('remove', comment) %}
+                                            <a href="{{ path('sbts_comment_delete', {'comment': comment.id}) }}">
+                                                <span class="fui-trash"></span>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-5">
+                                        {{ comment.body }}
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-5">
-                                {{ comment.author.fullname }}
-                                {% if is_granted('edit', comment) %} |
-                                    <a href="{{ path('sbts_comment_edit', {'comment': comment.id}) }}">
-                                        {{ 'comment.form.edit'| trans }}
-                                    </a>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-5">
-                                {{ comment.body }}
-                            </div>
+
                         {% else %}
                             <div class="col-md-12">
                                 <p>{{ 'issue.view.no_comments' | trans }}</p>
@@ -155,13 +169,13 @@
             <h6>{{ 'issue.view.people' | trans }}</h6>
 
             <p>
-                <strong>{{ 'issue.view.assignee' | trans }}</strong>
+                <strong>{{ 'issue.view.assignee' | trans }}:</strong>
                 <a href="{{ path('sbts_user_profile', {'username': issue.assignee.username}) }}">
                     <span class="fui-user"></span> {{ issue.assignee.username }}
                 </a>
             </p>
             <p>
-                <strong>{{ 'issue.view.reporter' | trans }}</strong>
+                <strong>{{ 'issue.view.reporter' | trans }}:</strong>
                 <a href="{{ path('sbts_user_profile', {'username': issue.reporter.username}) }}">
                     <span class="fui-user"></span> {{ issue.reporter.username }}
                 </a>
@@ -172,11 +186,11 @@
             <h6>{{ 'issue.view.dates' | trans }}</h6>
 
             <p>
-                <strong>{{ 'issue.view.created' | trans }}</strong>
+                <strong>{{ 'issue.view.created' | trans }}:</strong>
                 {{ issue.created | localizeddate('short', 'short') }}
             </p>
             <p>
-                <strong>{{ 'issue.view.updated' | trans }}</strong>
+                <strong>{{ 'issue.view.updated' | trans }}:</strong>
                 {{ issue.updated | localizeddate('short', 'short') }}
             </p>
 
