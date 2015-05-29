@@ -3,6 +3,8 @@
 namespace Sbts\Bundle\IssueBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * IssueRepository
@@ -12,4 +14,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class IssueRepository extends EntityRepository
 {
+    /**
+     * @param string $code
+     *
+     * @return Issue
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function findByCode($code)
+    {
+        $codeParts = explode('-', $code);
+        $id = (int) end($codeParts);
+
+        return $this
+            ->getEntityManager()
+            ->createQuery('SELECT issue FROM SbtsIssueBundle:Issue issue WHERE issue.id = :id')
+            ->setParameters([
+                'id' => $id
+            ])
+            ->getSingleResult();
+    }
 }

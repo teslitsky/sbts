@@ -1,0 +1,6 @@
+{% if user.avatar is not null %}
+    <img src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('collaborator_avatar') }}"
+         alt="{{ user.username }}"/>
+{% else %}
+    <span class="fui-user"></span>
+{% endif %}

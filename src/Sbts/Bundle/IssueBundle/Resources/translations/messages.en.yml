@@ -26,9 +26,20 @@ issue:
         resolution: Resolution
         created: Created
         updated: Updated
+        details: Details
+        assignee: Assigned
+        reporter: Reporter
+        people: People
+        dates: Dates
+        summary: Summary
+        collaborators: Collaborators
+        children: Sub-Tasks
+        no_subtasks: Has no subtasks
+        no_comments: Has no comments
+        add_sub_task: Add sub-task
     form:
         create: Create issue
         update: Update issue
-
-app:
-    issues_list: All Issues
+    link:
+        edit: Edit
+    page: Issue code

@@ -1,4 +1,24 @@
 services:
-#    sbts_issue.example:
-#        class: Sbts\Bundle\IssueBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    sbts.issue.issue_manager:
+        class: Sbts\Bundle\IssueBundle\Model\IssueManager
+        arguments: [@doctrine.orm.entity_manager]
+
+    sbts.issue.form.issue:
+        class: Sbts\Bundle\IssueBundle\Form\Type\IssueFormType
+        arguments:
+            - @security.context
+        tags:
+            - { name: form.type, alias: sbts_issue_form }
+
+    bts.issue.form.subtask:
+        class: Sbts\Bundle\IssueBundle\Form\Type\SubTaskFormType
+        arguments:
+            - @security.context
+        tags:
+            - { name: form.type, alias: sbts_issue_subtask_form }
+
+    sbts.issue.security.voter:
+        class:      Sbts\Bundle\IssueBundle\Security\Authorization\Voter\IssueVoter
+        public:     false
+        tags:
+            - { name: security.voter }

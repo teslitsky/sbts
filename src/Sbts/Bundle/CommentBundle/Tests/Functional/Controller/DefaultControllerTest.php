@@ -11,7 +11,7 @@ class DefaultControllerTest extends WebTestCase
         $client = $this->createAuthorizedClient('admin');
         $crawler = $client->request('GET', '/issue/view/' . $this->getReference('issue-test')->getCode());
         $form = $crawler->selectButton('Add')->form([
-            'sbts_comment_form[comment]' => 'Test comment',
+            'sbts_comment_form[body]' => 'Test comment',
         ]);
 
         $client->followRedirects(true);
@@ -28,7 +28,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/comment/edit/' . $comment->getId());
 
         $form = $crawler->selectButton('Update')->form([
-            'sbts_comment_form[comment]' => 'Modified comment',
+            'sbts_comment_form[body]' => 'Modified comment',
         ]);
 
         $client->followRedirects(true);

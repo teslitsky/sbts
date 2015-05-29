@@ -148,8 +148,18 @@ liip_imagine:
             filters:
                 thumbnail: { size: [112, 112], mode: outbound }
 
+        collaborator_avatar:
+            quality: 75
+            filters:
+                thumbnail: { size: [24, 24], mode: outbound }
+
 services:
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }

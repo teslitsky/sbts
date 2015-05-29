@@ -2,4 +2,8 @@ comment:
     form:
         add: Add comment
         update: Update
+        edit: Edit
+    view:
         list: Comments
+    wrote: Wrote
+    update: Update

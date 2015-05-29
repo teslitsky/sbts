@@ -33,3 +33,5 @@ user:
             ROLE_OPERATOR: Operator
             ROLE_MANAGER: Manager
             ROLE_ADMIN: Admin
+    view:
+        activity: Activity
