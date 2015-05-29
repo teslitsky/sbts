@@ -1,0 +1,7 @@
+{{ 'issue.email.title' | trans({'%code%' : event.issue.code}) }}
+
+{% if event.comment is not null %}
+    {{ event.event }}: {{ event.comment.body }}
+{% else %}
+    {{ 'issue.email.status' | trans({'%status%' : event.event}) }}
+{% endif %}

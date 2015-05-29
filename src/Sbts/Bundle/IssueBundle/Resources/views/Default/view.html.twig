@@ -99,25 +99,29 @@
                     <h6>{{ 'user.view.activity' | trans }}</h6>
 
                     <div class="row">
-                        {% for activity in issue.activity %}
-                            <div class="col-md-3">
-                                <p>{{ activity.created | localizeddate('short', 'short')}}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p>
-                                    <a href="{{ path('sbts_user_profile', {username: activity.initiator.username}) }}">
-                                        {{ activity.initiator.fullname }}
-                                    </a>
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                {% if activity.comment is not null %}
-                                    {{ 'comment.wrote' | trans }} {{ activity.comment.body }}
-                                {% else %}
-                                    {{ activity.event | trans }}
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+                        <div class="col-md-12">
+                            {% for activity in issue.activity %}
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <p>{{ activity.created | localizeddate('short', 'short')}}</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p>
+                                            <a href="{{ path('sbts_user_profile', {username: activity.initiator.username}) }}">
+                                                {{ activity.initiator.fullname }}
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {% if activity.comment is not null %}
+                                            {{ 'comment.wrote' | trans }} {{ activity.comment.body }}
+                                        {% else %}
+                                            {{ activity.event | trans }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
 
                     <hr/>
@@ -131,7 +135,10 @@
                                         {{ comment.created | localizeddate('short', 'short') }}
                                     </div>
                                     <div class="col-md-4">
-                                        {{ comment.author.fullname }}
+                                        <a href="{{ path('sbts_user_profile', {'username':comment.author.username}) }}">
+                                            {{ comment.author.fullname }}
+                                        </a>
+
                                         {% if is_granted('edit', comment) %}
                                             <a href="{{ path('sbts_comment_edit', {'comment': comment.id}) }}">
                                                 <span class="fui-new"></span>

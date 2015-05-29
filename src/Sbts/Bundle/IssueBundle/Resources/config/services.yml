@@ -22,3 +22,20 @@ services:
         public:     false
         tags:
             - { name: security.voter }
+
+    sbts.issue.lifecycle.event_listener:
+        class:  Sbts\Bundle\IssueBundle\EventListener\IssueLifecycleListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+
+    sbts.activity.lifecycle.event_listener:
+        class:  Sbts\Bundle\IssueBundle\EventListener\ActivityLifecycleListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }

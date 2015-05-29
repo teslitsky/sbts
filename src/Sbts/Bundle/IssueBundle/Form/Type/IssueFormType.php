@@ -59,6 +59,11 @@ class IssueFormType extends AbstractType
             ->add('reporter', 'entity', [
                 'class'    => 'SbtsUserBundle:User',
                 'property' => 'fullname',
+                'data'     => (null === $builder->getData()->getReporter()) ? $user : $builder->getData()->getReporter()
+            ])
+            ->add('assignee', 'entity', [
+                'class'    => 'SbtsUserBundle:User',
+                'property' => 'fullname',
                 'data'     => (null === $builder->getData()->getAssignee()) ? $user : $builder->getData()->getAssignee()
             ]);
 

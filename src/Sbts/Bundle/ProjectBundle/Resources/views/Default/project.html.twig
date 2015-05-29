@@ -11,9 +11,15 @@
             </h4>
             <p>{{ project.summary }}</p>
 
-            <a class="btn btn-primary" href="{{ path('sbts_project_update', {'project': project.code}) }}">
-                {{ 'project.edit' | trans }}
-            </a>
+            {% if is_granted('edit', project) %}
+                <a class="btn btn-primary" href="{{ path('sbts_project_update', {'project': project.code}) }}">
+                    {{ 'project.edit' | trans }}
+                </a>
+
+                <a class="btn btn-primary" href="{{ path('sbts_issue_create', {'project': project.code}) }}">
+                    {{ 'issue.form.create' | trans }}
+                </a>
+            {% endif %}
 
             <h6>{{ 'project.issues_list' | trans }}</h6>
 
@@ -70,24 +76,28 @@
 
             <div class="row">
                 {% for activity in project.activity %}
-                    <div class="col-md-3">
-                        {{ activity.created | localizeddate('short', 'short') }}
-                    </div>
-                    <div class="col-md-7">
-                        <a href="{{ path('sbts_user_profile', {username: activity.initiator.username}) }}">
-                            {{ activity.initiator.fullname }}
-                        </a>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ activity.created | localizeddate('short', 'short') }}
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{{ path('sbts_user_profile', {username: activity.initiator.username}) }}">
+                                    {{ activity.initiator.fullname }}
+                                </a>
 
-                        {% if activity.comment != null %}
-                            wrote: {{ activity.comment.body }}
-                        {% else %}
-                            {{ activity.event|trans }}
-                        {% endif %}
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{{ path('sbts_issue_page', {'issue': activity.issue.code}) }}" >
-                            {{ activity.issue.code }}
-                        </a>
+                                {% if activity.comment != null %}
+                                    wrote: {{ activity.comment.body }}
+                                {% else %}
+                                    {{ activity.event|trans }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{{ path('sbts_issue_page', {'issue': activity.issue.code}) }}" >
+                                    {{ activity.issue.code }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 {% else %}
                     <div class="col-md-12">
