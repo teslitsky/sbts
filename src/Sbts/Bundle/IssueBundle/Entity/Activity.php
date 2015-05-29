@@ -11,7 +11,7 @@ use Sbts\Bundle\UserBundle\Entity\User;
  * Activity
  *
  * @ORM\Table(name="sbts_activity")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Sbts\Bundle\IssueBundle\Entity\ActivityRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Activity

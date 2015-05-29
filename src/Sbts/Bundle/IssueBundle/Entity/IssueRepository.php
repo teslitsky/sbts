@@ -5,6 +5,8 @@ namespace Sbts\Bundle\IssueBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Sbts\Bundle\ProjectBundle\Entity\Project;
+use Sbts\Bundle\UserBundle\Entity\User;
 
 /**
  * IssueRepository
@@ -31,8 +33,92 @@ class IssueRepository extends EntityRepository
             ->getEntityManager()
             ->createQuery('SELECT issue FROM SbtsIssueBundle:Issue issue WHERE issue.id = :id')
             ->setParameters([
-                'id' => $id
+                'id' => $id,
             ])
             ->getSingleResult();
+    }
+
+    /**
+     * @param Project $project
+     *
+     * @return array
+     */
+    public function findAllByProject($project)
+    {
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('issue')
+            ->from('SbtsIssueBundle:Issue', 'issue')
+            ->where('issue.project = :project_id')
+            ->setParameter('project_id', $project)
+            ->orderBy('issue.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param User $user
+     * @param int  $limit
+     *
+     * @return array
+     */
+    public function findAllByCollaborator($user, $limit = 20)
+    {
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('issue')
+            ->from('SbtsIssueBundle:Issue', 'issue')
+            ->join('issue.collaborators', 'user')
+            ->where('issue.reporter = :user_id')
+            ->orWhere('issue.assignee = :user_id')
+            ->orWhere('user.id = :user_id')
+            ->setParameter('user_id', $user)
+            ->orderBy('issue.updated', 'DESC')
+            ->orderBy('issue.id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param User $user
+     * @param int  $limit
+     *
+     * @return array
+     */
+    public function findAllWhereUserIsAssignee($user, $limit = 20)
+    {
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('issue')
+            ->from('SbtsIssueBundle:Issue', 'issue')
+            ->where('issue.assignee = :user_id')
+            ->andWhere('issue.status = 1')
+            ->setParameter('user_id', $user)
+            ->orderBy('issue.updated', 'DESC')
+            ->orderBy('issue.id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findAllSortedByDate($limit = 20)
+    {
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('issue')
+            ->from('SbtsIssueBundle:Issue', 'issue')
+            ->orderBy('issue.created', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
     }
 }

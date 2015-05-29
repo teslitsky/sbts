@@ -1,2 +1,4 @@
-app:
+dashboard:
     dashboard: Dashboard
+    activities: Activities
+    issues: Issues

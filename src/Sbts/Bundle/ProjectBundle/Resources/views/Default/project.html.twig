@@ -29,20 +29,20 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td style="width:40%;">
+                                <td class="col-md-6">
                                     <a href="{{ path('sbts_issue_page', {'issue': issue.code}) }}">
                                         {{ issue.code }}
                                     </a>
                                     {{ issue.summary | truncate(200) }}
                                 </td>
-                                <td>{{ issue.type | trans }}</td>
-                                <td style="width:25%;">
+                                <td class="col-md-1">{{ issue.type | trans }}</td>
+                                <td class="col-md-3">
                                     <a href="{{ path('sbts_user_profile', {'username' : issue.assignee.username}) }}">
                                         {{ issue.assignee.fullname }}
                                     </a>
                                 </td>
-                                <td style="width:60px;">{{ issue.updated | localizeddate('short', 'short') }}</td>
-                                <td style="width:60px;">{{ issue.created | localizeddate('short', 'short') }}</td>
+                                <td class="col-md-1">{{ issue.updated | localizeddate('short', 'short') }}</td>
+                                <td class="col-md-1">{{ issue.created | localizeddate('short', 'short') }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -86,10 +86,10 @@
                                     {{ activity.initiator.fullname }}
                                 </a>
 
-                                {% if activity.comment != null %}
-                                    wrote: {{ activity.comment.body }}
+                                {% if activity.comment is not null %}
+                                    {{ 'comment.wrote' | trans }}: {{ activity.comment.body }}
                                 {% else %}
-                                    {{ activity.event|trans }}
+                                    {{ activity.event | trans }}
                                 {% endif %}
                             </div>
                             <div class="col-md-2">
