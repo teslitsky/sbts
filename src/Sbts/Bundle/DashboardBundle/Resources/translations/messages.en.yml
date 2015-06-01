@@ -2,3 +2,14 @@ dashboard:
     dashboard: Dashboard
     activities: Activities
     issues: Issues
+    view:
+        activities:
+            date: Date
+            issue: Issue
+            event: Event
+        issues:
+            created: Created
+            updated: Updated
+            type: Type
+            issue: Issue
+            assignee: Assignee

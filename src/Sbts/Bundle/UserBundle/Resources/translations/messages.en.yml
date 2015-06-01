@@ -14,7 +14,7 @@ user:
     no_users: No users found
     profile: User profile
     activity: User activity
-    issues_title: User issues
+    issues_title: User assigned issues
     edit: Edit
     noname: Noname
     username: Username

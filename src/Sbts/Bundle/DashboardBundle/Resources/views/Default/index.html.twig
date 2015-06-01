@@ -4,72 +4,81 @@
 
 {% block body %}
     <div class="row">
-        <h6>{{ 'dashboard.activities' | trans }}</h6>
+        <div class="col-md-12">
+            <h6>{{ 'dashboard.activities' | trans }}</h6>
 
-        <div class="row">
-            {% for activity in activities %}
-                <div class="col-md-12">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td class="col-md-3">
-                                {{ activity.created | localizeddate('short', 'short') }}
-                            </td>
-                            <td class="col-md-7">
-                                <a href="{{ path('sbts_user_profile', { 'username': activity.initiator.username }) }}">
-                                    {{ activity.initiator.fullname }}
+            <table class="table">
+                <thead>
+                <th>{{ 'dashboard.view.activities.date' | trans }}</th>
+                <th>{{ 'dashboard.view.activities.issue' | trans }}</th>
+                <th>{{ 'dashboard.view.activities.event' | trans }}</th>
+                </thead>
+                <tbody>
+                {% for activity in activities %}
+                    <tr>
+                        <td class="col-md-2">
+                            {{ activity.created | localizeddate('short', 'short') }}
+                        </td>
+                        <td class="col-md-1">
+                            {% if is_granted('view', activity.issue) %}
+                                <a href="{{ path('sbts_issue_page', { 'issue': activity.issue.id }) }}">
+                                    {{ activity.issue.code }}
                                 </a>
+                            {% else %}
+                                {{ activity.issue.code | trans }}
+                            {% endif %}
+                        </td>
+                        <td class="col-md-9">
+                            <a href="{{ path('sbts_user_profile', { 'username': activity.initiator.username }) }}">
+                                {{ activity.initiator.fullname }}
+                            </a>
 
-                                {% if activity.comment is not null %}
-                                    {{ 'comment.wrote' | trans }}: {{ activity.comment.body }}
-                                {% else %}
-                                    {{ activity.event | trans }}
-                                {% endif %}
-                            </td>
-                            <td class="col-md-2">
-                                {% if is_granted('view', activity.issue) %}
-                                    <a href="{{ path('sbts_issue_page', { 'issue': activity.issue.id }) }}">
-                                        {{ activity.issue.code }}
-                                    </a>
-                                {% else %}
-                                    {{ activity.issue.code | trans }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            {% endfor %}
+                            {% if activity.comment is not null %}
+                                {{ 'comment.wrote' | trans }}: {{ activity.comment.body }}
+                            {% else %}
+                                {{ activity.event | trans }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            </tbody>
         </div>
 
-        <hr/>
-        <h6>{{ 'dashboard.issues' | trans }}</h6>
+        <div class="col-md-12">
+            <hr/>
+            <h6>{{ 'dashboard.issues' | trans }}</h6>
 
-        <div class="row">
-            {% for issue in issues %}
-                <div class="col-md-12">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td class="col-md-6">
-                                <a href="{{ path('sbts_issue_page', {'issue': issue.code}) }}">
-                                    {{ issue.code }}
-                                </a>
-                                {{ issue.summary | truncate(200) }}
-                            </td>
-                            <td class="col-md-1">{{ issue.type | trans }}</td>
-                            <td class="col-md-3">
-                                <a href="{{ path('sbts_user_profile', {'username' : issue.assignee.username}) }}">
-                                    {{ issue.assignee.fullname }}
-                                </a>
-                            </td>
-                            <td class="col-md-1">{{ issue.updated | localizeddate('short', 'short') }}</td>
-                            <td class="col-md-1">{{ issue.created | localizeddate('short', 'short') }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            {% endfor %}
+            <table class="table">
+                <thead>
+                <th>{{ 'dashboard.view.issues.created' | trans }}</th>
+                <th>{{ 'dashboard.view.issues.updated' | trans }}</th>
+                <th>{{ 'dashboard.view.issues.type' | trans }}</th>
+                <th>{{ 'dashboard.view.issues.issue' | trans }}</th>
+                <th>{{ 'dashboard.view.issues.assignee' | trans }}</th>
+                </thead>
+                <tbody>
+                {% for issue in issues %}
+                    <tr>
+                        <td class="col-md-1">{{ issue.created | localizeddate('short', 'short') }}</td>
+                        <td class="col-md-1">{{ issue.updated | localizeddate('short', 'short') }}</td>
+                        <td class="col-md-1">{{ issue.type | trans }}</td>
+                        <td class="col-md-6">
+                            <a href="{{ path('sbts_issue_page', {'issue': issue.code}) }}">
+                                {{ issue.code }}
+                            </a>
+                            {{ issue.summary | truncate(200) }}
+                        </td>
+                        <td class="col-md-3">
+                            <a href="{{ path('sbts_user_profile', {'username' : issue.assignee.username}) }}">
+                                {{ issue.assignee.fullname }}
+                            </a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
