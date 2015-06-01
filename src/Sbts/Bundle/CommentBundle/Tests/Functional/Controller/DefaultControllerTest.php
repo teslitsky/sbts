@@ -23,7 +23,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/issue/view/' . $this->getReference('issue-test')->getCode());
 
         // Page has Comments form
-        $this->assertTrue($crawler->filter('html:contains("Comments")')->count() === 1);
+        $this->assertEquals(1, $crawler->filter('html:contains("Comments")')->count());
 
         $form = $crawler->selectButton('Add')->form([
             'sbts_comment_form[body]' => 'Test comment',
@@ -33,7 +33,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->submit($form);
 
         // Added comment appear on the page
-        $this->assertTrue($crawler->filter('html:contains("Test comment")')->count() === 1);
+        $this->assertEquals(1, $crawler->filter('html:contains("Test comment")')->count());
     }
 
     public function testCreateUserGrantedInvalidForm()
@@ -73,7 +73,7 @@ class DefaultControllerTest extends WebTestCase
         $client->followRedirects(true);
         $crawler = $client->submit($form);
 
-        $this->assertTrue($crawler->filter('html:contains("Modified comment by author")')->count() === 1);
+        $this->assertEquals(1, $crawler->filter('html:contains("Modified comment by author")')->count());
     }
 
     public function testEditUserGranted()
@@ -89,7 +89,7 @@ class DefaultControllerTest extends WebTestCase
         $client->followRedirects(true);
         $crawler = $client->submit($form);
 
-        $this->assertTrue($crawler->filter('html:contains("Modified comment")')->count() === 1);
+        $this->assertEquals(1, $crawler->filter('html:contains("Modified comment")')->count());
     }
 
     public function testDeleteUserDenied()
