@@ -7,3 +7,5 @@ comment:
         list: Comments
     wrote: wrote
     update: Update
+    validation:
+        body: Body should not be empty

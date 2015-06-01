@@ -10,7 +10,7 @@ use Sbts\Bundle\UserBundle\Entity\User;
  * Comment
  *
  * @ORM\Table(name="sbts_comment")
- * @ORM\Entity(repositoryClass="Sbts\Bundle\CommentBundle\Entity\CommentRepository")
+ * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
 class Comment

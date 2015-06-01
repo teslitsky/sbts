@@ -57,7 +57,7 @@ class LoadDemoIssues extends AbstractFixture implements
         $priority = $this->getReference('issue_priority_major');
         $resolution = $this->getReference('issue_resolution_unresolved');
 
-        // Create issues for every project
+        // Create 5 issues for every of 3 project
         for ($p = 1; $p <= 3; $p++) {
             for ($i = 1; $i <= 5; $i++) {
                 $issue = new Issue();

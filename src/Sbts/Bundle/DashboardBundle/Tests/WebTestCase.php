@@ -90,9 +90,11 @@ class WebTestCase extends BaseWebTestCase
     }
 
     /**
+     * @param string $username Username
+     *
      * @return Client
      */
-    protected function createAuthorizedClient($login)
+    protected function createAuthorizedClient($username)
     {
         $client = static::createClient();
         $container = $client->getContainer();
@@ -104,7 +106,7 @@ class WebTestCase extends BaseWebTestCase
         $loginManager = $container->get('fos_user.security.login_manager');
         $firewallName = $container->getParameter('fos_user.firewall_name');
 
-        $user = $userManager->findUserBy(['username' => $login]);
+        $user = $userManager->findUserBy(['username' => $username]);
         $loginManager->loginUser($firewallName, $user);
 
         // save the login token into the session and put it in a cookie
@@ -142,13 +144,5 @@ class WebTestCase extends BaseWebTestCase
         $client->submit($form);
 
         return $client->followRedirect();
-    }
-
-    protected function createCrawler($location, array $options = [])
-    {
-        $client = static::createClient($options);
-        $client->request('GET', $location);
-
-        return $client->getCrawler();
     }
 }

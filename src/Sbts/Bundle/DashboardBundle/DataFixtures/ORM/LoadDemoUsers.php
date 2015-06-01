@@ -71,6 +71,6 @@ class LoadDemoUsers extends AbstractFixture implements
      */
     public function getOrder()
     {
-        return 5;
+        return 1;
     }
 }

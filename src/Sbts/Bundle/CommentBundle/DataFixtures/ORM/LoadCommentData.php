@@ -35,7 +35,7 @@ class LoadCommentData extends AbstractFixture implements
     {
         $comment = new Comment();
         $comment->setBody('Comment text');
-        $comment->setAuthor($this->getReference('user-admin'));
+        $comment->setAuthor($this->getReference('user2'));
         $comment->setIssue($this->getReference('issue-test'));
 
         $om->persist($comment);

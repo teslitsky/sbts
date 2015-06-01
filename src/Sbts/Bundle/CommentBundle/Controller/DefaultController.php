@@ -24,7 +24,7 @@ class DefaultController extends Controller
      */
     public function createAction(Request $request, Issue $issue)
     {
-        if (false === $this->get('security.context')->isGranted('view', $issue)) {
+        if (false === $this->get('security.context')->isGranted('edit', $issue)) {
             throw new AccessDeniedException('Unauthorised access!');
         }
 
