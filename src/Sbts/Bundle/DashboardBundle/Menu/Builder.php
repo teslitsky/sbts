@@ -14,7 +14,6 @@ class Builder extends ContainerAware
             ->setChildrenAttribute('class', 'nav navbar-nav');
 
         $menu->addChild('Projects', array('route' => 'sbts_project_list'));
-        //$menu->addChild('Issues', array('route' => 'sbts_issue_list'));
         $menu->addChild('Users', array('route' => 'sbts_user_list'));
 
         return $menu;

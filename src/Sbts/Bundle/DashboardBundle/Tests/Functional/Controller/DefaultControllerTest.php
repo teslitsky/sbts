@@ -15,13 +15,15 @@ class DefaultControllerTest extends WebTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->client = $this->createAuthorizedClient('user');
+        $this->client = $this->createAuthorizedClient('admin');
     }
 
     public function testDashboard()
     {
         $this->client->request('GET', '/');
         $crawler = $this->client->getCrawler();
-        $this->assertCount(1, $crawler->filter('html:contains("Dashboard")'));
+        // Activities and issues mut be not empty after fixtures
+        $this->assertTrue($crawler->filter('.st-activities-list tr')->count() > 0);
+        $this->assertTrue($crawler->filter('.st-issues-list tr')->count() > 0);
     }
 }
