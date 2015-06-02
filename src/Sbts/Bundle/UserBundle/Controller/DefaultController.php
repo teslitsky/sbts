@@ -48,7 +48,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/user/edit/{username}", name="sbts_user_edit")
+     * @Route("/user/update/{username}", name="sbts_user_edit")
      * @param Request $request
      * @param string  $username
      *
@@ -58,12 +58,17 @@ class DefaultController extends Controller
     {
         $userManager = $this->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($username);
+        $formName = 'sbts_user_profile';
 
         if (false === $this->get('security.context')->isGranted('edit', $user)) {
             throw new AccessDeniedException('Unauthorised access!');
         }
 
-        $form = $this->createForm('sbts_user_profile', $user);
+        if (false !== $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $formName = 'sbts_user_edit';
+        }
+
+        $form = $this->createForm($formName, $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

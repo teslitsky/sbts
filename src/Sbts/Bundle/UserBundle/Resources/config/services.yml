@@ -4,6 +4,11 @@ services:
         tags:
             - { name: form.type, alias: sbts_user_profile }
 
+    sbts.user.edit.form.type:
+        class: Sbts\Bundle\UserBundle\Form\Type\UserEditFormType
+        tags:
+            - { name: form.type, alias: sbts_user_edit }
+
     sbts.user.security.voter:
         class:      Sbts\Bundle\UserBundle\Security\Authorization\Voter\UserVoter
         public:     false
