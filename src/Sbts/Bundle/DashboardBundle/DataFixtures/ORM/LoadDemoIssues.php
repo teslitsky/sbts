@@ -75,7 +75,7 @@ class LoadDemoIssues extends AbstractFixture implements
                 $om->persist($issue);
                 $om->flush();
 
-                $this->addReference(sprintf('issue%d', $issue->getId()), $issue);
+                $this->addReference(sprintf('issue%d%d', $p, $i), $issue);
             }
         }
 

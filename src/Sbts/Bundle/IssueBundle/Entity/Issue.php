@@ -84,7 +84,7 @@ class Issue
 
     /**
      * @ORM\ManyToOne(targetEntity="Issue", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     private $parent;
 
@@ -119,7 +119,7 @@ class Issue
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="Sbts\Bundle\IssueBundle\Entity\Activity", mappedBy="issue")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="issue", cascade={"remove", "persist"})
      **/
     private $activity;
 

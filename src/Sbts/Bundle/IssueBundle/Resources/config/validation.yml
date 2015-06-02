@@ -1,0 +1,38 @@
+Sbts\Bundle\IssueBundle\Entity\Issue:
+    properties:
+        summary:
+            - NotBlank:
+                message: 'issue.validation.summary'
+        description:
+            - NotBlank:
+                message: 'issue.validation.description'
+        priority:
+            - Choice:
+                choices:
+                    - 'issue.priority.blocker'
+                    - 'issue.priority.critical'
+                    - 'issue.priority.major'
+                    - 'issue.priority.minor'
+                    - 'issue.priority.trivial'
+                message: 'issue.validation.priority'
+        status:
+            - Choice:
+                choices:
+                    - 'issue.status.open'
+                    - 'issue.status.progress'
+                    - 'issue.status.closed'
+                message: 'issue.validation.status'
+        resolution:
+            - Choice:
+                choices:
+                    - 'issue.resolution.unresolved'
+                    - 'issue.resolution.resolved'
+                message: 'issue.validation.resolution'
+        type:
+            - Choice:
+                choices:
+                    - 'issue.type.bug'
+                    - 'issue.type.subtask'
+                    - 'issue.type.task'
+                    - 'issue.type.story'
+                message: 'issue.type.resolution'

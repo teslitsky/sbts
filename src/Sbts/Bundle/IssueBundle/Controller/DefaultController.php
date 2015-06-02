@@ -133,7 +133,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/addsubtask/{issue}", name="sbts_issue_add_subtask")
+     * @Route("/issue/addsubtask/{issue}", name="sbts_issue_add_subtask")
      * @ParamConverter("issue", class="SbtsIssueBundle:Issue", options={"repository_method" = "findByCode"})
      * @param Request $request
      * @param Issue   $issue
@@ -177,7 +177,7 @@ class DefaultController extends Controller
 
             return $this->redirect(
                 $this->generateUrl('sbts_issue_page', [
-                    'issue' => $issue->getCode(),
+                    'issue' => $subTask->getCode(),
                 ])
             );
         }

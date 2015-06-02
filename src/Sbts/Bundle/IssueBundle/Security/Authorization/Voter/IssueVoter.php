@@ -97,7 +97,7 @@ class IssueVoter implements VoterInterface
                 break;
 
             case self::CREATE_SUB_TASK:
-                if ($issue->getType()->getName() === Type::TYPE_STORY) {
+                if ($this->userCanEditIssue($user, $issue) and $issue->getType()->getName() === Type::TYPE_STORY) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 

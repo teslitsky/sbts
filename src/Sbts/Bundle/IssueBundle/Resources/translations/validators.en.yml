@@ -1,0 +1,8 @@
+issue:
+    validation:
+        summary: Description must be not empty
+        description: Description must be not empty
+        priority: Choose a valid priority
+        status: Choose a valid status
+        resolution: Choose a valid resolution
+        type: Choose a valid type
