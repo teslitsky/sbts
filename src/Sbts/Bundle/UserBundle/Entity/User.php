@@ -57,6 +57,11 @@ class User extends BaseUser
     private $comments;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Sbts\Bundle\IssueBundle\Entity\Issue", mappedBy="collaborators")
+     **/
+    private $issues;
+
+    /**
      * @ORM\OneToMany(targetEntity="Sbts\Bundle\IssueBundle\Entity\Issue", mappedBy="assignee")
      **/
     private $assignedIssues;
@@ -67,6 +72,7 @@ class User extends BaseUser
         // your own logic
         $this->comments = new ArrayCollection();
         $this->assignedIssues = new ArrayCollection();
+        $this->issues = new ArrayCollection();
     }
 
     /**
@@ -200,10 +206,45 @@ class User extends BaseUser
     }
 
     /**
+     * Adds issue in which user is a collaborator
+     *
+     * @param Issue $issues
+     *
+     * @return self
+     */
+    public function addIssue(Issue $issues)
+    {
+        $this->issues[] = $issues;
+
+        return $this;
+    }
+
+    /**
+     * Removes issue in which user is a collaborator
+     *
+     * @param Issue $issues
+     */
+    public function removeIssue(Issue $issues)
+    {
+        $this->issues->removeElement($issues);
+    }
+
+    /**
+     * Gets issues in which user is a collaborator
+     *
+     * @return ArrayCollection
+     */
+    public function getIssues()
+    {
+        return $this->issues;
+    }
+
+    /**
      * Add assignedIssues
      *
      * @param Issue $issue
-     * @return User
+     *
+     * @return self
      */
     public function assignIssue(Issue $issue)
     {
