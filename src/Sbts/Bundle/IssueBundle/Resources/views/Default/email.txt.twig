@@ -1,7 +1,14 @@
-{{ 'issue.email.title' | trans({'%code%' : event.issue.code}) }}
+{% spaceless %}
+    {{ 'issue.email.title' | trans }}
+    <a href="{{ url('sbts_issue_page', {'issue': event.issue.code}) }}">{{ event.issue.code }}</a>
+    <br>
 
-{% if event.comment is not null %}
-    {{ event.event }}: {{ event.comment.body }}
-{% else %}
-    {{ 'issue.email.status' | trans({'%status%' : event.event}) }}
-{% endif %}
+    {% if event.comment is not null %}
+        <a href="{{ url('sbts_user_profile', {'username': event.initiator.username}) }}">
+            {{ event.initiator.fullname }}</a>
+        {{ 'issue.email.event' | trans }} {{ event.event | trans }}: {{ event.comment.body }}
+        <br>
+    {% else %}
+        {{ 'issue.email.status' | trans }} {{ event.event | trans }}
+    {% endif %}
+{% endspaceless %}

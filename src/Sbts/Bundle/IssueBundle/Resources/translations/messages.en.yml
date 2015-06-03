@@ -44,5 +44,6 @@ issue:
         edit: Edit
     page: Issue code
     email:
-        title: You receive this message as collaborator of the Issue code
-        status: 'Issue Status: status'
+        title: 'You receive this message as collaborator of the Issue'
+        status: 'New issue status:'
+        event: 'added new'
