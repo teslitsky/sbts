@@ -98,13 +98,13 @@ knp_menu:
     default_renderer: twig
 
 braincrafted_bootstrap:
-    output_dir:
+    output_dir: ~
     assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
     jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
     less_filter: less # "less", "lessphp", "sass" or "none"
     fonts_dir: %kernel.root_dir%/../web/fonts
     auto_configure:
-        assetic: true
+        assetic: false
         twig: true
         knp_menu: true
         knp_paginator: true
