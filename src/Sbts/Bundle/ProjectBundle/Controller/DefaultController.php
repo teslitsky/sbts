@@ -31,8 +31,9 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $projectManager = $this->get('sbts.project.project_manager');
-            $projectManager->saveProject($project);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
 
             return $this->redirect(
                 $this->generateUrl(
@@ -84,8 +85,9 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $projectManager = $this->get('sbts.project.project_manager');
-            $projectManager->saveProject($project);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
 
             return $this->redirect(
                 $this->generateUrl(
@@ -97,9 +99,12 @@ class DefaultController extends Controller
             );
         }
 
-        return $this->render('SbtsProjectBundle:Default:form.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsProjectBundle:Default:form.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -109,11 +114,18 @@ class DefaultController extends Controller
      */
     public function listAction()
     {
-        $projectManager = $this->get('sbts.project.project_manager');
-        $projects = $projectManager->getAllProjects();
+        if ($this->get('security.context')->isGranted('ROLE_MANAGER')) {
+            $em = $this->getDoctrine()->getManager();
+            $projects = $em->getRepository('SbtsProjectBundle:Project')->findAll();
+        } else {
+            $projects = $this->getUser()->getProjects();
+        }
 
-        return $this->render('SbtsProjectBundle:Default:index.html.twig', [
-            'projects' => $projects,
-        ]);
+        return $this->render(
+            'SbtsProjectBundle:Default:index.html.twig',
+            [
+                'projects' => $projects,
+            ]
+        );
     }
 }

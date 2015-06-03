@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
+use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -66,6 +67,13 @@ class User extends BaseUser
      **/
     private $assignedIssues;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Sbts\Bundle\ProjectBundle\Entity\Project", mappedBy="users")
+     * @ORM\JoinTable(name="sbts_user_to_project")
+     *
+     **/
+    private $projects;
+
     public function __construct()
     {
         parent::__construct();
@@ -73,6 +81,7 @@ class User extends BaseUser
         $this->comments = new ArrayCollection();
         $this->assignedIssues = new ArrayCollection();
         $this->issues = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     /**
@@ -261,6 +270,40 @@ class User extends BaseUser
     public function unAssignIssue(Issue $issue)
     {
         $this->assignedIssues->removeElement($issue);
+    }
+
+    /**
+     * Adds user associated project
+     *
+     * @param Project $project
+     *
+     * @return self
+     */
+    public function addProject(Project $project)
+    {
+        $this->projects[] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Removes user associated project
+     *
+     * @param Project $project
+     */
+    public function removeProject(Project $project)
+    {
+        $this->projects->removeElement($project);
+    }
+
+    /**
+     * Gets user associated projects
+     *
+     * @return ArrayCollection
+     */
+    public function getProjects()
+    {
+        return $this->projects;
     }
 
     /**

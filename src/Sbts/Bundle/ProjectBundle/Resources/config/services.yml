@@ -1,8 +1,4 @@
 services:
-    sbts.project.project_manager:
-        class: Sbts\Bundle\ProjectBundle\Model\ProjectManager
-        arguments: [@doctrine.orm.entity_manager]
-
     sbts.project.form.create:
         class: Sbts\Bundle\ProjectBundle\Form\Type\ProjectFormType
         arguments:
