@@ -2,18 +2,20 @@
 
 namespace Sbts\Bundle\IssueBundle\Controller;
 
-use Sbts\Bundle\CommentBundle\Entity\Comment;
-use Sbts\Bundle\IssueBundle\Entity\Issue;
-use Sbts\Bundle\IssueBundle\Entity\Status;
-use Sbts\Bundle\IssueBundle\Entity\Type;
-use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+use Sbts\Bundle\CommentBundle\Entity\Comment;
+use Sbts\Bundle\IssueBundle\Entity\Issue;
+use Sbts\Bundle\IssueBundle\Entity\Status;
+use Sbts\Bundle\IssueBundle\Entity\Type;
+use Sbts\Bundle\ProjectBundle\Entity\Project;
 
 class DefaultController extends Controller
 {
@@ -53,15 +55,21 @@ class DefaultController extends Controller
             $this->get('sbts.issue.issue_manager')->saveIssue($issue);
 
             return $this->redirect(
-                $this->generateUrl('sbts_issue_page', [
-                    'issue' => $issue->getCode(),
-                ])
+                $this->generateUrl(
+                    'sbts_issue_page',
+                    [
+                        'issue' => $issue->getCode(),
+                    ]
+                )
             );
         }
 
-        return $this->render('SbtsIssueBundle:Default:create.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsIssueBundle:Default:create.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -82,16 +90,22 @@ class DefaultController extends Controller
             'sbts_comment_form',
             $comment,
             [
-                'action' => $this->generateUrl('sbts_comment_add', [
-                    'issue' => $issue->getCode(),
-                ]),
+                'action' => $this->generateUrl(
+                    'sbts_comment_add',
+                    [
+                        'issue' => $issue->getCode(),
+                    ]
+                ),
             ]
         );
 
-        return $this->render('SbtsIssueBundle:Default:view.html.twig', [
-            'issue' => $issue,
-            'form'  => $commentForm->createView(),
-        ]);
+        return $this->render(
+            'SbtsIssueBundle:Default:view.html.twig',
+            [
+                'issue' => $issue,
+                'form'  => $commentForm->createView(),
+            ]
+        );
     }
 
     /**
@@ -121,15 +135,21 @@ class DefaultController extends Controller
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirect(
-                $this->generateUrl('sbts_issue_page', [
-                    'issue' => $issue->getCode()
-                ])
+                $this->generateUrl(
+                    'sbts_issue_page',
+                    [
+                        'issue' => $issue->getCode()
+                    ]
+                )
             );
         }
 
-        return $this->render('SbtsIssueBundle:Default:create.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsIssueBundle:Default:create.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -153,9 +173,7 @@ class DefaultController extends Controller
         $status = $this
             ->get('doctrine')
             ->getRepository('SbtsIssueBundle:Status')
-            ->findOneBy([
-                'name' => Status::STATUS_OPEN,
-            ]);
+            ->findOneBy(['name' => Status::STATUS_OPEN]);
 
         $subTask->setStatus($status);
 
@@ -167,23 +185,27 @@ class DefaultController extends Controller
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('SbtsIssueBundle:Type')
-                ->findOneBy([
-                    'name' => Type::TYPE_SUB_TASK,
-                ]);
+                ->findOneBy(['name' => Type::TYPE_SUB_TASK]);
 
             $subTask->setType($type);
             $this->getDoctrine()->getManager()->persist($subTask);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirect(
-                $this->generateUrl('sbts_issue_page', [
-                    'issue' => $subTask->getCode(),
-                ])
+                $this->generateUrl(
+                    'sbts_issue_page',
+                    [
+                        'issue' => $subTask->getCode(),
+                    ]
+                )
             );
         }
 
-        return $this->render('SbtsIssueBundle:Default:add_sub_task.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsIssueBundle:Default:add_sub_task.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 }

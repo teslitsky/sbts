@@ -2,12 +2,13 @@
 
 namespace Sbts\Bundle\IssueBundle\Security\Authorization\Voter;
 
-use Sbts\Bundle\IssueBundle\Entity\Issue;
-use Sbts\Bundle\IssueBundle\Entity\Type;
-use Sbts\Bundle\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+
+use Sbts\Bundle\IssueBundle\Entity\Issue;
+use Sbts\Bundle\IssueBundle\Entity\Type;
+use Sbts\Bundle\UserBundle\Entity\User;
 
 class IssueVoter implements VoterInterface
 {
@@ -79,6 +80,7 @@ class IssueVoter implements VoterInterface
         }
 
         // get current logged in user
+        /** @var User $user */
         $user = $token->getUser();
 
         // make sure there is a user object (i.e. that the user is logged in)

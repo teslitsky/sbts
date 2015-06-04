@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,14 @@ class DefaultController extends Controller
         $activities = $em->getRepository('SbtsIssueBundle:Activity')->findAllByUser($user);
         $issues = $em->getRepository('SbtsIssueBundle:Issue')->findAllWhereUserIsAssignee($user);
 
-        return $this->render('SbtsUserBundle:Default:index.html.twig', [
-            'user'       => $user,
-            'activities' => $activities,
-            'issues'     => $issues,
-        ]);
+        return $this->render(
+            'SbtsUserBundle:Default:index.html.twig',
+            [
+                'user'       => $user,
+                'activities' => $activities,
+                'issues'     => $issues,
+            ]
+        );
     }
 
     /**
@@ -42,9 +46,12 @@ class DefaultController extends Controller
         $userManager = $this->get('fos_user.user_manager');
         $users = $userManager->findUsers();
 
-        return $this->render('SbtsUserBundle:Default:list.html.twig', [
-            'users' => $users,
-        ]);
+        return $this->render(
+            'SbtsUserBundle:Default:list.html.twig',
+            [
+                'users' => $users,
+            ]
+        );
     }
 
     /**
@@ -84,8 +91,11 @@ class DefaultController extends Controller
             );
         }
 
-        return $this->render('SbtsUserBundle:Default:edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsUserBundle:Default:edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 }
