@@ -2,14 +2,16 @@
 
 namespace Sbts\Bundle\ProjectBundle\Controller;
 
-use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+use Sbts\Bundle\ProjectBundle\Entity\Project;
 
 class DefaultController extends Controller
 {
@@ -45,9 +47,12 @@ class DefaultController extends Controller
             );
         }
 
-        return $this->render('SbtsProjectBundle:Default:form.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsProjectBundle:Default:form.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -62,9 +67,12 @@ class DefaultController extends Controller
             throw new AccessDeniedException('Unauthorised access!');
         }
 
-        return $this->render('SbtsProjectBundle:Default:project.html.twig', [
-            'project' => $project,
-        ]);
+        return $this->render(
+            'SbtsProjectBundle:Default:project.html.twig',
+            [
+                'project' => $project,
+            ]
+        );
     }
 
     /**
@@ -122,7 +130,7 @@ class DefaultController extends Controller
         }
 
         return $this->render(
-            'SbtsProjectBundle:Default:index.html.twig',
+            'SbtsProjectBundle:Default:list.html.twig',
             [
                 'projects' => $projects,
             ]

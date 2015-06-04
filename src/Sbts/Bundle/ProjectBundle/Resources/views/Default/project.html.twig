@@ -3,12 +3,10 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            <h4>
-                {{ project.label }}
-                / <a href="{{ path('sbts_project_page', {'project' : project.code}) }}">
-                    {{ project.code }}
-                </a>
-            </h4>
+            <ol class="breadcrumb">
+                <li><a href="{{ path('sbts_project_list') }}">{{ 'project.projects_list' | trans }}</a></li>
+                <li class="active">{{ project.label }}</li>
+            </ol>
             <p>{{ project.summary }}</p>
 
             {% if is_granted('edit', project) %}
@@ -93,7 +91,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-2">
-                                <a href="{{ path('sbts_issue_page', {'issue': activity.issue.code}) }}" >
+                                <a href="{{ path('sbts_issue_page', {'issue': activity.issue.code}) }}">
                                     {{ activity.issue.code }}
                                 </a>
                             </div>
