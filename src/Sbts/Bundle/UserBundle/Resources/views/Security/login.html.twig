@@ -26,24 +26,24 @@
                         <div class="form-group">
                             <input type="text" class="form-control login-field" id="username" name="_username"
                                    value="{{ last_username }}" required="required"
-                                   placeholder="{{ 'security.login.username'|trans }}"/>
+                                   placeholder="{{ 'security.login.username' | trans }}" autofocus />
                             <label class="login-field-icon fui-user" for="username"></label>
                         </div>
 
                         <div class="form-group">
                             <input type="password" class="form-control login-field" id="password" name="_password"
-                                   required="required" placeholder="{{ 'security.login.password'|trans }}"/>
+                                   required="required" placeholder="{{ 'security.login.password' | trans }}"/>
                             <label class="login-field-icon fui-lock" for="password"></label>
                         </div>
 
                         <div class="form-group">
                             <label class="checkbox" for="remember_me">
                                 <input type="checkbox" checked id="remember_me" name="_remember_me" value="on"/>
-                                {{ 'security.login.remember_me'|trans }}
+                                {{ 'security.login.remember_me' | trans }}
                             </label>
 
                             <input class="btn btn-primary btn-lg btn-block" type="submit" id="_submit" name="_submit"
-                                   value="{{ 'security.login.submit'|trans }}"/>
+                                   value="{{ 'security.login.submit' | trans }}"/>
                         </div>
                     </form>
                 </div>
