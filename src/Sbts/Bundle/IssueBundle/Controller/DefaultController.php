@@ -2,6 +2,7 @@
 
 namespace Sbts\Bundle\IssueBundle\Controller;
 
+use Sbts\Bundle\IssueBundle\Entity\Resolution;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -177,7 +178,12 @@ class DefaultController extends Controller
 
         $subTask->setStatus($status);
 
+        $resolution = $this->getDoctrine()
+            ->getRepository('SbtsIssueBundle:Resolution')
+            ->findOneBy(['name' => Resolution::RESOLUTION_UNRESOLVED]);
+
         $form = $this->createForm('sbts_issue_subtask_form', $subTask);
+        $form->get('resolution')->setData($resolution);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -203,7 +209,8 @@ class DefaultController extends Controller
         return $this->render(
             'SbtsIssueBundle:Default:add_sub_task.html.twig',
             [
-                'form' => $form->createView(),
+                'form'  => $form->createView(),
+                'issue' => $issue,
             ]
         );
     }

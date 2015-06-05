@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
-class SubTaskFormType extends AbstractType
+class SubTaskType extends AbstractType
 {
     /**
      * @var SecurityContextInterface
@@ -63,6 +63,7 @@ class SubTaskFormType extends AbstractType
                 [
                     'class'    => 'SbtsIssueBundle:Priority',
                     'property' => 'name',
+
                 ]
             )
             ->add(

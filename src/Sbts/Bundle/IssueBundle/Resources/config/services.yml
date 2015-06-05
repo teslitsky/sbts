@@ -1,13 +1,13 @@
 services:
     sbts.issue.form.issue:
-        class: Sbts\Bundle\IssueBundle\Form\Type\IssueFormType
+        class: Sbts\Bundle\IssueBundle\Form\Type\IssueType
         arguments:
             - @security.context
         tags:
             - { name: form.type, alias: sbts_issue_form }
 
     bts.issue.form.subtask:
-        class: Sbts\Bundle\IssueBundle\Form\Type\SubTaskFormType
+        class: Sbts\Bundle\IssueBundle\Form\Type\SubTaskType
         arguments:
             - @security.context
         tags:

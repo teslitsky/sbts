@@ -2,8 +2,6 @@
 
 namespace Sbts\Bundle\IssueBundle\Form\Type;
 
-use Sbts\Bundle\IssueBundle\Entity\Resolution;
-use Sbts\Bundle\IssueBundle\Entity\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -11,7 +9,10 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
-class IssueFormType extends AbstractType
+use Sbts\Bundle\IssueBundle\Entity\Resolution;
+use Sbts\Bundle\IssueBundle\Entity\Type;
+
+class IssueType extends AbstractType
 {
     /**
      * @var SecurityContextInterface
