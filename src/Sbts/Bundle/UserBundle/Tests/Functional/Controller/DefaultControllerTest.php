@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\UserBundle\Tests\Controller;
 
 use Sbts\Bundle\DashboardBundle\Tests\WebTestCase;
+use Sbts\Bundle\UserBundle\Entity\User;
 
 class DefaultControllerTest extends WebTestCase
 {
@@ -38,12 +39,13 @@ class DefaultControllerTest extends WebTestCase
     public function testEditUserGrantedValidForm()
     {
         $client = $this->createAuthorizedClient('admin');
+        /** @var User $user */
         $user = $this->getReference('user-user');
 
         $crawler = $client->request('GET', '/user/update/' . $user->getUsername());
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(1, $crawler->filter('html:contains("' . $user->getUsername() . '")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("' . $user->getFullName() . '")')->count());
 
         $form = $crawler->selectButton('Update')->form([
             'sbts_user_edit[email]' => 'test@email.com',
