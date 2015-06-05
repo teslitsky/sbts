@@ -50,7 +50,7 @@ class LoadDemoUsers extends AbstractFixture implements
      */
     public function load(ObjectManager $om)
     {
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 9; $i++) {
             $user = new User();
             $user->setUsername(sprintf('user%d', $i));
             $user->setFullName($this->faker->name);

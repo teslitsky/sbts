@@ -58,7 +58,7 @@ class LoadDemoIssues extends AbstractFixture implements
         $resolution = $this->getReference('issue_resolution_unresolved');
 
         // Create 5 issues for every of 3 project
-        for ($p = 1; $p <= 3; $p++) {
+        for ($projectId = 1; $projectId <= 3; $projectId++) {
             for ($i = 1; $i <= 5; $i++) {
                 $issue = new Issue();
                 $issue->setSummary($this->faker->sentence(rand(2, 3)));
@@ -67,15 +67,14 @@ class LoadDemoIssues extends AbstractFixture implements
                 $issue->setStatus($status);
                 $issue->setPriority($priority);
                 $issue->setResolution($resolution);
-                $issue->setProject($this->getReference(sprintf('project%d', $p)));
-                $issue->setReporter($this->getRandomUser());
-                $issue->setAssignee($this->getRandomUser());
-                $issue->addCollaborator($this->getRandomUser());
+                $issue->setProject($this->getReference(sprintf('project%d', $projectId)));
+                $issue->setReporter($this->getRandomUser($projectId));
+                $issue->setAssignee($this->getRandomUser($projectId));
 
                 $om->persist($issue);
                 $om->flush();
 
-                $this->addReference(sprintf('issue%d%d', $p, $i), $issue);
+                $this->addReference(sprintf('issue%d%d', $projectId, $i), $issue);
             }
         }
 
@@ -91,18 +90,23 @@ class LoadDemoIssues extends AbstractFixture implements
     }
 
     /**
-     * @param int $min
-     * @param int $max
+     * @param int $projectId
+     *
      * @return User
      */
-    protected function getRandomUser($min = 1, $max = 10)
+    protected function getRandomUser($projectId)
     {
-        return $this->getReference(sprintf('user%d', rand($min, $max)));
+        // Get user, who is already assigned to project
+        $minUserId = ($projectId - 1) * 3 + 1;
+        $maxUserId = $projectId * 3;
+
+        return $this->getReference(sprintf('user%d', rand($minUserId, $maxUserId)));
     }
 
     /**
      * @param int $min
      * @param int $max
+     *
      * @return Project
      */
     protected function getRandomProject($min = 1, $max = 3)

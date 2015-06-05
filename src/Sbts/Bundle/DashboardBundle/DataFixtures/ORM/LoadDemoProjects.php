@@ -52,15 +52,17 @@ class LoadDemoProjects extends AbstractFixture implements
     public function load(ObjectManager $om)
     {
         // Create projects
+        $userId = 1;
         for ($i = 1; $i <= 3; $i++) {
             $project = new Project();
             $project->setCode(sprintf('TP%d', $i));
             $project->setLabel(sprintf('Test Project %d', $i));
             $project->setSummary($this->faker->sentence(2));
 
-            $userQuantity = rand(1, 10);
-            for ($u = 1; $u <= $userQuantity; $u++) {
-                $project->addUser($this->getReference(sprintf('user%d', $u)));
+            // Add 3 next users for every project
+            for ($u = 1; $u <= 3; $u++) {
+                $project->addUser($this->getReference(sprintf('user%d', $userId)));
+                $userId++;
             }
 
             $om->persist($project);
