@@ -91,15 +91,20 @@ class IssueVoter implements VoterInterface
         switch ($attribute) {
             case self::VIEW:
             case self::CREATE:
+                if ($this->userCanModifyIssue($user, $issue)) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+
+                break;
             case self::EDIT:
-                if ($this->userCanEditIssue($user, $issue)) {
+                if ($this->reporterCanEditIssue($user, $issue)) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 
                 break;
 
             case self::CREATE_SUB_TASK:
-                if ($this->userCanEditIssue($user, $issue) and $issue->getType()->getName() === Type::TYPE_STORY) {
+                if ($this->userCanModifyIssue($user, $issue) and $issue->getType()->getName() === Type::TYPE_STORY) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 
@@ -115,11 +120,25 @@ class IssueVoter implements VoterInterface
      *
      * @return bool
      */
-    public function userCanEditIssue(User $user, Issue $issue)
+    public function userCanModifyIssue(User $user, Issue $issue)
     {
         return
             $user->hasRole('ROLE_ADMIN') or
             $user->hasRole('ROLE_MANAGER') or
             $issue->getProject()->getUsers()->contains($user);
+    }
+
+    /**
+     * @param User  $user
+     * @param Issue $issue
+     *
+     * @return bool
+     */
+    public function reporterCanEditIssue(User $user, Issue $issue)
+    {
+        return
+            $user->hasRole('ROLE_ADMIN') or
+            $user->hasRole('ROLE_MANAGER') or
+            $issue->getReporter()->getId() === $user->getId();
     }
 }
