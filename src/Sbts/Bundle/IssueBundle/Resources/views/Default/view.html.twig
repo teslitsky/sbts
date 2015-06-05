@@ -69,39 +69,41 @@
 
                     <p>{{ issue.description }}</p>
 
-                    <hr/>
-                    <h6>{{ 'issue.view.children' | trans }}</h6>
+                    {% if is_granted('add_sub_task', issue) %}
+                        <hr/>
+                        <h6>{{ 'issue.view.children' | trans }}</h6>
 
-                    <p>
-                        {% if is_granted('add_sub_task', issue) %}
+                        <p>
                             <a class="btn btn-primary btn-sm"
                                href="{{ path('sbts_issue_add_subtask', {'issue': issue.code }) }}">
                                 {{ 'issue.view.add_sub_task' | trans }}
                             </a>
-                        {% endif %}
-                    </p>
+                        </p>
 
-                    <div class="row">
-                        {% for child in issue.children %}
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        {{ child.id }}
-                                        {% if child.resolution.name == 'issue.resolution.resolved' %}
-                                            <span class="fui-check-circle"></span>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-5">
-                                        <a href="{{ path('sbts_issue_page', {'issue': child.code}) }}">{{ child.summary }}</a>
+                        <div class="row">
+                            {% for child in issue.children %}
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            {{ child.id }}
+                                            {% if child.resolution.name == 'issue.resolution.resolved' %}
+                                                <span class="fui-check-circle"></span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-5">
+                                            <a href="{{ path('sbts_issue_page', {'issue': child.code}) }}">
+                                                {{ child.summary }}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% else %}
-                            <div class="col-md-12">
-                                <p>{{ 'issue.view.no_subtasks' | trans }}</p>
-                            </div>
-                        {% endfor %}
-                    </div>
+                            {% else %}
+                                <div class="col-md-12">
+                                    <p>{{ 'issue.view.no_subtasks' | trans }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
                     <hr/>
                     <h6>{{ 'user.view.activity' | trans }}</h6>
