@@ -171,7 +171,7 @@ class Issue
      */
     public function getCode()
     {
-        if (!$this->getProject()) {
+        if (!$this->getProject() or !$this->getId()) {
             return '';
         }
 

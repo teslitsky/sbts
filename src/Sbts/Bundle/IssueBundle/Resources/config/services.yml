@@ -1,8 +1,4 @@
 services:
-    sbts.issue.issue_manager:
-        class: Sbts\Bundle\IssueBundle\Model\IssueManager
-        arguments: [@doctrine.orm.entity_manager]
-
     sbts.issue.form.issue:
         class: Sbts\Bundle\IssueBundle\Form\Type\IssueFormType
         arguments:

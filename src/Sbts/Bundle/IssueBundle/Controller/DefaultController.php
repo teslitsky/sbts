@@ -36,23 +36,22 @@ class DefaultController extends Controller
         $issue = new Issue();
         $issue->setProject($project);
 
-        $status = $this
-            ->get('doctrine')
+        if (false === $this->get('security.context')->isGranted('create', $issue)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
+
+        $status = $this->getDoctrine()
             ->getRepository('SbtsIssueBundle:Status')
             ->findOneBy(['name' => Status::STATUS_OPEN]);
 
         $issue->setStatus($status);
 
-        if (false === $this->get('security.context')->isGranted('create', $issue)) {
-            throw new AccessDeniedException('Unauthorised access!');
-        }
-
         $form = $this->createForm('sbts_issue_form', $issue);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $issue->setProject($project);
-            $this->get('sbts.issue.issue_manager')->saveIssue($issue);
+            $this->getDoctrine()->getManager()->persist($issue);
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirect(
                 $this->generateUrl(
@@ -67,7 +66,8 @@ class DefaultController extends Controller
         return $this->render(
             'SbtsIssueBundle:Default:create.html.twig',
             [
-                'form' => $form->createView(),
+                'form'  => $form->createView(),
+                'issue' => $issue,
             ]
         );
     }
@@ -147,7 +147,7 @@ class DefaultController extends Controller
         return $this->render(
             'SbtsIssueBundle:Default:create.html.twig',
             [
-                'form' => $form->createView(),
+                'form'  => $form->createView(),
                 'issue' => $issue,
             ]
         );
@@ -171,8 +171,7 @@ class DefaultController extends Controller
         $subTask->setProject($issue->getProject());
         $subTask->setParent($issue);
 
-        $status = $this
-            ->get('doctrine')
+        $status = $this->getDoctrine()
             ->getRepository('SbtsIssueBundle:Status')
             ->findOneBy(['name' => Status::STATUS_OPEN]);
 
@@ -182,8 +181,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $type = $this
-                ->getDoctrine()
+            $type = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('SbtsIssueBundle:Type')
                 ->findOneBy(['name' => Type::TYPE_SUB_TASK]);

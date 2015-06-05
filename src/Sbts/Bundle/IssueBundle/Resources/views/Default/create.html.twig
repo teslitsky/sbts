@@ -9,21 +9,23 @@
                 <ol class="breadcrumb">
                     {% if is_granted('view', issue.project) %}
                         <li>
-                            <a href="{{ path('sbts_project_update', {'project': issue.project.code}) }}">
+                            <a href="{{ path('sbts_project_page', {'project': issue.project.code}) }}">
                                 {{ issue.project.label }}
                             </a>
                         </li>
                     {% endif %}
 
-                    {% if is_granted('view', issue) %}
+                    {% if issue.code is not empty and is_granted('view', issue) %}
                         <li>
                             <a href="{{ path('sbts_issue_page', {'issue': issue.code}) }}">
                                 {{ issue.code }}
                             </a>
                         </li>
-                    {% endif %}
 
-                    <li class="current">Edit issue</li>
+                        <li class="current">{{ 'issue.form.update' | trans }}</li>
+                    {% else %}
+                        <li class="current">{{ 'issue.form.create' | trans }}</li>
+                    {% endif %}
                 </ol>
             {% endif %}
 
