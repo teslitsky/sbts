@@ -148,6 +148,7 @@ class DefaultController extends Controller
             'SbtsIssueBundle:Default:create.html.twig',
             [
                 'form' => $form->createView(),
+                'issue' => $issue,
             ]
         );
     }

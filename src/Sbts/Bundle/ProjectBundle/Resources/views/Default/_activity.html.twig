@@ -1,0 +1,26 @@
+{% for activity in project.activity %}
+    <div class="row">
+        <div class="col-md-4">
+            {{ activity.created | localizeddate('short', 'short') }}
+        </div>
+        <div class="col-md-8">
+            <a href="{{ path('sbts_user_profile', {username: activity.initiator.username}) }}">
+                {{ activity.initiator.fullname }}
+            </a>
+
+            {% if activity.comment is not null %}
+                {{ 'comment.wrote' | trans }}: {{ activity.comment.body }}
+            {% else %}
+                {{ 'issue.view.changed_status' | trans }}
+                <a href="{{ path('sbts_issue_page', {'issue': activity.issue.code}) }}">
+                    {{ activity.issue.code }}
+                </a>
+                {{ 'issue.view.changed_status_to' | trans }} {{ activity.event | trans }}
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    <div class="row">
+        {{ 'project.view.no_activity' | trans }}
+    </div>
+{% endfor %}

@@ -18,3 +18,9 @@ project:
     view:
         no_activity: No activity
         no_issues: No issues
+    issue:
+        issue: Issue
+        type: Type
+        assignee: Assignee
+        created: Created
+        updated: Updated

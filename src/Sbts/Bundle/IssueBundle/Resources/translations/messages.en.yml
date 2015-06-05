@@ -37,6 +37,8 @@ issue:
         no_subtasks: Has no subtasks
         no_comments: Has no comments
         add_sub_task: Add sub-task
+        changed_status: changed status
+        changed_status_to: to
     form:
         create: Create issue
         update: Update issue

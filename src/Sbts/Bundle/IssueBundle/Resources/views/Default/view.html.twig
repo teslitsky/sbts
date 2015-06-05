@@ -5,17 +5,25 @@
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            {% if is_granted('view', issue.project) %}
-                <a href="{{ path('sbts_project_page', {'project': issue.project.code}) }}">
-                    {{ issue.project.label }}
-                </a> /
-            {% endif %}
+            <ol class="breadcrumb">
+                {% if is_granted('view', issue.project) %}
+                    <li>
+                        <a href="{{ path('sbts_project_page', {'project': issue.project.code}) }}">
+                            {{ issue.project.label }}
+                        </a>
+                    </li>
+                {% endif %}
 
-            {% if issue.parent %}
-                <a href="{{ path('sbts_issue_page', {'issue': issue.parent.code}) }}">{{ issue.parent.code }}</a> /
-            {% endif %}
+                {% if issue.parent %}
+                    <li>
+                        <a href="{{ path('sbts_issue_page', {'issue': issue.parent.code}) }}">
+                            {{ issue.parent.code }}
+                        </a>
+                    </li>
+                {% endif %}
 
-            <a href="{{ path('sbts_issue_page', {'issue': issue.code}) }}">{{ issue.code }}</a>
+                <li class="active">{{ issue.code }}</li>
+            </ol>
 
             <h4>{{ issue.summary }}</h4>
             <hr/>

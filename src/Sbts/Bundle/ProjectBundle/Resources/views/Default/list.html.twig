@@ -4,43 +4,45 @@
 
 {% block body %}
     <div class="row">
-        <p>
-            <a class="btn btn-primary" href="{{ path('sbts_project_create') }}">
-                {{ 'project.create' | trans }}
-            </a>
-        </p>
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-primary" href="{{ path('sbts_project_create') }}">
+                    {{ 'project.create' | trans }}
+                </a>
+            </p>
 
-        <h4>{{ 'project.projects_list' | trans }}</h4>
+            <h4>{{ 'project.projects_list' | trans }}</h4>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>{{ 'project.code' | trans }}</th>
-                <th>{{ 'project.label' | trans }}</th>
-                <th>{{ 'project.summary' | trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for project in projects %}
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>
-                        <a href="{{ path('sbts_project_page', {'project': project.code}) }}">
-                            {{ project.code }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('sbts_project_page', {'project': project.code}) }}">
-                            {{ project.label }}
-                        </a>
-                    </td>
-                    <td>{{ project.summary }}</td>
+                    <th>{{ 'project.code' | trans }}</th>
+                    <th>{{ 'project.label' | trans }}</th>
+                    <th>{{ 'project.summary' | trans }}</th>
                 </tr>
-            {% else %}
-                <tr>
-                    <td rowspan="4">{{ 'project.no_projects' | trans }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('sbts_project_page', {'project': project.code}) }}">
+                                {{ project.code }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('sbts_project_page', {'project': project.code}) }}">
+                                {{ project.label }}
+                            </a>
+                        </td>
+                        <td>{{ project.summary }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td rowspan="4">{{ 'project.no_projects' | trans }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
