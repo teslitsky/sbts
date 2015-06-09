@@ -9,3 +9,8 @@
 .login .login-icon {
     color: #fff;
 }
+
+.form-group .required.control-label:after {
+    content: " *";
+    color: red;
+}
