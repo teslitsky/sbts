@@ -26,7 +26,7 @@ user:
         edit_my_user: Edit my profile
         update_profile: Update profile
     role:
-        list: Roles
+        list: 'Roles:'
         admin: Administrator
         manager: Manager
         operator: Operator
