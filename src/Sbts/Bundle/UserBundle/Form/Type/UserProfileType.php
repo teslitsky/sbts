@@ -28,6 +28,7 @@ class UserProfileType extends AbstractType
                 'required'     => false,
                 'allow_delete' => true,
             ])
+            ->remove('current_password')
             ->add('save', 'submit', ['label' => 'user.link.update_profile']);
     }
 
