@@ -27,7 +27,7 @@ class DefaultController extends Controller
         $issues = $em->getRepository('SbtsIssueBundle:Issue')->findAllWhereUserIsAssignee($user);
 
         return $this->render(
-            'SbtsUserBundle:Default:index.html.twig',
+            'SbtsUserBundle:Profile:show.html.twig',
             [
                 'user'       => $user,
                 'activities' => $activities,

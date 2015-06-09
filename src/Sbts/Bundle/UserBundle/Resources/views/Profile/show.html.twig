@@ -1,7 +1,78 @@
 {% extends 'SbtsUserBundle::layout.html.twig' %}
 
 {% block body %}
-    {% block fos_user_content %}
-        {% include 'SbtsUserBundle:Profile:show_content.html.twig' %}
-    {% endblock fos_user_content %}
+    <div class="row">
+        <div class="col-md-6">
+            <h6>{{ 'user.profile' | trans }}</h6>
+            {% block fos_user_content %}
+                {% include 'SbtsUserBundle:Profile:show_content.html.twig' %}
+            {% endblock fos_user_content %}
+        </div>
+
+        <div class="col-md-6">
+            <h6>{{ 'user.activity' | trans }}</h6>
+
+            <table class="table">
+                <thead>
+                <th>{{ 'user.activities.date' | trans }}</th>
+                <th>{{ 'user.activities.event' | trans }}</th>
+                <th>{{ 'user.activities.issue' | trans }}</th>
+                </thead>
+                <tbody>
+                {% for activity in activities %}
+                    <tr>
+                        <td class="col-md-4">{{ activity.created | localizeddate('short', 'short') }}</td>
+                        <td class="col-md-6">
+                            <a href="{{ path('sbts_user_profile', {'username': activity.initiator.username}) }}">
+                                {{ activity.initiator.fullname }}
+                            </a>
+
+                            {% if activity.comment is not null %}
+                                {{ 'comment.wrote' | trans }}: {{ activity.comment.body }}
+                            {% else %}
+                                {{ activity.event | trans }}
+                            {% endif %}
+                        </td>
+                        <td class="col-md-2">
+                            <a href="{{ path('sbts_issue_page', {'issue': activity.issue.code}) }}">
+                                {{ activity.issue.code }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col-md-12">
+            <hr/>
+            <h6>{{ 'user.issues_title' | trans }}</h6>
+
+            <table class="table">
+                <thead>
+                <th>{{ 'user.issues.code' | trans }}</th>
+                <th>{{ 'user.issues.status' | trans }}</th>
+                <th>{{ 'user.issues.summary' | trans }}</th>
+                </thead>
+                <tbody>
+                {% for issue in issues %}
+                    <tr>
+                        <td>
+                            {% if is_granted('view', issue) %}
+                                <a href="{{ path('sbts_issue_page', { 'issue': issue.code }) }}">
+                                    {{ issue.code }}
+                                </a>
+                            {% else %}
+                                {{ issue.code }}
+                            {% endif %}
+                        </td>
+                        <td>{{ issue.status | trans }}</td>
+                        <td>{{ issue.summary }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
