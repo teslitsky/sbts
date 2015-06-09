@@ -9,8 +9,51 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+use Sbts\Bundle\UserBundle\Entity\User;
+
 class DefaultController extends Controller
 {
+    /**
+     * @Route("/user/create", name="sbts_user_create")
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function createAction(Request $request)
+    {
+        $user = new User();
+
+        if (false === $this->get('security.context')->isGranted('create', $user)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
+
+        $form = $this->createForm('sbts_user_create', $user);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect(
+                $this->generateUrl(
+                    'sbts_user_profile',
+                    [
+                        'username' => $user->getUsername(),
+                    ]
+                )
+            );
+        }
+
+        return $this->render(
+            'SbtsUserBundle:Default:edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $user,
+            ]
+        );
+    }
+
     /**
      * @Route("/user/view/{username}", name="sbts_user_profile")
      * @param $username string

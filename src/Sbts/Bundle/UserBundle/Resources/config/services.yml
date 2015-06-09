@@ -9,6 +9,11 @@ services:
         tags:
             - { name: form.type, alias: sbts_user_edit }
 
+    sbts.user.create.form.type:
+        class: Sbts\Bundle\UserBundle\Form\Type\UserCreateType
+        tags:
+            - { name: form.type, alias: sbts_user_create }
+
     sbts.user.security.voter:
         class:  Sbts\Bundle\UserBundle\Security\Authorization\Voter\UserVoter
         public: false

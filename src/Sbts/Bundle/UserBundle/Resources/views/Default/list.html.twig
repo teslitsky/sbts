@@ -4,24 +4,32 @@
 
 {% block body %}
     <div class="row">
-        <h4>{{ 'user.users_list' | trans }}</h4>
+        <div class="col-md-12">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-primary" href="{{ path('sbts_user_create') }}">
+                    {{ 'user.link.create' | trans }}
+                </a>
+            {% endif %}
 
-        <div class="row">
-            {% for user in users %}
-                <div class="col-xs-3">
-                    <div class="tile">
-                        <a href="{{ path('sbts_user_profile', { username: user.username }) }}">
-                            {% include 'SbtsUserBundle:Default:_user_avatar.html.twig' %}
+            <h4>{{ 'user.users_list' | trans }}</h4>
 
-                            <h3 class="tile-title">{{ user.fullname | default('user.noname' | trans) }}</h3>
+            <div class="row">
+                {% for user in users %}
+                    <div class="col-xs-3">
+                        <div class="tile">
+                            <a href="{{ path('sbts_user_profile', { username: user.username }) }}">
+                                {% include 'SbtsUserBundle:Default:_user_avatar.html.twig' %}
 
-                            <p>{{ user.username }}</p>
-                        </a>
+                                <h3 class="tile-title">{{ user.fullname | default('user.noname' | trans) }}</h3>
+
+                                <p>{{ user.username }}</p>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            {% else %}
-                {{ 'user.no_users' | trans }}
-            {% endfor %}
+                {% else %}
+                    {{ 'user.no_users' | trans }}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

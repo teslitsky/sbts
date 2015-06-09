@@ -11,6 +11,7 @@ use Sbts\Bundle\UserBundle\Entity\User;
 class UserVoter implements VoterInterface
 {
     const EDIT = 'edit';
+    const CREATE = 'create';
 
     /**
      * @param string $attribute
@@ -20,6 +21,7 @@ class UserVoter implements VoterInterface
     {
         return in_array($attribute, [
             self::EDIT,
+            self::CREATE,
         ]);
     }
 
@@ -88,6 +90,11 @@ class UserVoter implements VoterInterface
                 }
 
                 break;
+
+            case self::CREATE:
+                if ($user->hasRole('ROLE_ADMIN')) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
         }
 
         return VoterInterface::ACCESS_DENIED;
