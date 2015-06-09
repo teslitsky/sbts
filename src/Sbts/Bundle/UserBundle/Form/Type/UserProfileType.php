@@ -5,7 +5,7 @@ namespace Sbts\Bundle\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserProfileFormType extends AbstractType
+class UserProfileType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,14 +15,14 @@ class UserProfileFormType extends AbstractType
     {
         $builder
             ->add('username', null, ['disabled' => true])
-            ->add('plainPassword', 'repeated', array(
+            ->add('plainPassword', 'repeated', [
                 'type'            => 'password',
                 'options'         => ['translation_domain' => 'FOSUserBundle'],
                 'first_options'   => ['label' => 'form.new_password'],
                 'second_options'  => ['label' => 'form.new_password_confirmation'],
                 'invalid_message' => 'fos_user.password.mismatch',
                 'required'        => false,
-            ))
+            ])
             ->add('fullname')
             ->add('avatarFile', 'vich_file', [
                 'required'     => false,

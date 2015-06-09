@@ -1,0 +1,3 @@
+{% for role in user.roles %}
+    {{ ('user.role.title.' ~ role) | trans }}{% if not loop.last %}, {% endif %}
+{% endfor %}

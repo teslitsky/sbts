@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserEditFormType extends AbstractType
+class UserEditType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,22 +17,22 @@ class UserEditFormType extends AbstractType
         $builder
             ->add('email', 'email')
             ->add('fullname')
-            ->add('roles', 'choice', array(
-                'choices'  => array(
+            ->add('roles', 'choice', [
+                'choices'  => [
                     'ROLE_ADMIN'    => 'user.role.admin',
                     'ROLE_MANAGER'  => 'user.role.manager',
                     'ROLE_OPERATOR' => 'user.role.operator'
-                ),
+                ],
                 'label'    => 'user.role.list',
                 'expanded' => true,
                 'multiple' => true,
                 'mapped'   => true,
-            ))
-            ->add('avatarFile', 'vich_file', array(
+            ])
+            ->add('avatarFile', 'vich_file', [
                 'required'      => false,
                 'allow_delete'  => true,
-            ))
-            ->add('save', 'submit', array('label' => 'user.link.update_profile'));
+            ])
+            ->add('save', 'submit', ['label' => 'user.link.update_profile']);
     }
 
     /**
@@ -40,9 +40,9 @@ class UserEditFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Sbts\Bundle\UserBundle\Entity\User',
-        ));
+        ]);
     }
 
     public function getName()

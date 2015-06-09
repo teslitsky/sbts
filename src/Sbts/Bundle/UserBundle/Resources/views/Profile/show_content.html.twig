@@ -1,7 +1,7 @@
 <div class="fos_user_user_show">
     <div class="row">
         <div class="col-md-4">
-            {% include 'SbtsUserBundle:Default:_user_avatar.html.twig' %}
+            {% include '@SbtsUser/Default/_user_avatar.html.twig' %}
         </div>
         <div class="col-md-8">
             <p>{{ 'user.username' | trans }}: {{ user.username }}</p>
@@ -10,7 +10,9 @@
 
             <p>{{ 'user.email' | trans }}: <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
 
-            <p>{{ 'user.user_role' | trans }}: {{ ('user.role.title.' ~ user.roles | first) | trans }}</p>
+            <p>
+                {% include '@SbtsUser/Default/_user_roles.html.twig' %}
+            </p>
 
             <p>
                 {% if is_granted('ROLE_ADMIN') %}
