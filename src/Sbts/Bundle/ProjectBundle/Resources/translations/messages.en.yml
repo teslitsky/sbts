@@ -13,6 +13,8 @@ project:
     issues_list: Backlog
     link:
         update: Update project
+        delete: Delete project
+        delete_confirmation: 'Are you sure to delete project %code%?'
     validation:
         code: Project code must be unique
     view:

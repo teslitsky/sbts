@@ -95,7 +95,7 @@ class Issue
 
     /**
      * @ORM\ManyToOne(targetEntity="Sbts\Bundle\ProjectBundle\Entity\Project", inversedBy="issues")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     private $project;
 

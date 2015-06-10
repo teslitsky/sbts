@@ -14,6 +14,7 @@ class ProjectVoter implements VoterInterface
     const VIEW = 'view';
     const EDIT = 'edit';
     const CREATE = 'create';
+    const DELETE = 'delete';
 
     /**
      * @param string $attribute
@@ -26,6 +27,7 @@ class ProjectVoter implements VoterInterface
             self::VIEW,
             self::EDIT,
             self::CREATE,
+            self::DELETE,
         ]);
     }
 
@@ -65,9 +67,7 @@ class ProjectVoter implements VoterInterface
         // this isn't a requirement, it's just one easy way for you to
         // design your voter
         if (1 !== count($attributes)) {
-            throw new \InvalidArgumentException(
-                'Only one attribute is allowed for VIEW or EDIT or CREATE'
-            );
+            throw new \InvalidArgumentException('Only one attribute is allowed for VIEW, EDIT or CREATE');
         }
 
         // set the attribute to check against
@@ -89,15 +89,7 @@ class ProjectVoter implements VoterInterface
 
         switch ($attribute) {
             case self::VIEW:
-                if ($this->adminCanViewProject($user)) {
-                    return VoterInterface::ACCESS_GRANTED;
-                }
-
-                if ($this->managerCanViewProject($user)) {
-                    return VoterInterface::ACCESS_GRANTED;
-                }
-
-                if ($this->operatorCanViewProject($user, $project)) {
+                if ($this->userCanViewProject($user, $project)) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 
@@ -110,29 +102,16 @@ class ProjectVoter implements VoterInterface
                 }
 
                 break;
+
+            case self::DELETE:
+                if ($user->hasRole('ROLE_ADMIN')) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+
+                break;
         }
 
         return VoterInterface::ACCESS_DENIED;
-    }
-
-    /**
-     * @param User $user
-     *
-     * @return bool
-     */
-    public function adminCanViewProject($user)
-    {
-        return $user->hasRole('ROLE_ADMIN');
-    }
-
-    /**
-     * @param User $user
-     *
-     * @return bool
-     */
-    public function managerCanViewProject($user)
-    {
-        return $user->hasRole('ROLE_MANAGER');
     }
 
     /**
@@ -141,9 +120,9 @@ class ProjectVoter implements VoterInterface
      *
      * @return bool
      */
-    public function operatorCanViewProject($user, $project)
+    public function userCanViewProject($user, $project)
     {
-        return $project->getUsers()->contains($user);
+        return $user->hasRole('ROLE_ADMIN') or $user->hasRole('ROLE_MANAGER') or $project->getUsers()->contains($user);
     }
 
     /**

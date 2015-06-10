@@ -56,8 +56,31 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/project/delete/{project}", name="sbts_project_delete")
+     * @ParamConverter("project", class="SbtsProjectBundle:Project", options={"repository_method" = "findByCode"})
+     *
+     * @param Project $project
+     *
+     * @return Response
+     */
+    public function deleteAction(Project $project)
+    {
+        if (false === $this->get('security.context')->isGranted('delete', $project)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($project);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('sbts_project_list'));
+    }
+
+    /**
      * @Route("/project/view/{project}", name="sbts_project_page")
      * @ParamConverter("project", class="SbtsProjectBundle:Project", options={"repository_method" = "findByCode"})
+     *
+     * @param Project $project
      *
      * @return Response
      */

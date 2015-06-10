@@ -34,13 +34,13 @@ class Activity
 
     /**
      * @ORM\ManyToOne(targetEntity="Sbts\Bundle\ProjectBundle\Entity\Project", inversedBy="activity")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     private $project;
 
     /**
      * @ORM\ManyToOne(targetEntity="Sbts\Bundle\IssueBundle\Entity\Issue", inversedBy="activity")
-     * @ORM\JoinColumn(name="issue_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="issue_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     private $issue;
 

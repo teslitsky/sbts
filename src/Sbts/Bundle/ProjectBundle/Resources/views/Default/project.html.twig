@@ -15,6 +15,14 @@
                 </a>
             {% endif %}
 
+            {% if is_granted('delete', project) %}
+                <a class="btn btn-danger"
+                   data-confirm="{{ 'project.link.delete_confirmation' | trans({'%code%': project.code}) }}"
+                   href="{{ path('sbts_project_delete', {'project': project.code}) }}">
+                    {{ 'project.link.delete' | trans }}
+                </a>
+            {% endif %}
+
             <a class="btn btn-primary" href="{{ path('sbts_issue_create', {'project': project.code}) }}">
                 {{ 'issue.form.create' | trans }}
             </a>

@@ -41,8 +41,25 @@ class DefaultControllerTest extends WebTestCase
     public function testView()
     {
         $client = $this->createAuthorizedClient('admin');
-        $crawler = $client->request('GET', 'project/view/TPTP');
+        $crawler = $client->request('GET', '/project/view/TPTP');
 
         $this->assertTrue($crawler->filter('html:contains("TPTP")')->count() > 0);
+    }
+
+    public function testDeleteUserDenied()
+    {
+        $client = $this->createAuthorizedClient('user');
+        $client->request('GET', '/project/delete/TPTP');
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+    }
+
+    public function testDeleteUserGranted()
+    {
+        $client = $this->createAuthorizedClient('admin');
+        $crawler = $client->request('GET', '/project/delete/TPTP');
+
+        $client->followRedirects();
+        $this->assertTrue($crawler->filter('html:contains("TPTP")')->count() === 0);
     }
 }
