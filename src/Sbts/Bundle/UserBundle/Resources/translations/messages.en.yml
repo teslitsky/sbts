@@ -24,7 +24,8 @@ user:
     link:
         edit_user: Edit user profile
         edit_my_user: Edit my profile
-        update_profile: Update profile
+        update_profile: Update
+        update_my_profile: Update profile
         create: Create user
         delete: Delete user
         delete_confirmation: 'Are you sure to delete user %name%?'
