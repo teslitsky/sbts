@@ -13,3 +13,6 @@ dashboard:
             type: Type
             issue: Issue
             assignee: Assignee
+    modal:
+        delete: Delete
+        cancel: Cancel

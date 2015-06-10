@@ -141,4 +141,30 @@ class DefaultController extends Controller
             ]
         );
     }
+
+    /**
+     * @Route("/user/delete/{username}", name="sbts_user_delete")
+     * @param string  $username
+     *
+     * @return Response
+     */
+    public function deleteAction($username)
+    {
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
+
+        if (!$user instanceof User) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+
+        if (false === $this->get('security.context')->isGranted('delete', $user)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('sbts_user_list'));
+    }
 }

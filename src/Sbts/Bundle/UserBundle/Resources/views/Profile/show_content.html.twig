@@ -15,13 +15,21 @@
             </p>
 
             <p>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('edit', user) %}
                     <a class="btn btn-primary" href="{{ path('sbts_user_edit', {'username': user.username}) }}">
                         {{ 'user.link.edit_user' | trans }}
                     </a>
-                {% elseif user.username == app.user.username %}
+                {% elseif user.id == app.user.id %}
                     <a class="btn btn-primary" href="{{ path('fos_user_profile_edit') }}">
                         {{ 'user.link.edit_my_user' | trans }}
+                    </a>
+                {% endif %}
+
+                {% if is_granted('delete', user) %}
+                    <a class="btn btn-danger"
+                       data-confirm="{{ 'user.link.delete_confirmation' | trans({'%name%': user.fullname}) }}"
+                       href="{{ path('sbts_user_delete', {'username': user.username}) }}">
+                        {{ 'user.link.delete' | trans }}
                     </a>
                 {% endif %}
             </p>

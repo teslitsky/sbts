@@ -58,3 +58,19 @@
     <script src="{{ asset('bundles/sbtsdashboard/js/flat-ui.min.js') }}"></script>
     <script src="{{ asset('bundles/sbtsdashboard/js/app.js') }}"></script>
 {% endblock %}
+
+{% block modal %}
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ 'dashboard.modal.cancel' | trans }}</button>
+                    <a class="btn btn-danger btn-ok">{{ 'dashboard.modal.delete' | trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

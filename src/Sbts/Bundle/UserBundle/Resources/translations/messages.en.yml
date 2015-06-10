@@ -26,6 +26,8 @@ user:
         edit_my_user: Edit my profile
         update_profile: Update profile
         create: Create user
+        delete: Delete user
+        delete_confirmation: 'Are you sure to delete user %name%?'
     role:
         list: 'Roles:'
         admin: Administrator

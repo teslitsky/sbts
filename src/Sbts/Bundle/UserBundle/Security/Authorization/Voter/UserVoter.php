@@ -12,6 +12,7 @@ class UserVoter implements VoterInterface
 {
     const EDIT = 'edit';
     const CREATE = 'create';
+    const DELETE = 'delete';
 
     /**
      * @param string $attribute
@@ -22,6 +23,7 @@ class UserVoter implements VoterInterface
         return in_array($attribute, [
             self::EDIT,
             self::CREATE,
+            self::DELETE,
         ]);
     }
 
@@ -59,7 +61,7 @@ class UserVoter implements VoterInterface
         // this isn't a requirement, it's just one easy way for you to
         // design your voter
         if (1 !== count($attributes)) {
-            throw new \InvalidArgumentException('Only one attribute is allowed for VIEW or EDIT');
+            throw new \InvalidArgumentException('Only one attribute is allowed for VIEW, EDIT or CREATE');
         }
 
         // set the attribute to check against
@@ -95,6 +97,19 @@ class UserVoter implements VoterInterface
                 if ($user->hasRole('ROLE_ADMIN')) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
+
+                break;
+
+            case self::DELETE:
+                if ($user->getId() === $editUser->getId()) {
+                    return VoterInterface::ACCESS_DENIED;
+                }
+
+                if ($user->hasRole('ROLE_ADMIN')) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+
+                break;
         }
 
         return VoterInterface::ACCESS_DENIED;
