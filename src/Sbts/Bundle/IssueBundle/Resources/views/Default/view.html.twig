@@ -47,6 +47,7 @@
                     <p>
                         <strong>{{ 'issue.view.type' | trans }}:</strong> {{ issue.type.name | trans }}
                     </p>
+
                     <p>
                         <strong>{{ 'issue.view.priority' | trans }}:</strong> {{ issue.priority.name | trans }}
                     </p>
@@ -56,6 +57,7 @@
                     <p>
                         <strong>{{ 'issue.view.status' | trans }}:</strong> {{ issue.status.name | trans }}
                     </p>
+
                     <p>
                         <strong>{{ 'issue.view.resolution' | trans }}:</strong> {{ issue.resolution.name | trans }}
                     </p>
@@ -113,11 +115,12 @@
                             {% for activity in issue.activity %}
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <p>{{ activity.created | localizeddate('short', 'short')}}</p>
+                                        <p>{{ activity.created | localizeddate('short', 'short') }}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <p>
-                                            <a href="{{ path('sbts_user_profile', {username: activity.initiator.username}) }}">
+                                            <a href="{{ path('sbts_user_profile',
+                                                {username: activity.initiator.username}) }}">
                                                 {{ activity.initiator.fullname }}
                                             </a>
                                         </p>
@@ -154,8 +157,12 @@
                                                 <span class="fui-new"></span>
                                             </a>
                                         {% endif %}
-                                        {% if is_granted('remove', comment) %}
-                                            <a href="{{ path('sbts_comment_delete', {'comment': comment.id}) }}">
+
+                                        {% if is_granted('delete', comment) %}
+                                            <a href="{{ path('sbts_comment_delete', {'comment': comment.id}) }}"
+                                               data-confirm="{{ 'comment.link.delete_confirmation'
+                                               | trans({'%text%': comment.body}) }}"
+                                               title="{{ 'comment.link.delete' | trans }}">
                                                 <span class="fui-trash"></span>
                                             </a>
                                         {% endif %}
@@ -191,6 +198,7 @@
                     <span class="fui-user"></span> {{ issue.assignee.username }}
                 </a>
             </p>
+
             <p>
                 <strong>{{ 'issue.view.reporter' | trans }}:</strong>
                 <a href="{{ path('sbts_user_profile', {'username': issue.reporter.username}) }}">
@@ -206,6 +214,7 @@
                 <strong>{{ 'issue.view.created' | trans }}:</strong>
                 {{ issue.created | localizeddate('short', 'short') }}
             </p>
+
             <p>
                 <strong>{{ 'issue.view.updated' | trans }}:</strong>
                 {{ issue.updated | localizeddate('short', 'short') }}

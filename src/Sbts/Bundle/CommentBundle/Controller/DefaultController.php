@@ -2,15 +2,17 @@
 
 namespace Sbts\Bundle\CommentBundle\Controller;
 
-use Sbts\Bundle\CommentBundle\Entity\Comment;
-use Sbts\Bundle\IssueBundle\Entity\Issue;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+use Sbts\Bundle\CommentBundle\Entity\Comment;
+use Sbts\Bundle\IssueBundle\Entity\Issue;
 
 class DefaultController extends Controller
 {
@@ -45,19 +47,26 @@ class DefaultController extends Controller
             $comment->setAuthor($author);
             $comment->setIssue($issue);
 
-            $this->getDoctrine()->getManager()->persist($comment);
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
 
             return $this->redirect(
-                $this->generateUrl('sbts_issue_page', [
-                    'issue' => $issue->getCode(),
-                ])
+                $this->generateUrl(
+                    'sbts_issue_page',
+                    [
+                        'issue' => $issue->getCode(),
+                    ]
+                )
             );
         }
 
-        return $this->render('SbtsCommentBundle:Default:edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsCommentBundle:Default:edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -90,19 +99,26 @@ class DefaultController extends Controller
             $issue = $comment->getIssue();
             $comment->setAuthor($author);
 
-            $this->getDoctrine()->getManager()->persist($comment);
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
 
             return $this->redirect(
-                $this->generateUrl('sbts_issue_page', [
-                    'issue' => $issue->getCode(),
-                ])
+                $this->generateUrl(
+                    'sbts_issue_page',
+                    [
+                        'issue' => $issue->getCode(),
+                    ]
+                )
             );
         }
 
-        return $this->render('SbtsCommentBundle:Default:edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'SbtsCommentBundle:Default:edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -114,26 +130,28 @@ class DefaultController extends Controller
      */
     public function deleteAction(Comment $comment)
     {
-        if (false === $this->get('security.context')->isGranted('remove', $comment)) {
+        if (false === $this->get('security.context')->isGranted('delete', $comment)) {
             throw new AccessDeniedException('Unauthorised access!');
         }
 
         $issue = $comment->getIssue();
-        $activity = $this
-            ->getDoctrine()
+        $activity = $this->getDoctrine()
             ->getRepository('SbtsIssueBundle:Activity')
-            ->findOneBy([
-                'comment' => $comment,
-            ]);
+            ->findOneBy(['comment' => $comment]);
 
-        $this->getDoctrine()->getManager()->remove($activity);
-        $this->getDoctrine()->getManager()->remove($comment);
-        $this->getDoctrine()->getManager()->flush();
+        $em = $this->getDoctrine()->getManager();
+        // Fix foreign key constraint fails
+        $em->remove($activity);
+        $em->remove($comment);
+        $em->flush();
 
         return $this->redirect(
-            $this->generateUrl('sbts_issue_page', [
-                'issue' => $issue->getCode(),
-            ])
+            $this->generateUrl(
+                'sbts_issue_page',
+                [
+                    'issue' => $issue->getCode(),
+                ]
+            )
         );
     }
 }

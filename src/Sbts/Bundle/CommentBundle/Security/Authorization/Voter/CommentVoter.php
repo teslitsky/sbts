@@ -2,10 +2,12 @@
 
 namespace Sbts\Bundle\CommentBundle\Security\Authorization\Voter;
 
-use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+
+use Sbts\Bundle\CommentBundle\Entity\Comment;
+use Sbts\Bundle\UserBundle\Entity\User;
 
 class CommentVoter implements VoterInterface
 {
@@ -13,7 +15,7 @@ class CommentVoter implements VoterInterface
      * security constant
      */
     const EDIT = 'edit';
-    const REMOVE = 'remove';
+    const DELETE = 'delete';
 
     /**
      * @param string $attribute
@@ -24,7 +26,7 @@ class CommentVoter implements VoterInterface
     {
         return in_array($attribute, array(
             self::EDIT,
-            self::REMOVE,
+            self::DELETE,
         ));
     }
 
@@ -64,9 +66,7 @@ class CommentVoter implements VoterInterface
         // this isn't a requirement, it's just one easy way for you to
         // design your voter
         if (1 !== count($attributes)) {
-            throw new \InvalidArgumentException(
-                'Only one attribute is allowed for EDIT'
-            );
+            throw new \InvalidArgumentException('Only one attribute is allowed for EDIT');
         }
 
         // set the attribute to check against
@@ -78,6 +78,7 @@ class CommentVoter implements VoterInterface
         }
 
         // get current logged in user
+        /** @var User $user */
         $user = $token->getUser();
 
         // make sure there is a user object (i.e. that the user is logged in)
@@ -87,7 +88,7 @@ class CommentVoter implements VoterInterface
 
         switch ($attribute) {
             case self::EDIT:
-            case self::REMOVE:
+            case self::DELETE:
                 if ($user->hasRole('ROLE_ADMIN')) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

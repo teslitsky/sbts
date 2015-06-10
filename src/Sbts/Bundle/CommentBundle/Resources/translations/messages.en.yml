@@ -7,3 +7,6 @@ comment:
         list: Comments
     wrote: wrote
     update: Update
+    link:
+        delete: Delete comment
+        delete_confirmation: 'Are you sure to delete comment "%text%"?'

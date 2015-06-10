@@ -105,8 +105,9 @@ class DefaultControllerTest extends WebTestCase
     {
         $comment = $this->getReference('comment');
         $client = $this->createAuthorizedClient('admin');
-        $client->request('GET', '/comment/delete/' . $comment->getId());
+        $crawler = $client->request('GET', '/comment/delete/' . $comment->getId());
 
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $client->followRedirects(true);
+        $this->assertTrue($crawler->filter('html:contains("Modified comment by author")')->count() === 0);
     }
 }
