@@ -35,6 +35,14 @@
                     </a>
                 </div>
             {% endif %}
+
+            {% if is_granted('delete', issue) %}
+                <a class="btn btn-danger"
+                   data-confirm="{{ 'issue.link.delete_confirmation' | trans({'%code%': issue.code}) }}"
+                   href="{{ path('sbts_issue_delete', {'issue': issue.code}) }}">
+                    {{ 'issue.link.delete' | trans }}
+                </a>
+            {% endif %}
         </div>
     </div>
 

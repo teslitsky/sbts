@@ -44,6 +44,8 @@ issue:
         update: Update issue
     link:
         edit: Edit
+        delete: Delete issue
+        delete_confirmation: 'Are you sure to delete issue %code%?'
     page: Issue code
     email:
         title: 'You receive this message as collaborator of the Issue'

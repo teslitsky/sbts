@@ -155,6 +155,33 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/issue/delete/{issue}", name="sbts_issue_delete")
+     * @ParamConverter("issue", class="SbtsIssueBundle:Issue", options={"repository_method" = "findByCode"})
+     * @param Issue   $issue
+     *
+     * @return RedirectResponse
+     */
+    public function deleteAction(Issue $issue)
+    {
+        if (false === $this->get('security.context')->isGranted('delete', $issue)) {
+            throw new AccessDeniedException('Unauthorised access!');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($issue);
+        $em->flush();
+
+        return $this->redirect(
+            $this->generateUrl(
+                'sbts_project_page',
+                [
+                    'project' => $issue->getProject()->getCode(),
+                ]
+            )
+        );
+    }
+
+    /**
      * @Route("/issue/addsubtask/{issue}", name="sbts_issue_add_subtask")
      * @ParamConverter("issue", class="SbtsIssueBundle:Issue", options={"repository_method" = "findByCode"})
      * @param Request $request

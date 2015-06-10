@@ -15,6 +15,7 @@ class IssueVoter implements VoterInterface
     const CREATE = 'create';
     const VIEW = 'view';
     const EDIT = 'edit';
+    const DELETE = 'delete';
     const CREATE_SUB_TASK = 'add_sub_task';
 
     /**
@@ -26,8 +27,9 @@ class IssueVoter implements VoterInterface
     {
         return in_array($attribute, array(
             self::CREATE,
-            self::EDIT,
             self::VIEW,
+            self::EDIT,
+            self::DELETE,
             self::CREATE_SUB_TASK,
         ));
     }
@@ -104,7 +106,14 @@ class IssueVoter implements VoterInterface
                 break;
 
             case self::CREATE_SUB_TASK:
-                if ($this->userCanModifyIssue($user, $issue) and $issue->getType()->getName() === Type::TYPE_STORY) {
+                if ($this->userCanCreateSubTask($user, $issue)) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+
+                break;
+
+            case self::DELETE:
+                if ($user->hasRole('ROLE_ADMIN')) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
 
@@ -126,6 +135,17 @@ class IssueVoter implements VoterInterface
             $user->hasRole('ROLE_ADMIN') or
             $user->hasRole('ROLE_MANAGER') or
             $issue->getProject()->getUsers()->contains($user);
+    }
+
+    /**
+     * @param User  $user
+     * @param Issue $issue
+     *
+     * @return bool
+     */
+    public function userCanCreateSubTask(User $user, Issue $issue)
+    {
+        return $this->userCanModifyIssue($user, $issue) and $issue->getType()->getName() === Type::TYPE_STORY;
     }
 
     /**
