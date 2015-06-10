@@ -5,9 +5,11 @@ namespace Sbts\Bundle\IssueBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sbts\Bundle\IssueBundle\Entity\Status;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Sbts\Bundle\IssueBundle\Entity\Status;
 
 class LoadStatusData extends AbstractFixture implements
     FixtureInterface,
@@ -19,7 +21,7 @@ class LoadStatusData extends AbstractFixture implements
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -27,7 +29,7 @@ class LoadStatusData extends AbstractFixture implements
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $om)
     {

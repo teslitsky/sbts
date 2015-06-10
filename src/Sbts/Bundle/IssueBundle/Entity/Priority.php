@@ -36,7 +36,7 @@ class Priority
 
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -46,7 +46,7 @@ class Priority
     }
 
     /**
-     * Set name
+     * Sets name
      *
      * @param string $name
      * @return Priority
@@ -59,7 +59,7 @@ class Priority
     }
 
     /**
-     * Get name
+     * Gets name
      *
      * @return string
      */

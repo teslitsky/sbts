@@ -11,9 +11,6 @@ use Sbts\Bundle\UserBundle\Entity\User;
 
 class CommentVoter implements VoterInterface
 {
-    /**
-     * security constant
-     */
     const EDIT = 'edit';
     const DELETE = 'delete';
 
@@ -24,10 +21,10 @@ class CommentVoter implements VoterInterface
      */
     public function supportsAttribute($attribute)
     {
-        return in_array($attribute, array(
+        return in_array($attribute, [
             self::EDIT,
             self::DELETE,
-        ));
+        ]);
     }
 
     /**

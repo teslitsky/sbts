@@ -5,14 +5,17 @@ namespace Sbts\Bundle\DashboardBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+
 use Faker\Factory;
 use Faker\Generator;
 use Faker\Provider\Lorem;
+
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use Sbts\Bundle\IssueBundle\Entity\Issue;
 use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Sbts\Bundle\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadDemoIssues extends AbstractFixture implements
     OrderedFixtureInterface,
@@ -30,7 +33,7 @@ class LoadDemoIssues extends AbstractFixture implements
     private $faker;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
 
     public function __construct()
@@ -48,7 +51,7 @@ class LoadDemoIssues extends AbstractFixture implements
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $om)
     {
@@ -82,7 +85,7 @@ class LoadDemoIssues extends AbstractFixture implements
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {

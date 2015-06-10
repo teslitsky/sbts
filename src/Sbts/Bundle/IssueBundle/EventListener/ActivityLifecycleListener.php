@@ -3,9 +3,11 @@
 namespace Sbts\Bundle\IssueBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use Sbts\Bundle\IssueBundle\Entity\Activity;
 use Sbts\Bundle\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ActivityLifecycleListener
 {

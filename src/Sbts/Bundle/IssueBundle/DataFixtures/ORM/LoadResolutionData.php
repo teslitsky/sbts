@@ -5,9 +5,11 @@ namespace Sbts\Bundle\IssueBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sbts\Bundle\IssueBundle\Entity\Resolution;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Sbts\Bundle\IssueBundle\Entity\Resolution;
 
 class LoadResolutionData extends AbstractFixture implements
     FixtureInterface,
@@ -19,7 +21,7 @@ class LoadResolutionData extends AbstractFixture implements
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -27,7 +29,7 @@ class LoadResolutionData extends AbstractFixture implements
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $om)
     {

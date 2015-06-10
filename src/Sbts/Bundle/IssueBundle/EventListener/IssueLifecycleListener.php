@@ -4,9 +4,11 @@ namespace Sbts\Bundle\IssueBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use Sbts\Bundle\IssueBundle\Entity\Activity;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class IssueLifecycleListener
 {
@@ -24,11 +26,11 @@ class IssueLifecycleListener
     }
 
     /**
-     * @param LifecycleEventArgs $args
+     * @param LifecycleEventArgs $event
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $event)
     {
-        $issue = $args->getEntity();
+        $issue = $event->getEntity();
 
         if ($issue instanceof Issue) {
             if (!$issue->getCollaborators()->contains($issue->getReporter())) {
@@ -47,17 +49,17 @@ class IssueLifecycleListener
     public function postPersist(LifecycleEventArgs $event)
     {
         $issue = $event->getEntity();
-        $entityManager = $event->getEntityManager();
 
         if ($issue instanceof Issue) {
-            $eventEntity = new Activity();
-            $eventEntity->setIssue($issue);
-            $eventEntity->setProject($issue->getProject());
-            $eventEntity->setInitiator($issue->getReporter());
-            $eventEntity->setEvent($issue->getStatus()->getName());
+            $activity = new Activity();
+            $activity->setIssue($issue);
+            $activity->setProject($issue->getProject());
+            $activity->setInitiator($issue->getReporter());
+            $activity->setEvent($issue->getStatus()->getName());
 
-            $entityManager->persist($eventEntity);
-            $entityManager->flush();
+            $em = $event->getEntityManager();
+            $em->persist($activity);
+            $em->flush();
         }
     }
 
@@ -84,13 +86,13 @@ class IssueLifecycleListener
             }
 
             if ($event->hasChangedField('status')) {
-                $eventEntity = new Activity();
-                $eventEntity->setIssue($issue);
-                $eventEntity->setProject($issue->getProject());
-                $eventEntity->setInitiator($user);
-                $eventEntity->setEvent($issue->getStatus()->getName());
+                $activity = new Activity();
+                $activity->setIssue($issue);
+                $activity->setProject($issue->getProject());
+                $activity->setInitiator($user);
+                $activity->setEvent($issue->getStatus()->getName());
 
-                $event->getEntityManager()->persist($eventEntity);
+                $event->getEntityManager()->persist($activity);
 
                 if (!$issue->getCollaborators()->contains($user)) {
                     $issue->addCollaborator($user);
@@ -98,13 +100,13 @@ class IssueLifecycleListener
             }
 
             if ($event->hasChangedField('resolution')) {
-                $eventEntity = new Activity();
-                $eventEntity->setIssue($issue);
-                $eventEntity->setProject($issue->getProject());
-                $eventEntity->setInitiator($this->container->get('security.context')->getToken()->getUser());
-                $eventEntity->setEvent($issue->getResolution()->getName());
+                $activity = new Activity();
+                $activity->setIssue($issue);
+                $activity->setProject($issue->getProject());
+                $activity->setInitiator($this->container->get('security.context')->getToken()->getUser());
+                $activity->setEvent($issue->getResolution()->getName());
 
-                $event->getEntityManager()->persist($eventEntity);
+                $event->getEntityManager()->persist($activity);
 
                 if (!$issue->getCollaborators()->contains($user)) {
                     $issue->addCollaborator($user);

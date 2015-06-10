@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\IssueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Sbts\Bundle\UserBundle\Entity\User;
@@ -61,7 +62,7 @@ class Activity
     private $created;
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -71,7 +72,7 @@ class Activity
     }
 
     /**
-     * Set event
+     * Sets event
      *
      * @param string $event
      *
@@ -85,7 +86,7 @@ class Activity
     }
 
     /**
-     * Get event
+     * Gets event
      *
      * @return string
      */
@@ -95,7 +96,7 @@ class Activity
     }
 
     /**
-     * Set created
+     * Sets created
      *
      * @param \DateTime $created
      *
@@ -109,7 +110,7 @@ class Activity
     }
 
     /**
-     * Get created
+     * Gets created
      *
      * @return \DateTime
      */
@@ -119,7 +120,7 @@ class Activity
     }
 
     /**
-     * Set issue
+     * Sets issue
      *
      * @param Issue $issue
      *
@@ -133,7 +134,7 @@ class Activity
     }
 
     /**
-     * Get issue
+     * Gets issue
      *
      * @return Issue
      */
@@ -143,7 +144,7 @@ class Activity
     }
 
     /**
-     * Set initiator
+     * Sets user who initiate activity
      *
      * @param User $initiator
      *
@@ -157,7 +158,7 @@ class Activity
     }
 
     /**
-     * Get initiator
+     * Gets user who initiate activity
      *
      * @return User
      */
@@ -167,7 +168,7 @@ class Activity
     }
 
     /**
-     * Set project
+     * Sets project
      *
      * @param Project $project
      *
@@ -181,7 +182,7 @@ class Activity
     }
 
     /**
-     * Get project
+     * Gets project
      *
      * @return Project
      */
@@ -191,7 +192,7 @@ class Activity
     }
 
     /**
-     * Set comment
+     * Sets comment
      *
      * @param Comment $comment
      *
@@ -205,7 +206,7 @@ class Activity
     }
 
     /**
-     * Get comment
+     * Gets comment
      *
      * @return Comment
      */

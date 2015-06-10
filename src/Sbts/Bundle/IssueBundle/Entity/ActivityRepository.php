@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\IssueBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+
 use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Sbts\Bundle\UserBundle\Entity\User;
 

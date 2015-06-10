@@ -6,9 +6,11 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sbts\Bundle\CommentBundle\Entity\Comment;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Sbts\Bundle\CommentBundle\Entity\Comment;
 
 class LoadCommentData extends AbstractFixture implements
     FixtureInterface,
@@ -21,7 +23,7 @@ class LoadCommentData extends AbstractFixture implements
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -29,7 +31,7 @@ class LoadCommentData extends AbstractFixture implements
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $om)
     {
@@ -45,7 +47,7 @@ class LoadCommentData extends AbstractFixture implements
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getOrder()
     {

@@ -33,7 +33,7 @@ class Resolution
 
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -43,7 +43,7 @@ class Resolution
     }
 
     /**
-     * Set name
+     * Sets name
      *
      * @param string $name
      * @return Resolution
@@ -56,7 +56,7 @@ class Resolution
     }
 
     /**
-     * Get name
+     * Gets name
      *
      * @return string
      */

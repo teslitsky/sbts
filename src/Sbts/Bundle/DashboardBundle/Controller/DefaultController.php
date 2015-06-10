@@ -26,9 +26,12 @@ class DefaultController extends Controller
             $issues = $em->getRepository('SbtsIssueBundle:Issue')->findAllByCollaborator($user);
         }
 
-        return $this->render('SbtsDashboardBundle:Default:index.html.twig', [
-            'activities' => $activities,
-            'issues'     => $issues
-        ]);
+        return $this->render(
+            'SbtsDashboardBundle:Default:index.html.twig',
+            [
+                'activities' => $activities,
+                'issues'     => $issues
+            ]
+        );
     }
 }

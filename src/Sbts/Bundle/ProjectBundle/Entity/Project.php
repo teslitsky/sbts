@@ -4,6 +4,7 @@ namespace Sbts\Bundle\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
 use Sbts\Bundle\IssueBundle\Entity\Activity;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
 use Sbts\Bundle\UserBundle\Entity\User;
@@ -74,7 +75,7 @@ class Project
     }
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -84,7 +85,7 @@ class Project
     }
 
     /**
-     * Set label
+     * Sets label
      *
      * @param string $label
      * @return Project
@@ -97,7 +98,7 @@ class Project
     }
 
     /**
-     * Get label
+     * Gets label
      *
      * @return string
      */
@@ -107,7 +108,7 @@ class Project
     }
 
     /**
-     * Set summary
+     * Sets summary
      *
      * @param string $summary
      * @return Project
@@ -120,7 +121,7 @@ class Project
     }
 
     /**
-     * Get summary
+     * Gets summary
      *
      * @return string
      */
@@ -130,7 +131,7 @@ class Project
     }
 
     /**
-     * Set code
+     * Sets code
      *
      * @param string $code
      * @return Project
@@ -143,7 +144,7 @@ class Project
     }
 
     /**
-     * Get code
+     * Gets code
      *
      * @return string
      */
@@ -153,7 +154,7 @@ class Project
     }
 
     /**
-     * Set users
+     * Sets project users
      *
      * @param ArrayCollection $users
      * @return Project
@@ -166,7 +167,7 @@ class Project
     }
 
     /**
-     * Get users
+     * Gets project users
      *
      * @return ArrayCollection
      */
@@ -176,7 +177,7 @@ class Project
     }
 
     /**
-     * Add user
+     * Adds project user
      *
      * @param User $user
      * @return Project
@@ -189,7 +190,7 @@ class Project
     }
 
     /**
-     * Remove user
+     * Removes project user
      *
      * @param User $user
      * @return bool
@@ -200,7 +201,7 @@ class Project
     }
 
     /**
-     * Set issues
+     * Sets issues
      *
      * @param ArrayCollection $issues
      * @return Project
@@ -213,7 +214,7 @@ class Project
     }
 
     /**
-     * Get issues
+     * Gets issues
      *
      * @return ArrayCollection
      */
@@ -223,7 +224,7 @@ class Project
     }
 
     /**
-     * Add issue
+     * Adds issue
      *
      * @param Issue $issue
      * @return Project
@@ -236,7 +237,7 @@ class Project
     }
 
     /**
-     * Remove issue
+     * Removes issue
      *
      * @param Issue $issue
      * @return bool
@@ -247,7 +248,7 @@ class Project
     }
 
     /**
-     * Add activity
+     * Adds project issues activity
      *
      * @param Activity $activity
      *
@@ -261,7 +262,7 @@ class Project
     }
 
     /**
-     * Remove activity
+     * Removes project issues activity
      *
      * @param Activity $activity
      */
@@ -271,7 +272,7 @@ class Project
     }
 
     /**
-     * Get activity
+     * Gets project issues activity collection
      *
      * @return ArrayCollection
      */

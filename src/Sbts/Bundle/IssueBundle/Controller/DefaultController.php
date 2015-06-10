@@ -2,7 +2,6 @@
 
 namespace Sbts\Bundle\IssueBundle\Controller;
 
-use Sbts\Bundle\IssueBundle\Entity\Resolution;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -14,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
+use Sbts\Bundle\IssueBundle\Entity\Resolution;
 use Sbts\Bundle\IssueBundle\Entity\Status;
 use Sbts\Bundle\IssueBundle\Entity\Type;
 use Sbts\Bundle\ProjectBundle\Entity\Project;
@@ -51,8 +51,9 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($issue);
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($issue);
+            $em->flush();
 
             return $this->redirect(
                 $this->generateUrl(
@@ -132,8 +133,9 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($issue);
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($issue);
+            $em->flush();
 
             return $this->redirect(
                 $this->generateUrl(
@@ -220,8 +222,9 @@ class DefaultController extends Controller
                 ->findOneBy(['name' => Type::TYPE_SUB_TASK]);
 
             $subTask->setType($type);
-            $this->getDoctrine()->getManager()->persist($subTask);
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($subTask);
+            $em->flush();
 
             return $this->redirect(
                 $this->generateUrl(

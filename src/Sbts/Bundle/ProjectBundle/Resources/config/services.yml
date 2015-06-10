@@ -1,6 +1,6 @@
 services:
     sbts.project.form.create:
-        class: Sbts\Bundle\ProjectBundle\Form\Type\ProjectFormType
+        class: Sbts\Bundle\ProjectBundle\Form\Type\ProjectType
         arguments:
             - @security.context
         tags:

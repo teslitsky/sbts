@@ -35,7 +35,7 @@ class Type
 
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -45,7 +45,7 @@ class Type
     }
 
     /**
-     * Set name
+     * Sets name
      *
      * @param string $name
      * @return Type
@@ -58,7 +58,7 @@ class Type
     }
 
     /**
-     * Get name
+     * Gets name
      *
      * @return string
      */

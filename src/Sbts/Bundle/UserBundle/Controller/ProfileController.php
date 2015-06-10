@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\ProfileController as BaseController;
+
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ProfileController extends BaseController

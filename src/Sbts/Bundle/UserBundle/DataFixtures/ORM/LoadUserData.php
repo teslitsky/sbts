@@ -22,7 +22,7 @@ class LoadUserData extends AbstractFixture implements
     private $container;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -30,7 +30,7 @@ class LoadUserData extends AbstractFixture implements
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(ObjectManager $om)
     {

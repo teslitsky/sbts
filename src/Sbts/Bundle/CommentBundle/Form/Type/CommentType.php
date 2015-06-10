@@ -1,12 +1,12 @@
 <?php
 
-namespace Sbts\Bundle\ProjectBundle\Form\Type;
+namespace Sbts\Bundle\CommentBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ProjectFormType extends AbstractType
+class CommentType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,15 +15,14 @@ class ProjectFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
-            ->add('summary')
-            ->add('code')
-            ->add('users', 'entity', array(
-                'class'    => 'SbtsUserBundle:User',
-                'property' => 'fullname',
-                'multiple' => true,
-            ))
-            ->add('save', 'submit', array('label' => 'project.link.update'));
+            ->add('body')
+            ->add(
+                'save',
+                'submit',
+                [
+                    'label' => 'comment.form.add',
+                ]
+            );
     }
 
     /**
@@ -31,9 +30,9 @@ class ProjectFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Sbts\Bundle\ProjectBundle\Entity\Project'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Sbts\Bundle\CommentBundle\Entity\Comment'
+        ]);
     }
 
     /**
@@ -41,6 +40,6 @@ class ProjectFormType extends AbstractType
      */
     public function getName()
     {
-        return 'sbts_project_form';
+        return 'sbts_comment_form';
     }
 }

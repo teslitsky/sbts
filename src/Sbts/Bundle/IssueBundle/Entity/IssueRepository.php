@@ -5,6 +5,7 @@ namespace Sbts\Bundle\IssueBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+
 use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Sbts\Bundle\UserBundle\Entity\User;
 

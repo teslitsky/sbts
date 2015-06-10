@@ -3,9 +3,13 @@
 namespace Sbts\Bundle\CommentBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+
 use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\IssueBundle\Entity\Activity;
 
+/**
+ * Class CommentLifecycleListener
+ */
 class CommentLifecycleListener
 {
     const COMMENT_EVENT = 'comment';
@@ -30,13 +34,26 @@ class CommentLifecycleListener
             $em->persist($eventEntity);
             $em->flush();
 
-            $issue = $comment->getIssue();
+            $this->addCollaborator($event, $comment);
+        }
+    }
 
-            if (!$issue->getCollaborators()->contains($comment->getAuthor())) {
-                $issue->addCollaborator($comment->getAuthor());
-                $event->getObjectManager()->persist($issue);
-                $em->flush();
-            }
+    /**
+     * Adds user as collaborator after commented issue
+     *
+     * @param LifecycleEventArgs $event
+     * @param Comment $comment
+     */
+    protected function addCollaborator(LifecycleEventArgs $event, $comment)
+    {
+        $issue = $comment->getIssue();
+
+        if (!$issue->getCollaborators()->contains($comment->getAuthor())) {
+            $issue->addCollaborator($comment->getAuthor());
+
+            $em = $event->getObjectManager();
+            $em->persist($issue);
+            $em->flush();
         }
     }
 }

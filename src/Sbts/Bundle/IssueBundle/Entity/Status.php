@@ -34,7 +34,7 @@ class Status
 
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -44,7 +44,7 @@ class Status
     }
 
     /**
-     * Set name
+     * Sets name
      *
      * @param string $name
      * @return Status
@@ -57,7 +57,7 @@ class Status
     }
 
     /**
-     * Get name
+     * Gets name
      *
      * @return string
      */

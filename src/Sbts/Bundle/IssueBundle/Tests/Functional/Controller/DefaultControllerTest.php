@@ -18,7 +18,7 @@ class DefaultControllerTest extends WebTestCase
     private $issue;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setUp()
     {

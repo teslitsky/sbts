@@ -2,14 +2,17 @@
 
 namespace Sbts\Bundle\UserBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
+
+use Symfony\Component\HttpFoundation\File\File;
+
 use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\IssueBundle\Entity\Issue;
 use Sbts\Bundle\ProjectBundle\Entity\Project;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
@@ -77,7 +80,6 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
         $this->comments = new ArrayCollection();
         $this->assignedIssues = new ArrayCollection();
         $this->issues = new ArrayCollection();
@@ -85,7 +87,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get id
+     * Gets id
      *
      * @return int
      */
@@ -95,7 +97,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set FullName
+     * Sets FullName
      *
      * @param string $fullname
      */
@@ -105,7 +107,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get FullName
+     * Gets FullName
      *
      * @return string
      */
@@ -135,6 +137,8 @@ class User extends BaseUser
     }
 
     /**
+     * Gets user avatar file
+     *
      * @return File
      */
     public function getAvatarFile()
@@ -143,6 +147,8 @@ class User extends BaseUser
     }
 
     /**
+     * Sets user avatar file
+     *
      * @param string $avatar
      */
     public function setAvatar($avatar)
@@ -151,6 +157,8 @@ class User extends BaseUser
     }
 
     /**
+     * Gets avatar
+     *
      * @return string
      */
     public function getAvatar()
@@ -159,7 +167,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set updated
+     * Sets updated
      *
      * @param \DateTime $updated
      * @return Issue
@@ -172,7 +180,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get updated
+     * Gets updated
      *
      * @return \DateTime
      */
@@ -182,7 +190,7 @@ class User extends BaseUser
     }
 
     /**
-     * Add comment
+     * Adds comment
      *
      * @param Comment $comment
      * @return User
@@ -195,7 +203,7 @@ class User extends BaseUser
     }
 
     /**
-     * Remove comment
+     * Removes comment
      *
      * @param Comment $comment
      */
@@ -205,7 +213,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get comments
+     * Gets comments collection
      *
      * @return ArrayCollection
      */
@@ -249,7 +257,7 @@ class User extends BaseUser
     }
 
     /**
-     * Add assignedIssues
+     * Adds issue which assigned to user
      *
      * @param Issue $issue
      *
@@ -263,7 +271,7 @@ class User extends BaseUser
     }
 
     /**
-     * Unassign issue
+     * Unassign issue which was assigned to user
      *
      * @param Issue $issue
      */
@@ -307,7 +315,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get assigned Issues
+     * Gets assigned issues collection
      *
      * @return ArrayCollection
      */

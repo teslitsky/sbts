@@ -6,7 +6,7 @@ services:
             - { name: security.voter }
 
     sbts.comment.form.edit:
-        class: Sbts\Bundle\CommentBundle\Form\Type\CommentFormType
+        class: Sbts\Bundle\CommentBundle\Form\Type\CommentType
         arguments:
             - @router
         tags:

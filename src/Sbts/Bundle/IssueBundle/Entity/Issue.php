@@ -4,6 +4,7 @@ namespace Sbts\Bundle\IssueBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
 use Sbts\Bundle\CommentBundle\Entity\Comment;
 use Sbts\Bundle\ProjectBundle\Entity\Project;
 use Sbts\Bundle\UserBundle\Entity\User;
@@ -132,7 +133,7 @@ class Issue
     }
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -142,7 +143,7 @@ class Issue
     }
 
     /**
-     * Set summary
+     * Sets summary
      *
      * @param string $summary
      * @return Issue
@@ -155,7 +156,7 @@ class Issue
     }
 
     /**
-     * Get summary
+     * Gets summary
      *
      * @return string
      */
@@ -165,7 +166,7 @@ class Issue
     }
 
     /**
-     * Get code
+     * Gets code by project and issue id
      *
      * @return string
      */
@@ -179,7 +180,7 @@ class Issue
     }
 
     /**
-     * Set description
+     * Sets description
      *
      * @param string $description
      * @return Issue
@@ -192,7 +193,7 @@ class Issue
     }
 
     /**
-     * Get description
+     * Gets description
      *
      * @return string
      */
@@ -202,7 +203,7 @@ class Issue
     }
 
     /**
-     * Set type
+     * Sets type
      *
      * @param Type $type
      * @return Issue
@@ -215,7 +216,7 @@ class Issue
     }
 
     /**
-     * Get type
+     * Gets type
      *
      * @return Type
      */
@@ -225,7 +226,7 @@ class Issue
     }
 
     /**
-     * Set priority
+     * Sets priority
      *
      * @param Priority $priority
      * @return Issue
@@ -238,7 +239,7 @@ class Issue
     }
 
     /**
-     * Get priority
+     * Gets priority
      *
      * @return Priority
      */
@@ -248,7 +249,7 @@ class Issue
     }
 
     /**
-     * Set status
+     * Sets status
      *
      * @param Status $status
      * @return Issue
@@ -261,7 +262,7 @@ class Issue
     }
 
     /**
-     * Get status
+     * Gets status
      *
      * @return Status
      */
@@ -271,7 +272,7 @@ class Issue
     }
 
     /**
-     * Set resolution
+     * Sets resolution
      *
      * @param Resolution $resolution
      * @return Issue
@@ -284,7 +285,7 @@ class Issue
     }
 
     /**
-     * Get resolution
+     * Gets resolution
      *
      * @return Resolution
      */
@@ -294,7 +295,7 @@ class Issue
     }
 
     /**
-     * Set reporter
+     * Sets reporter user
      *
      * @param User $reporter
      * @return Issue
@@ -307,7 +308,7 @@ class Issue
     }
 
     /**
-     * Get reporter
+     * Gets reporter user
      *
      * @return User
      */
@@ -317,7 +318,7 @@ class Issue
     }
 
     /**
-     * Set assignee
+     * Sets assignee user
      *
      * @param User $assignee
      * @return Issue
@@ -330,7 +331,7 @@ class Issue
     }
 
     /**
-     * Get assignee
+     * Gets assignee user
      *
      * @return User
      */
@@ -340,7 +341,7 @@ class Issue
     }
 
     /**
-     * Add collaborator
+     * Adds collaborator user
      *
      * @param User $collaborator
      * @return Issue
@@ -353,7 +354,7 @@ class Issue
     }
 
     /**
-     * Remove collaborator
+     * Removes collaborator user
      *
      * @param User $collaborator
      */
@@ -363,7 +364,7 @@ class Issue
     }
 
     /**
-     * Get collaborators
+     * Gets collaborators users
      *
      * @return ArrayCollection
      */
@@ -373,7 +374,7 @@ class Issue
     }
 
     /**
-     * Set parent
+     * Sets parent issue
      *
      * @param Issue $parent
      * @return Issue
@@ -386,7 +387,7 @@ class Issue
     }
 
     /**
-     * Get parent
+     * Gets parent issue
      *
      * @return Issue
      */
@@ -396,7 +397,7 @@ class Issue
     }
 
     /**
-     * Set child
+     * Sets child issue
      *
      * @param Issue $child
      * @return Issue
@@ -409,7 +410,7 @@ class Issue
     }
 
     /**
-     * Remove child
+     * Removes child issue
      *
      * @param Issue $child
      */
@@ -419,7 +420,7 @@ class Issue
     }
 
     /**
-     * Get children
+     * Gets children issues
      *
      * @return ArrayCollection
      */
@@ -429,7 +430,7 @@ class Issue
     }
 
     /**
-     * Set project
+     * Sets project
      *
      * @param Project $project
      * @return Issue
@@ -442,7 +443,7 @@ class Issue
     }
 
     /**
-     * Get project
+     * Gets project
      *
      * @return Project
      */
@@ -452,7 +453,7 @@ class Issue
     }
 
     /**
-     * Set created
+     * Sets created
      *
      * @param \DateTime $created
      * @return Issue
@@ -465,7 +466,7 @@ class Issue
     }
 
     /**
-     * Get created
+     * Gets created
      *
      * @return \DateTime
      */
@@ -475,7 +476,7 @@ class Issue
     }
 
     /**
-     * Set updated
+     * Sets updated
      *
      * @param \DateTime $updated
      * @return Issue
@@ -488,7 +489,7 @@ class Issue
     }
 
     /**
-     * Get updated
+     * Gets updated
      *
      * @return \DateTime
      */
@@ -498,7 +499,7 @@ class Issue
     }
 
     /**
-     * Add comment
+     * Adds comment
      *
      * @param Comment $comment
      * @return Issue
@@ -511,7 +512,7 @@ class Issue
     }
 
     /**
-     * Remove comment
+     * Removes comment
      *
      * @param Comment $comment
      */
@@ -521,7 +522,7 @@ class Issue
     }
 
     /**
-     * Get comments
+     * Gets comments
      *
      * @return ArrayCollection
      */
@@ -531,6 +532,8 @@ class Issue
     }
 
     /**
+     * Adds issue activity
+     *
      * @param Activity $activity
      *
      * @return $this
@@ -543,7 +546,7 @@ class Issue
     }
 
     /**
-     * Remove activity
+     * Removes activity
      *
      * @param Activity $activity
      */
@@ -553,7 +556,7 @@ class Issue
     }
 
     /**
-     * Get activity
+     * Gets activity collection
      *
      * @return ArrayCollection
      */

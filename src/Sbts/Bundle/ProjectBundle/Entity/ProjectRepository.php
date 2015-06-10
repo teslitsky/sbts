@@ -24,9 +24,7 @@ class ProjectRepository extends EntityRepository
     {
         return $this->getEntityManager()
             ->createQuery('SELECT project FROM SbtsProjectBundle:Project project WHERE project.code = :code')
-            ->setParameters([
-                'code' => $code
-            ])
+            ->setParameters(['code' => $code])
             ->getSingleResult();
     }
 }

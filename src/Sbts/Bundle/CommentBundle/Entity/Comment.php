@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\CommentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use Sbts\Bundle\IssueBundle\Entity\Issue;
 use Sbts\Bundle\UserBundle\Entity\User;
 
@@ -51,7 +52,7 @@ class Comment
     private $issue;
 
     /**
-     * Get id
+     * Gets id
      *
      * @return integer
      */
@@ -61,7 +62,7 @@ class Comment
     }
 
     /**
-     * Set author
+     * Sets a user who is the author of this comment
      *
      * @param User $author
      *
@@ -75,7 +76,7 @@ class Comment
     }
 
     /**
-     * Get author
+     * Gets a user who is the author of this comment
      *
      * @return User
      */
@@ -85,7 +86,7 @@ class Comment
     }
 
     /**
-     * Set body
+     * Sets comment body
      *
      * @param string $body
      *
@@ -99,7 +100,7 @@ class Comment
     }
 
     /**
-     * Get body
+     * Gets comment body
      *
      * @return string
      */
@@ -109,7 +110,7 @@ class Comment
     }
 
     /**
-     * Set created
+     * Sets created
      *
      * @param \DateTime $created
      *
@@ -123,7 +124,7 @@ class Comment
     }
 
     /**
-     * Get created
+     * Gets created
      *
      * @return \DateTime
      */
@@ -133,7 +134,7 @@ class Comment
     }
 
     /**
-     * Set issue
+     * Sets issue which was commented
      *
      * @param Issue $issue
      *
@@ -147,7 +148,7 @@ class Comment
     }
 
     /**
-     * Get issue
+     * Gets issue which was commented
      *
      * @return Issue
      */

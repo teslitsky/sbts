@@ -13,8 +13,8 @@ class Builder extends ContainerAware
             ->createItem('root')
             ->setChildrenAttribute('class', 'nav navbar-nav');
 
-        $menu->addChild('Projects', array('route' => 'sbts_project_list'));
-        $menu->addChild('Users', array('route' => 'sbts_user_list'));
+        $menu->addChild('Projects', ['route' => 'sbts_project_list']);
+        $menu->addChild('Users', ['route' => 'sbts_user_list']);
 
         return $menu;
     }

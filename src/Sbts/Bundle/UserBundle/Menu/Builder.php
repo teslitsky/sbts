@@ -3,6 +3,7 @@
 namespace Sbts\Bundle\UserBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Builder extends ContainerAware
